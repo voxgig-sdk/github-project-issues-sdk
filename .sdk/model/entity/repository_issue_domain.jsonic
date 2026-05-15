@@ -1,0 +1,92 @@
+# Entity: repository_issue_domain
+
+main: kit: entity: repository_issue_domain: {
+
+  alias: field: {}
+
+  fields: [
+    {
+      name: "body"
+      req: false
+      type: "`$STRING`"
+    }
+    {
+      name: "label"
+      req: false
+      type: "`$ARRAY`"
+    }
+    {
+      name: "number"
+      req: true
+      type: "`$STRING`"
+    }
+    {
+      name: "state"
+      req: false
+      type: "`$STRING`"
+    }
+    {
+      name: "title"
+      req: true
+      type: "`$STRING`"
+    }
+  ]
+
+  name: "repository_issue_domain"
+  op: {
+    list: {
+      name: "list"
+      points: [
+        {
+          args: {
+            params: [
+              {
+                kind: "param"
+                name: "repository"
+                orig: "repository"
+                reqd: true
+                type: "`$STRING`"
+              }
+              {
+                kind: "param"
+                name: "username"
+                orig: "username"
+                reqd: true
+                type: "`$STRING`"
+              }
+            ]
+          }
+          method: "GET"
+          orig: "/api/get-repo-issue/{username}/{repository}/"
+          parts: [
+            "api"
+            "get-repo-issue"
+            "{username}"
+            "{repository}"
+          ]
+          select: {
+            exist: [
+              "repository"
+              "username"
+            ]
+          }
+          transform: {
+            req: "`reqdata`"
+            res: "`body`"
+          }
+        }
+      ]
+    }
+  }
+
+  relations: {
+    ancestors: [
+      [
+        "get_repo_issue"
+      ]
+    ]
+  }
+
+
+
+}

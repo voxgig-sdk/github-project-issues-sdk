@@ -1,0 +1,54 @@
+# Guide
+
+guide: {
+  metrics: count: entity: 7
+  metrics: count: path: 8
+  metrics: count: method: 9
+
+  entity: coffee: {
+    path: "/api/coffees": {
+      op: list: method: *GET
+      op: update: method: *PUT
+    }
+  }
+
+  entity: coffee_domain: {
+    path: "/api/coffees-graph-ql": {
+      op: list: method: *GET
+    }
+  }
+
+  entity: donate_rest_controller: {
+    path: "/api/donate-items": {
+      op: list: method: *GET
+    }
+  }
+
+  entity: portfolio_controller: {
+    path: "/api/portfolio-items": {
+      op: list: method: *GET
+    }
+  }
+
+  entity: repository_detail_domain: {
+    path: "/api/get-repo-detail": {
+      op: list: method: *GET
+    }
+    path: "/api/get-repo-detail/{username}/": {
+      op: load: method: *GET
+    }
+  }
+
+  entity: repository_issue_domain: {
+    path: "/api/get-repo-issue/{username}/{repository}/": {
+      op: list: method: *GET
+    }
+  }
+
+  entity: version: {
+    path: "/api/application/version": {
+      op: load: method: *GET
+    }
+  }
+
+}

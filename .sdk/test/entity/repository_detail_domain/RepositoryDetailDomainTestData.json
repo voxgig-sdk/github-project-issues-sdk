@@ -1,0 +1,49 @@
+{
+  "existing": {
+    "repository_detail_domain": {
+      "REPOSITORY_DETAIL_DOMAIN00": {
+        "app_home": "s46",
+        "description": "s47",
+        "full_name": "s48",
+        "issue_count": "s49",
+        "name": "s4a",
+        "repo_url": "s4b",
+        "topic": "s4c",
+        "username": "USERNAME01"
+      },
+      "REPOSITORY_DETAIL_DOMAIN01": {
+        "app_home": "s8c",
+        "description": "s8d",
+        "full_name": "s8e",
+        "issue_count": "s8f",
+        "name": "s90",
+        "repo_url": "s91",
+        "topic": "s92",
+        "username": "USERNAME01"
+      },
+      "REPOSITORY_DETAIL_DOMAIN02": {
+        "app_home": "sd2",
+        "description": "sd3",
+        "full_name": "sd4",
+        "issue_count": "sd5",
+        "name": "sd6",
+        "repo_url": "sd7",
+        "topic": "sd8",
+        "username": "USERNAME01"
+      }
+    }
+  },
+  "new": {
+    "repository_detail_domain": {
+      "repository_detail_domain_ref01": {
+        "app_home": "s118",
+        "description": "s119",
+        "full_name": "s11a",
+        "issue_count": "s11b",
+        "name": "s11c",
+        "repo_url": "s11d",
+        "topic": "s11e"
+      }
+    }
+  }
+}

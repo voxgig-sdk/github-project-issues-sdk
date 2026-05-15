@@ -1,0 +1,14 @@
+{
+  "existing": {
+    "portfolio_controller": {
+      "PORTFOLIO_CONTROLLER00": {},
+      "PORTFOLIO_CONTROLLER01": {},
+      "PORTFOLIO_CONTROLLER02": {}
+    }
+  },
+  "new": {
+    "portfolio_controller": {
+      "portfolio_controller_ref01": {}
+    }
+  }
+}

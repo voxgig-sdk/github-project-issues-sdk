@@ -1,0 +1,126 @@
+# Entity: repository_detail_domain
+
+main: kit: entity: repository_detail_domain: {
+
+  alias: field: {}
+
+  fields: [
+    {
+      name: "app_home"
+      req: false
+      type: "`$STRING`"
+    }
+    {
+      name: "description"
+      req: false
+      type: "`$STRING`"
+    }
+    {
+      name: "full_name"
+      req: true
+      type: "`$STRING`"
+    }
+    {
+      name: "issue_count"
+      req: false
+      type: "`$INTEGER`"
+    }
+    {
+      name: "name"
+      req: true
+      type: "`$STRING`"
+    }
+    {
+      name: "repo_url"
+      req: true
+      type: "`$STRING`"
+    }
+    {
+      name: "topic"
+      req: false
+      type: "`$STRING`"
+    }
+  ]
+
+  name: "repository_detail_domain"
+  op: {
+    list: {
+      name: "list"
+      points: [
+        {
+          args: {
+            query: [
+              {
+                kind: "query"
+                name: "username"
+                orig: "username"
+                reqd: true
+                type: "`$STRING`"
+              }
+            ]
+          }
+          method: "GET"
+          orig: "/api/get-repo-detail"
+          parts: [
+            "api"
+            "get-repo-detail"
+          ]
+          select: {
+            exist: [
+              "username"
+            ]
+          }
+          transform: {
+            req: "`reqdata`"
+            res: "`body`"
+          }
+        }
+      ]
+    }
+    load: {
+      name: "load"
+      points: [
+        {
+          args: {
+            params: [
+              {
+                kind: "param"
+                name: "username"
+                orig: "username"
+                reqd: true
+                type: "`$STRING`"
+              }
+            ]
+          }
+          method: "GET"
+          orig: "/api/get-repo-detail/{username}/"
+          parts: [
+            "api"
+            "get-repo-detail"
+            "{username}"
+          ]
+          select: {
+            exist: [
+              "username"
+            ]
+          }
+          transform: {
+            req: "`reqdata`"
+            res: "`body`"
+          }
+        }
+      ]
+    }
+  }
+
+  relations: {
+    ancestors: [
+      [
+        "get_repo_detail"
+      ]
+    ]
+  }
+
+
+
+}

@@ -1,0 +1,37 @@
+{
+  "existing": {
+    "coffee": {
+      "COFFEE00": {
+        "description": "s32",
+        "id": "COFFEE00",
+        "image": "s34",
+        "ingredient": [],
+        "title": "s36"
+      },
+      "COFFEE01": {
+        "description": "s64",
+        "id": "COFFEE01",
+        "image": "s66",
+        "ingredient": [],
+        "title": "s68"
+      },
+      "COFFEE02": {
+        "description": "s96",
+        "id": "COFFEE02",
+        "image": "s98",
+        "ingredient": [],
+        "title": "s9a"
+      }
+    }
+  },
+  "new": {
+    "coffee": {
+      "coffee_ref01": {
+        "description": "sc8",
+        "image": "sca",
+        "ingredient": [],
+        "title": "scc"
+      }
+    }
+  }
+}

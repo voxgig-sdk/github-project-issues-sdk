@@ -1,0 +1,44 @@
+{
+  "existing": {
+    "repository_issue_domain": {
+      "REPOSITORY_ISSUE_DOMAIN00": {
+        "body": "s32",
+        "label": [],
+        "number": "s34",
+        "state": "s35",
+        "title": "s36",
+        "repository": "REPOSITORY01",
+        "username": "USERNAME01"
+      },
+      "REPOSITORY_ISSUE_DOMAIN01": {
+        "body": "s64",
+        "label": [],
+        "number": "s66",
+        "state": "s67",
+        "title": "s68",
+        "repository": "REPOSITORY01",
+        "username": "USERNAME01"
+      },
+      "REPOSITORY_ISSUE_DOMAIN02": {
+        "body": "s96",
+        "label": [],
+        "number": "s98",
+        "state": "s99",
+        "title": "s9a",
+        "repository": "REPOSITORY01",
+        "username": "USERNAME01"
+      }
+    }
+  },
+  "new": {
+    "repository_issue_domain": {
+      "repository_issue_domain_ref01": {
+        "body": "sc8",
+        "label": [],
+        "number": "sca",
+        "state": "scb",
+        "title": "scc"
+      }
+    }
+  }
+}
