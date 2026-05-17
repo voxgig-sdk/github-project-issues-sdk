@@ -1,0 +1,41 @@
+# BasicCoffeeFlow
+
+main: kit: flow: BasicCoffeeFlow:
+{
+  entity: "coffee",
+  kind: "basic",
+  name: "BasicCoffeeFlow",
+  step: [
+    {
+      op: "list",
+      valid: [
+        {
+          apply: "ItemExists",
+          def: {
+            ref: "coffee_ref01"
+          }
+        }
+      ]
+    }
+
+    {
+      input: {
+        ref: "coffee_ref01",
+        srcdatavar: "coffee_ref01_data",
+        suffix: "_up0",
+        textfield: "description"
+      }
+
+      op: "update",
+      spec: [
+        {
+          apply: "TextFieldMark",
+          def: {
+            mark: "Mark01-coffee_ref01"
+          }
+        }
+      ]
+    }
+  ],
+  "key$": "BasicCoffeeFlow"
+}

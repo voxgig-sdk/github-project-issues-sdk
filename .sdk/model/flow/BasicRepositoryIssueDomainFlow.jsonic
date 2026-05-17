@@ -1,0 +1,27 @@
+# BasicRepositoryIssueDomainFlow
+
+main: kit: flow: BasicRepositoryIssueDomainFlow:
+{
+  entity: "repository_issue_domain",
+  kind: "basic",
+  name: "BasicRepositoryIssueDomainFlow",
+  step: [
+    {
+      match: {
+        repository: "repository01",
+        username: "username01"
+      }
+
+      op: "list",
+      valid: [
+        {
+          apply: "ItemExists",
+          def: {
+            ref: "repository_issue_domain_ref01"
+          }
+        }
+      ]
+    }
+  ],
+  "key$": "BasicRepositoryIssueDomainFlow"
+}

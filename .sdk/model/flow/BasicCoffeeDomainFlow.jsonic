@@ -1,0 +1,22 @@
+# BasicCoffeeDomainFlow
+
+main: kit: flow: BasicCoffeeDomainFlow:
+{
+  entity: "coffee_domain",
+  kind: "basic",
+  name: "BasicCoffeeDomainFlow",
+  step: [
+    {
+      op: "list",
+      valid: [
+        {
+          apply: "ItemExists",
+          def: {
+            ref: "coffee_domain_ref01"
+          }
+        }
+      ]
+    }
+  ],
+  "key$": "BasicCoffeeDomainFlow"
+}

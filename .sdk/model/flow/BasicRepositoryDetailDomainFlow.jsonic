@@ -1,0 +1,44 @@
+# BasicRepositoryDetailDomainFlow
+
+main: kit: flow: BasicRepositoryDetailDomainFlow:
+{
+  entity: "repository_detail_domain",
+  kind: "basic",
+  name: "BasicRepositoryDetailDomainFlow",
+  step: [
+    {
+      op: "list",
+      valid: [
+        {
+          apply: "ItemExists",
+          def: {
+            ref: "repository_detail_domain_ref01"
+          }
+        }
+      ]
+    }
+
+    {
+      input: {
+        ref: "repository_detail_domain_ref01",
+        srcdatavar: "repository_detail_domain_ref01_data",
+        suffix: "_dt0"
+      }
+
+      match: {
+        id: "repository_detail_domain01"
+      }
+
+      op: "load",
+      valid: [
+        {
+          apply: "TextFieldMark",
+          def: {
+            mark: "Mark01-repository_detail_domain_ref01"
+          }
+        }
+      ]
+    }
+  ],
+  "key$": "BasicRepositoryDetailDomainFlow"
+}

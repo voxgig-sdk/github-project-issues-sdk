@@ -1,0 +1,30 @@
+# Entity: portfolio_controller
+
+main: kit: entity: portfolio_controller: {
+
+  alias: field: {}
+
+  name: "portfolio_controller"
+  op: {
+    list: {
+      name: "list"
+      points: [
+        {
+          method: "GET"
+          orig: "/api/portfolio-items"
+          parts: [
+            "api"
+            "portfolio-items"
+          ]
+          transform: {
+            req: "`reqdata`"
+            res: "`body`"
+          }
+        }
+      ]
+    }
+  }
+
+
+
+}

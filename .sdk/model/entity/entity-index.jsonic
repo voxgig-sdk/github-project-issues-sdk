@@ -1,0 +1,9 @@
+# Entity Models
+
+@"coffee.jsonic"
+@"coffee_domain.jsonic"
+@"donate_rest_controller.jsonic"
+@"portfolio_controller.jsonic"
+@"repository_detail_domain.jsonic"
+@"repository_issue_domain.jsonic"
+@"version.jsonic"

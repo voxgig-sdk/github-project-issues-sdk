@@ -1,0 +1,574 @@
+# GithubProjectIssues PHP SDK
+
+The PHP SDK for the GithubProjectIssues API. Provides an entity-oriented interface using PHP conventions.
+
+
+## Install
+```bash
+composer require voxgig/github-project-issues-sdk
+```
+
+
+## Tutorial: your first API call
+
+This tutorial walks through creating a client, listing entities, and
+loading a specific record.
+
+### 1. Create a client
+
+```php
+<?php
+require_once 'githubprojectissues_sdk.php';
+
+$client = new GithubProjectIssuesSDK([
+    "apikey" => getenv("GITHUB-PROJECT-ISSUES_APIKEY"),
+]);
+```
+
+### 2. List coffees
+
+```php
+[$result, $err] = $client->Coffee(null)->list(null, null);
+if ($err) { throw new \Exception($err); }
+
+if (is_array($result)) {
+    foreach ($result as $item) {
+        $d = $item->data_get();
+        echo $d["id"] . " " . $d["name"] . "\n";
+    }
+}
+```
+
+### 4. Create, update, and remove
+
+```php
+// Update
+$client->Coffee(null)->update(["id" => $created["id"], "name" => "Example-Renamed"], null);
+
+```
+
+
+## How-to guides
+
+### Make a direct HTTP request
+
+For endpoints not covered by entity methods:
+
+```php
+[$result, $err] = $client->direct([
+    "path" => "/api/resource/{id}",
+    "method" => "GET",
+    "params" => ["id" => "example"],
+]);
+if ($err) { throw new \Exception($err); }
+
+if ($result["ok"]) {
+    echo $result["status"];  // 200
+    print_r($result["data"]);  // response body
+}
+```
+
+### Prepare a request without sending it
+
+```php
+[$fetchdef, $err] = $client->prepare([
+    "path" => "/api/resource/{id}",
+    "method" => "DELETE",
+    "params" => ["id" => "example"],
+]);
+if ($err) { throw new \Exception($err); }
+
+echo $fetchdef["url"];
+echo $fetchdef["method"];
+print_r($fetchdef["headers"]);
+```
+
+### Use test mode
+
+Create a mock client for unit testing — no server required:
+
+```php
+$client = GithubProjectIssuesSDK::test(null, null);
+
+[$result, $err] = $client->GithubProjectIssues(null)->load(
+    ["id" => "test01"], null
+);
+// $result contains mock response data
+```
+
+### Use a custom fetch function
+
+Replace the HTTP transport with your own function:
+
+```php
+$mock_fetch = function ($url, $init) {
+    return [
+        [
+            "status" => 200,
+            "statusText" => "OK",
+            "headers" => [],
+            "json" => function () { return ["id" => "mock01"]; },
+        ],
+        null,
+    ];
+};
+
+$client = new GithubProjectIssuesSDK([
+    "base" => "http://localhost:8080",
+    "system" => [
+        "fetch" => $mock_fetch,
+    ],
+]);
+```
+
+### Run live tests
+
+Create a `.env.local` file at the project root:
+
+```
+GITHUB-PROJECT-ISSUES_TEST_LIVE=TRUE
+GITHUB-PROJECT-ISSUES_APIKEY=<your-key>
+```
+
+Then run:
+
+```bash
+cd php && ./vendor/bin/phpunit test/
+```
+
+
+## Reference
+
+### GithubProjectIssuesSDK
+
+```php
+require_once 'githubprojectissues_sdk.php';
+$client = new GithubProjectIssuesSDK($options);
+```
+
+Creates a new SDK client.
+
+| Option | Type | Description |
+| --- | --- | --- |
+| `apikey` | `string` | API key for authentication. |
+| `base` | `string` | Base URL of the API server. |
+| `prefix` | `string` | URL path prefix prepended to all requests. |
+| `suffix` | `string` | URL path suffix appended to all requests. |
+| `feature` | `array` | Feature activation flags. |
+| `extend` | `array` | Additional Feature instances to load. |
+| `system` | `array` | System overrides (e.g. custom `fetch` callable). |
+
+### test
+
+```php
+$client = GithubProjectIssuesSDK::test($testopts, $sdkopts);
+```
+
+Creates a test-mode client with mock transport. Both arguments may be `null`.
+
+### GithubProjectIssuesSDK methods
+
+| Method | Signature | Description |
+| --- | --- | --- |
+| `options_map` | `(): array` | Deep copy of current SDK options. |
+| `get_utility` | `(): Utility` | Copy of the SDK utility object. |
+| `prepare` | `(array $fetchargs): array` | Build an HTTP request definition without sending. |
+| `direct` | `(array $fetchargs): array` | Build and send an HTTP request. |
+| `Coffee` | `($data): CoffeeEntity` | Create a Coffee entity instance. |
+| `CoffeeDomain` | `($data): CoffeeDomainEntity` | Create a CoffeeDomain entity instance. |
+| `DonateRestController` | `($data): DonateRestControllerEntity` | Create a DonateRestController entity instance. |
+| `PortfolioController` | `($data): PortfolioControllerEntity` | Create a PortfolioController entity instance. |
+| `RepositoryDetailDomain` | `($data): RepositoryDetailDomainEntity` | Create a RepositoryDetailDomain entity instance. |
+| `RepositoryIssueDomain` | `($data): RepositoryIssueDomainEntity` | Create a RepositoryIssueDomain entity instance. |
+| `Version` | `($data): VersionEntity` | Create a Version entity instance. |
+
+### Entity interface
+
+All entities share the same interface.
+
+| Method | Signature | Description |
+| --- | --- | --- |
+| `load` | `($reqmatch, $ctrl): array` | Load a single entity by match criteria. |
+| `list` | `($reqmatch, $ctrl): array` | List entities matching the criteria. |
+| `create` | `($reqdata, $ctrl): array` | Create a new entity. |
+| `update` | `($reqdata, $ctrl): array` | Update an existing entity. |
+| `remove` | `($reqmatch, $ctrl): array` | Remove an entity. |
+| `data_get` | `(): array` | Get entity data. |
+| `data_set` | `($data): void` | Set entity data. |
+| `match_get` | `(): array` | Get entity match criteria. |
+| `match_set` | `($match): void` | Set entity match criteria. |
+| `make` | `(): Entity` | Create a new instance with the same options. |
+| `get_name` | `(): string` | Return the entity name. |
+
+### Result shape
+
+Entity operations return `[$result, $err]`. The first value is an
+`array` with these keys:
+
+| Key | Type | Description |
+| --- | --- | --- |
+| `ok` | `bool` | `true` if the HTTP status is 2xx. |
+| `status` | `int` | HTTP status code. |
+| `headers` | `array` | Response headers. |
+| `data` | `mixed` | Parsed JSON response body. |
+
+On error, `ok` is `false` and `$err` contains the error value.
+
+### Entities
+
+#### Coffee
+
+| Field | Description |
+| --- | --- |
+| `description` |  |
+| `id` |  |
+| `image` |  |
+| `ingredient` |  |
+| `title` |  |
+
+Operations: List, Update.
+
+API path: `/api/coffees`
+
+#### CoffeeDomain
+
+| Field | Description |
+| --- | --- |
+| `description` |  |
+| `id` |  |
+| `image` |  |
+| `ingredient` |  |
+| `title` |  |
+
+Operations: List.
+
+API path: `/api/coffees-graph-ql`
+
+#### DonateRestController
+
+| Field | Description |
+| --- | --- |
+
+Operations: List.
+
+API path: `/api/donate-items`
+
+#### PortfolioController
+
+| Field | Description |
+| --- | --- |
+
+Operations: List.
+
+API path: `/api/portfolio-items`
+
+#### RepositoryDetailDomain
+
+| Field | Description |
+| --- | --- |
+| `app_home` |  |
+| `description` |  |
+| `full_name` |  |
+| `issue_count` |  |
+| `name` |  |
+| `repo_url` |  |
+| `topic` |  |
+
+Operations: List, Load.
+
+API path: `/api/get-repo-detail`
+
+#### RepositoryIssueDomain
+
+| Field | Description |
+| --- | --- |
+| `body` |  |
+| `label` |  |
+| `number` |  |
+| `state` |  |
+| `title` |  |
+
+Operations: List.
+
+API path: `/api/get-repo-issue/{username}/{repository}/`
+
+#### Version
+
+| Field | Description |
+| --- | --- |
+
+Operations: Load.
+
+API path: `/api/application/version`
+
+
+
+## Entities
+
+
+### Coffee
+
+Create an instance: `const coffee = client.Coffee()`
+
+#### Operations
+
+| Method | Description |
+| --- | --- |
+| `list(match)` | List entities matching the criteria. |
+| `update(data)` | Update an existing entity. |
+
+#### Fields
+
+| Field | Type | Description |
+| --- | --- | --- |
+| `description` | ``$STRING`` |  |
+| `id` | ``$INTEGER`` |  |
+| `image` | ``$STRING`` |  |
+| `ingredient` | ``$ARRAY`` |  |
+| `title` | ``$STRING`` |  |
+
+#### Example: List
+
+```ts
+const coffees = await client.Coffee().list()
+```
+
+
+### CoffeeDomain
+
+Create an instance: `const coffee_domain = client.CoffeeDomain()`
+
+#### Operations
+
+| Method | Description |
+| --- | --- |
+| `list(match)` | List entities matching the criteria. |
+
+#### Fields
+
+| Field | Type | Description |
+| --- | --- | --- |
+| `description` | ``$STRING`` |  |
+| `id` | ``$INTEGER`` |  |
+| `image` | ``$STRING`` |  |
+| `ingredient` | ``$ARRAY`` |  |
+| `title` | ``$STRING`` |  |
+
+#### Example: List
+
+```ts
+const coffee_domains = await client.CoffeeDomain().list()
+```
+
+
+### DonateRestController
+
+Create an instance: `const donate_rest_controller = client.DonateRestController()`
+
+#### Operations
+
+| Method | Description |
+| --- | --- |
+| `list(match)` | List entities matching the criteria. |
+
+#### Example: List
+
+```ts
+const donate_rest_controllers = await client.DonateRestController().list()
+```
+
+
+### PortfolioController
+
+Create an instance: `const portfolio_controller = client.PortfolioController()`
+
+#### Operations
+
+| Method | Description |
+| --- | --- |
+| `list(match)` | List entities matching the criteria. |
+
+#### Example: List
+
+```ts
+const portfolio_controllers = await client.PortfolioController().list()
+```
+
+
+### RepositoryDetailDomain
+
+Create an instance: `const repository_detail_domain = client.RepositoryDetailDomain()`
+
+#### Operations
+
+| Method | Description |
+| --- | --- |
+| `list(match)` | List entities matching the criteria. |
+| `load(match)` | Load a single entity by match criteria. |
+
+#### Fields
+
+| Field | Type | Description |
+| --- | --- | --- |
+| `app_home` | ``$STRING`` |  |
+| `description` | ``$STRING`` |  |
+| `full_name` | ``$STRING`` |  |
+| `issue_count` | ``$INTEGER`` |  |
+| `name` | ``$STRING`` |  |
+| `repo_url` | ``$STRING`` |  |
+| `topic` | ``$STRING`` |  |
+
+#### Example: Load
+
+```ts
+const repository_detail_domain = await client.RepositoryDetailDomain().load({ id: 'repository_detail_domain_id' })
+```
+
+#### Example: List
+
+```ts
+const repository_detail_domains = await client.RepositoryDetailDomain().list()
+```
+
+
+### RepositoryIssueDomain
+
+Create an instance: `const repository_issue_domain = client.RepositoryIssueDomain()`
+
+#### Operations
+
+| Method | Description |
+| --- | --- |
+| `list(match)` | List entities matching the criteria. |
+
+#### Fields
+
+| Field | Type | Description |
+| --- | --- | --- |
+| `body` | ``$STRING`` |  |
+| `label` | ``$ARRAY`` |  |
+| `number` | ``$STRING`` |  |
+| `state` | ``$STRING`` |  |
+| `title` | ``$STRING`` |  |
+
+#### Example: List
+
+```ts
+const repository_issue_domains = await client.RepositoryIssueDomain().list()
+```
+
+
+### Version
+
+Create an instance: `const version = client.Version()`
+
+#### Operations
+
+| Method | Description |
+| --- | --- |
+| `load(match)` | Load a single entity by match criteria. |
+
+#### Example: Load
+
+```ts
+const version = await client.Version().load({ id: 'version_id' })
+```
+
+
+## Explanation
+
+### The operation pipeline
+
+Every entity operation (load, list, create, update, remove) follows a
+six-stage pipeline. Each stage fires a feature hook before executing:
+
+```
+PrePoint → PreSpec → PreRequest → PreResponse → PreResult → PreDone
+```
+
+- **PrePoint**: Resolves which API endpoint to call based on the
+  operation name and entity configuration.
+- **PreSpec**: Builds the HTTP spec — URL, method, headers, body —
+  from the resolved point and the caller's parameters.
+- **PreRequest**: Sends the HTTP request. Features can intercept here
+  to replace the transport (as TestFeature does with mocks).
+- **PreResponse**: Parses the raw HTTP response.
+- **PreResult**: Extracts the business data from the parsed response.
+- **PreDone**: Final stage before returning to the caller. Entity
+  state (match, data) is updated here.
+
+If any stage returns an error, the pipeline short-circuits and the
+error is returned to the caller as the second element in the return array.
+
+### Features and hooks
+
+Features are the extension mechanism. A feature is a PHP class
+with hook methods named after pipeline stages (e.g. `PrePoint`,
+`PreSpec`). Each method receives the context.
+
+The SDK ships with built-in features:
+
+- **TestFeature**: In-memory mock transport for testing without a live server
+
+Features are initialized in order. Hooks fire in the order features
+were added, so later features can override earlier ones.
+
+### Data as arrays
+
+The PHP SDK uses plain PHP associative arrays throughout rather than typed
+objects. This mirrors the dynamic nature of the API and keeps the
+SDK flexible — no code generation is needed when the API schema
+changes.
+
+Use `Helpers::to_map()` to safely validate that a value is an array.
+
+### Directory structure
+
+```
+php/
+├── githubprojectissues_sdk.php          -- Main SDK class
+├── config.php                     -- Configuration
+├── features.php                   -- Feature factory
+├── core/                          -- Core types and context
+├── entity/                        -- Entity implementations
+├── feature/                       -- Built-in features (Base, Test, Log)
+├── utility/                       -- Utility functions and struct library
+└── test/                          -- Test suites
+```
+
+The main class (`githubprojectissues_sdk.php`) exports the SDK class
+and test helper. Import entity or utility modules directly only
+when needed.
+
+### Entity state
+
+Entity instances are stateful. After a successful `load`, the entity
+stores the returned data and match criteria internally.
+
+```php
+$moon = $client->Moon();
+[$result, $err] = $moon->load(["planet_id" => "earth", "id" => "luna"]);
+
+// $moon->dataGet() now returns the loaded moon data
+// $moon->matchGet() returns the last match criteria
+```
+
+Call `make()` to create a fresh instance with the same configuration
+but no stored state.
+
+### Direct vs entity access
+
+The entity interface handles URL construction, parameter placement,
+and response parsing automatically. Use it for standard CRUD operations.
+
+`direct()` gives full control over the HTTP request. Use it for
+non-standard endpoints, bulk operations, or any path not modelled as
+an entity. `prepare()` builds the request without sending it — useful
+for debugging or custom transport.
+
+
+## Full Reference
+
+See [REFERENCE.md](REFERENCE.md) for complete API reference
+documentation including all method signatures, entity field schemas,
+and detailed usage examples.

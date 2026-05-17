@@ -1,0 +1,22 @@
+# BasicDonateRestControllerFlow
+
+main: kit: flow: BasicDonateRestControllerFlow:
+{
+  entity: "donate_rest_controller",
+  kind: "basic",
+  name: "BasicDonateRestControllerFlow",
+  step: [
+    {
+      op: "list",
+      valid: [
+        {
+          apply: "ItemExists",
+          def: {
+            ref: "donate_rest_controller_ref01"
+          }
+        }
+      ]
+    }
+  ],
+  "key$": "BasicDonateRestControllerFlow"
+}

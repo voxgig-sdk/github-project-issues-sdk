@@ -1,0 +1,14 @@
+{
+  "existing": {
+    "donate_rest_controller": {
+      "DONATE_REST_CONTROLLER00": {},
+      "DONATE_REST_CONTROLLER01": {},
+      "DONATE_REST_CONTROLLER02": {}
+    }
+  },
+  "new": {
+    "donate_rest_controller": {
+      "donate_rest_controller_ref01": {}
+    }
+  }
+}

@@ -1,0 +1,22 @@
+# BasicPortfolioControllerFlow
+
+main: kit: flow: BasicPortfolioControllerFlow:
+{
+  entity: "portfolio_controller",
+  kind: "basic",
+  name: "BasicPortfolioControllerFlow",
+  step: [
+    {
+      op: "list",
+      valid: [
+        {
+          apply: "ItemExists",
+          def: {
+            ref: "portfolio_controller_ref01"
+          }
+        }
+      ]
+    }
+  ],
+  "key$": "BasicPortfolioControllerFlow"
+}

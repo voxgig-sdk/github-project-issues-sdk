@@ -1,0 +1,23 @@
+# API Information
+
+
+main: {
+  kit: {
+    info: {
+      license: {
+        name: "GPL-3.0 license"
+        url: "https://ironoc.net"
+      }
+      servers: [
+        {
+          description: "Generated server url"
+          url: "https://ironoc.net"
+        }
+      ]
+      title: "iRonoc API"
+      version: "v9.1.4"
+    }
+  }
+}
+
+}
