@@ -15,9 +15,6 @@ module GithubProjectIssuesConfig
       },
       "options" => {
         "base" => "https://ironoc.net",
-        "auth" => {
-          "prefix" => "Bearer",
-        },
         "headers" => {
           "content-type" => "application/json",
         },

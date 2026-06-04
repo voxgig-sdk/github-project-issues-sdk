@@ -17,9 +17,7 @@ loading a specific record.
 ```ts
 import { GithubProjectIssuesSDK } from 'github-project-issues'
 
-const client = new GithubProjectIssuesSDK({
-  apikey: process.env.GITHUB-PROJECT-ISSUES_APIKEY,
-})
+const client = new GithubProjectIssuesSDK({})
 ```
 
 ### 2. List coffees
@@ -95,7 +93,7 @@ const result = await client.Planet().load({ id: 'test01' })
 You can also use the instance method:
 
 ```ts
-const client = new GithubProjectIssuesSDK({ apikey: '...' })
+const client = new GithubProjectIssuesSDK()
 const testClient = client.tester()
 ```
 
@@ -131,7 +129,6 @@ const logger = {
 }
 
 const client = new GithubProjectIssuesSDK({
-  apikey: '...',
   extend: [logger],
 })
 ```
@@ -142,7 +139,6 @@ Create a `.env.local` file at the project root:
 
 ```
 GITHUB-PROJECT-ISSUES_TEST_LIVE=TRUE
-GITHUB-PROJECT-ISSUES_APIKEY=<your-key>
 ```
 
 Then run:
@@ -160,7 +156,6 @@ cd ts && npm test
 
 ```ts
 new GithubProjectIssuesSDK(options?: {
-  apikey?: string
   base?: string
   prefix?: string
   suffix?: string
@@ -171,7 +166,6 @@ new GithubProjectIssuesSDK(options?: {
 
 | Option | Type | Description |
 | --- | --- | --- |
-| `apikey` | `string` | API key for authentication. |
 | `base` | `string` | Base URL of the API server. |
 | `prefix` | `string` | URL path prefix prepended to all requests. |
 | `suffix` | `string` | URL path suffix appended to all requests. |

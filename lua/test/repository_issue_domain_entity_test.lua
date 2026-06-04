@@ -95,7 +95,6 @@ function repository_issue_domain_basic_setup(extra)
     ["GITHUBPROJECTISSUES_TEST_REPOSITORY_ISSUE_DOMAIN_ENTID"] = idmap,
     ["GITHUBPROJECTISSUES_TEST_LIVE"] = "FALSE",
     ["GITHUBPROJECTISSUES_TEST_EXPLAIN"] = "FALSE",
-    ["GITHUBPROJECTISSUES_APIKEY"] = "NONE",
   })
 
   local idmap_resolved = helpers.to_map(
@@ -107,7 +106,6 @@ function repository_issue_domain_basic_setup(extra)
   if env["GITHUBPROJECTISSUES_TEST_LIVE"] == "TRUE" then
     local merged_opts = vs.merge({
       {
-        apikey = env["GITHUBPROJECTISSUES_APIKEY"],
       },
       extra or {},
     })

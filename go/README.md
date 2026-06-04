@@ -28,16 +28,13 @@ package main
 
 import (
     "fmt"
-    "os"
 
     sdk "github.com/voxgig-sdk/github-project-issues-sdk/go"
     "github.com/voxgig-sdk/github-project-issues-sdk/go/core"
 )
 
 func main() {
-    client := sdk.NewGithubProjectIssuesSDK(map[string]any{
-        "apikey": os.Getenv("GITHUB-PROJECT-ISSUES_APIKEY"),
-    })
+    client := sdk.NewGithubProjectIssuesSDK(map[string]any{})
 ```
 
 ### 2. List coffees
@@ -150,7 +147,6 @@ Create a `.env.local` file at the project root:
 
 ```
 GITHUB-PROJECT-ISSUES_TEST_LIVE=TRUE
-GITHUB-PROJECT-ISSUES_APIKEY=<your-key>
 ```
 
 Then run:
@@ -172,7 +168,6 @@ Creates a new SDK client.
 
 | Option | Type | Description |
 | --- | --- | --- |
-| `"apikey"` | `string` | API key for authentication. |
 | `"base"` | `string` | Base URL of the API server. |
 | `"prefix"` | `string` | URL path prefix prepended to all requests. |
 | `"suffix"` | `string` | URL path suffix appended to all requests. |

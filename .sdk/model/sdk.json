@@ -16,7 +16,23 @@
           }
         ],
         "title": "iRonoc API",
-        "version": "v9.1.4"
+        "version": "v9.1.4",
+        "tagline": "Personal portfolio backend exposing GitHub repo/issue lookups, a coffee list, and a donate hook",
+        "homepage": "https://ironoc.net",
+        "docs_url": "https://ironoc.net/swagger-ui/index.html",
+        "license_short": "GPL-3.0 — source code licensed under the GNU General Public License v3.0.",
+        "license_md": "- Source code for the underlying project is published under the **GPL-3.0 license**.\n- The API itself is hosted on a personal site (ironoc.net) run by an individual developer; treat availability and rate as best-effort.\n- No published terms of service or commercial SLA — if you build on it, vendor the data or proxy it.\n- CORS is disabled on the documented endpoints, so calls are expected to come from a server, not a browser.",
+        "about_md": "`iRonoc API` is the backend behind [ironoc.net](https://ironoc.net), the personal portfolio site of software engineer Conor Heffron. It is a small Spring-style service that mixes a couple of GitHub-proxy endpoints (used to populate the portfolio's repo and issues pages) with a handful of site-specific helpers — a coffee list, a donation hook, and a version probe.\n\nWhat you can actually call:\n\n- `GET /api/get-repo-detail?username={username}` — list a GitHub user's repositories (the portfolio uses this to render Conor's own repos).\n- `GET /api/get-repo-issue/{owner}/{repo}/` — list issues for a specific GitHub repo (example: `conorheffron/ironoc`).\n- Supporting controllers for the site itself: a coffee catalogue, a donation endpoint, a portfolio controller, and a version endpoint.\n\nOperational notes: this is a personal site, not a managed platform. The freepublicapis.com catalogue page reports it as healthy with sub-500ms response times and **CORS disabled**, and no authentication is documented for the public endpoints. Interactive docs live at the [Swagger UI](https://ironoc.net/swagger-ui/index.html). Because the GitHub-facing endpoints ultimately read from GitHub, expect their behaviour and rate to track upstream GitHub limits.",
+        "entity_desc": {
+          "coffee": "Items from the site's coffee catalogue, served by the coffee controller.",
+          "coffee_domain": "Domain/model shape used to describe a coffee entry returned by the coffee endpoints.",
+          "donate_rest_controller": "Endpoints behind the site's donate flow.",
+          "portfolio_controller": "Endpoints that drive the portfolio pages on ironoc.net.",
+          "repository_detail_domain": "Shape of a GitHub repository record returned by `GET /api/get-repo-detail?username={username}`.",
+          "repository_issue_domain": "Shape of a GitHub issue record returned by `GET /api/get-repo-issue/{owner}/{repo}/`.",
+          "version": "Version/build info endpoint for the deployed service."
+        },
+        "auth": false
       },
       "config": {
         "auth": {
@@ -24,7 +40,15 @@
         },
         "headers": {
           "content-type": "application/json"
-        }
+        },
+        "docs_order": [
+          "ts",
+          "py",
+          "php",
+          "go",
+          "rb",
+          "lua"
+        ]
       },
       "entity": {
         "coffee": {

@@ -99,14 +99,12 @@ func versionDirectSetup(mockres any) *versionDirectSetupResult {
 	env := envOverride(map[string]any{
 		"GITHUBPROJECTISSUES_TEST_VERSION_ENTID": map[string]any{},
 		"GITHUBPROJECTISSUES_TEST_LIVE":    "FALSE",
-		"GITHUBPROJECTISSUES_APIKEY":       "NONE",
 	})
 
 	live := env["GITHUBPROJECTISSUES_TEST_LIVE"] == "TRUE"
 
 	if live {
 		mergedOpts := map[string]any{
-			"apikey": env["GITHUBPROJECTISSUES_APIKEY"],
 		}
 		client := sdk.NewGithubProjectIssuesSDK(mergedOpts)
 
