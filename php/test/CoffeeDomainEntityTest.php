@@ -86,6 +86,7 @@ function coffee_domain_basic_setup($extra)
         "GITHUBPROJECTISSUES_TEST_COFFEE_DOMAIN_ENTID" => $idmap,
         "GITHUBPROJECTISSUES_TEST_LIVE" => "FALSE",
         "GITHUBPROJECTISSUES_TEST_EXPLAIN" => "FALSE",
+        "GITHUBPROJECTISSUES_APIKEY" => "NONE",
     ]);
 
     $idmap_resolved = Helpers::to_map(
@@ -97,6 +98,7 @@ function coffee_domain_basic_setup($extra)
     if ($env["GITHUBPROJECTISSUES_TEST_LIVE"] === "TRUE") {
         $merged_opts = Vs::merge([
             [
+                "apikey" => $env["GITHUBPROJECTISSUES_APIKEY"],
             ],
             $extra ?? [],
         ]);

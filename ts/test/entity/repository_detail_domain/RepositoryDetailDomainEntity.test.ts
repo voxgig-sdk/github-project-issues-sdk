@@ -114,6 +114,7 @@ function basicSetup(extra?: any) {
     'GITHUB_PROJECT_ISSUES_TEST_REPOSITORY_DETAIL_DOMAIN_ENTID': idmap,
     'GITHUB_PROJECT_ISSUES_TEST_LIVE': 'FALSE',
     'GITHUB_PROJECT_ISSUES_TEST_EXPLAIN': 'FALSE',
+    'GITHUB_PROJECT_ISSUES_APIKEY': 'NONE',
   })
 
   idmap = env['GITHUB_PROJECT_ISSUES_TEST_REPOSITORY_DETAIL_DOMAIN_ENTID']
@@ -123,6 +124,7 @@ function basicSetup(extra?: any) {
   if (live) {
     client = new GithubProjectIssuesSDK(merge([
       {
+        apikey: env.GITHUB_PROJECT_ISSUES_APIKEY,
       },
       extra
     ]))

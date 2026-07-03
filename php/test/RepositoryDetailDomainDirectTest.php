@@ -123,12 +123,14 @@ function repository_detail_domain_direct_setup($mockres)
     $env = Runner::env_override([
         "GITHUBPROJECTISSUES_TEST_REPOSITORY_DETAIL_DOMAIN_ENTID" => [],
         "GITHUBPROJECTISSUES_TEST_LIVE" => "FALSE",
+        "GITHUBPROJECTISSUES_APIKEY" => "NONE",
     ]);
 
     $live = $env["GITHUBPROJECTISSUES_TEST_LIVE"] === "TRUE";
 
     if ($live) {
         $merged_opts = [
+            "apikey" => $env["GITHUBPROJECTISSUES_APIKEY"],
         ];
         $client = new GithubProjectIssuesSDK($merged_opts);
         return [

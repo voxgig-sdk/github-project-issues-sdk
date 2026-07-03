@@ -61,12 +61,14 @@ def _coffee_domain_direct_setup(mockres):
     env = runner.env_override({
         "GITHUBPROJECTISSUES_TEST_COFFEE_DOMAIN_ENTID": {},
         "GITHUBPROJECTISSUES_TEST_LIVE": "FALSE",
+        "GITHUBPROJECTISSUES_APIKEY": "NONE",
     })
 
     live = env.get("GITHUBPROJECTISSUES_TEST_LIVE") == "TRUE"
 
     if live:
         merged_opts = {
+            "apikey": env.get("GITHUBPROJECTISSUES_APIKEY"),
         }
         client = GithubProjectIssuesSDK(merged_opts)
         return {

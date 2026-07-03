@@ -1,6 +1,11 @@
 # GithubProjectIssues Python SDK
 
-The Python SDK for the GithubProjectIssues API. Provides an entity-oriented interface following Pythonic conventions.
+
+
+The Python SDK for the GithubProjectIssues API — an entity-oriented client following Pythonic conventions.
+
+> Other languages, the CLI, and MCP server live alongside this one — see
+> the [top-level README](../README.md).
 
 
 ## Install
@@ -23,15 +28,18 @@ loading a specific record.
 ### 1. Create a client
 
 ```python
+import os
 from githubprojectissues_sdk import GithubProjectIssuesSDK
 
-client = GithubProjectIssuesSDK({})
+client = GithubProjectIssuesSDK({
+    "apikey": os.environ.get("GITHUB-PROJECT-ISSUES_APIKEY"),
+})
 ```
 
 ### 2. List coffees
 
 ```python
-result, err = client.Coffee(None).list(None, None)
+result, err = client.Coffee().list()
 if err:
     raise Exception(err)
 
@@ -45,7 +53,7 @@ if isinstance(result, list):
 
 ```python
 # Update
-client.Coffee(None).update({"id": created["id"], "name": "Example-Renamed"}, None)
+client.Coffee().update({"id": created["id"], "name": "Example-Renamed"})
 
 ```
 
@@ -91,11 +99,9 @@ print(fetchdef["headers"])
 Create a mock client for unit testing — no server required:
 
 ```python
-client = GithubProjectIssuesSDK.test(None, None)
+client = GithubProjectIssuesSDK.test()
 
-result, err = client.GithubProjectIssues(None).load(
-    {"id": "test01"}, None
-)
+result, err = client.GithubProjectIssues().load({"id": "test01"})
 # result contains mock response data
 ```
 
@@ -126,6 +132,7 @@ Create a `.env.local` file at the project root:
 
 ```
 GITHUB-PROJECT-ISSUES_TEST_LIVE=TRUE
+GITHUB-PROJECT-ISSUES_APIKEY=<your-key>
 ```
 
 Then run:
@@ -149,6 +156,7 @@ Creates a new SDK client.
 
 | Option | Type | Description |
 | --- | --- | --- |
+| `apikey` | `str` | API key for authentication. |
 | `base` | `str` | Base URL of the API server. |
 | `prefix` | `str` | URL path prefix prepended to all requests. |
 | `suffix` | `str` | URL path suffix appended to all requests. |

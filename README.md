@@ -1,20 +1,8 @@
 # GithubProjectIssues SDK
 
-Personal portfolio backend exposing GitHub repo/issue lookups, a coffee list, and a donate hook
+iRonoc API client, generated from the OpenAPI spec.
 
 > TypeScript, Python, PHP, Golang, Ruby, Lua SDKs, a CLI, an interactive REPL, and an MCP server for AI agents — all generated from one OpenAPI spec by [@voxgig/sdkgen](https://github.com/voxgig/sdkgen).
-
-## About iRonoc API
-
-`iRonoc API` is the backend behind [ironoc.net](https://ironoc.net), the personal portfolio site of software engineer Conor Heffron. It is a small Spring-style service that mixes a couple of GitHub-proxy endpoints (used to populate the portfolio's repo and issues pages) with a handful of site-specific helpers — a coffee list, a donation hook, and a version probe.
-
-What you can actually call:
-
-- `GET /api/get-repo-detail?username={username}` — list a GitHub user's repositories (the portfolio uses this to render Conor's own repos).
-- `GET /api/get-repo-issue/{owner}/{repo}/` — list issues for a specific GitHub repo (example: `conorheffron/ironoc`).
-- Supporting controllers for the site itself: a coffee catalogue, a donation endpoint, a portfolio controller, and a version endpoint.
-
-Operational notes: this is a personal site, not a managed platform. The freepublicapis.com catalogue page reports it as healthy with sub-500ms response times and **CORS disabled**, and no authentication is documented for the public endpoints. Interactive docs live at the [Swagger UI](https://ironoc.net/swagger-ui/index.html). Because the GitHub-facing endpoints ultimately read from GitHub, expect their behaviour and rate to track upstream GitHub limits.
 
 ## Try it
 
@@ -48,29 +36,31 @@ gem install github-project-issues-sdk
 luarocks install github-project-issues-sdk
 ```
 
-## 30-second quickstart
+## Quickstart
 
 ### TypeScript
 
 ```ts
 import { GithubProjectIssuesSDK } from 'github-project-issues'
 
-const client = new GithubProjectIssuesSDK({})
+const client = new GithubProjectIssuesSDK({
+  apikey: process.env.GITHUB-PROJECT-ISSUES_APIKEY,
+})
 
 // List all coffees
 const coffees = await client.Coffee().list()
+console.log(coffees.data)
 ```
 
-See the [TypeScript README](ts/README.md) for the
-full guide, or scroll down for the same example in other languages.
+See the [TypeScript README](ts/README.md) for the full guide.
 
-## What's in the box
+## Surfaces
 
-| Surface | Use it for | Path |
-| --- | --- | --- |
-| **SDK** (TypeScript, Python, PHP, Golang, Ruby, Lua) | App integration | `ts/` `py/` `php/` `go/` `rb/` `lua/` |
-| **CLI** | Scripts, CI, ops, one-off API calls | `go-cli/` |
-| **MCP server** | AI agents (Claude, Cursor, Cline) | `go-mcp/` |
+| Surface | Path |
+| --- | --- |
+| **SDK** (TypeScript, Python, PHP, Golang, Ruby, Lua) | `ts/` `py/` `php/` `go/` `rb/` `lua/` |
+| **CLI** | `go-cli/` |
+| **MCP server** | `go-mcp/` |
 
 ## Use it from an AI agent (MCP)
 
@@ -100,13 +90,13 @@ The API exposes 7 entities:
 
 | Entity | Description | API path |
 | --- | --- | --- |
-| **Coffee** | Items from the site's coffee catalogue, served by the coffee controller. | `/api/coffees` |
-| **CoffeeDomain** | Domain/model shape used to describe a coffee entry returned by the coffee endpoints. | `/api/coffees-graph-ql` |
-| **DonateRestController** | Endpoints behind the site's donate flow. | `/api/donate-items` |
-| **PortfolioController** | Endpoints that drive the portfolio pages on ironoc.net. | `/api/portfolio-items` |
-| **RepositoryDetailDomain** | Shape of a GitHub repository record returned by `GET /api/get-repo-detail?username={username}`. | `/api/get-repo-detail` |
-| **RepositoryIssueDomain** | Shape of a GitHub issue record returned by `GET /api/get-repo-issue/{owner}/{repo}/`. | `/api/get-repo-issue/{username}/{repository}/` |
-| **Version** | Version/build info endpoint for the deployed service. | `/api/application/version` |
+| **Coffee** |  | `/api/coffees` |
+| **CoffeeDomain** |  | `/api/coffees-graph-ql` |
+| **DonateRestController** |  | `/api/donate-items` |
+| **PortfolioController** |  | `/api/portfolio-items` |
+| **RepositoryDetailDomain** |  | `/api/get-repo-detail` |
+| **RepositoryIssueDomain** |  | `/api/get-repo-issue/{username}/{repository}/` |
+| **Version** |  | `/api/application/version` |
 
 Each entity supports the following operations where available: **load**,
 **list**, **create**, **update**, and **remove**.
@@ -116,12 +106,16 @@ Each entity supports the following operations where available: **load**,
 ### Python
 
 ```python
+import os
 from githubprojectissues_sdk import GithubProjectIssuesSDK
 
-client = GithubProjectIssuesSDK({})
+client = GithubProjectIssuesSDK({
+    "apikey": os.environ.get("GITHUB-PROJECT-ISSUES_APIKEY"),
+})
 
 # List all coffees
-coffees, err = client.Coffee(None).list(None, None)
+coffees, err = client.Coffee().list()
+print(coffees)
 ```
 
 ### PHP
@@ -130,10 +124,13 @@ coffees, err = client.Coffee(None).list(None, None)
 <?php
 require_once 'githubprojectissues_sdk.php';
 
-$client = new GithubProjectIssuesSDK([]);
+$client = new GithubProjectIssuesSDK([
+    "apikey" => getenv("GITHUB-PROJECT-ISSUES_APIKEY"),
+]);
 
 // List all coffees
-[$coffees, $err] = $client->Coffee(null)->list(null, null);
+[$coffees, $err] = $client->Coffee()->list();
+print_r($coffees);
 ```
 
 ### Golang
@@ -141,10 +138,13 @@ $client = new GithubProjectIssuesSDK([]);
 ```go
 import sdk "github.com/voxgig-sdk/github-project-issues-sdk/go"
 
-client := sdk.NewGithubProjectIssuesSDK(map[string]any{})
+client := sdk.NewGithubProjectIssuesSDK(map[string]any{
+    "apikey": os.Getenv("GITHUB-PROJECT-ISSUES_APIKEY"),
+})
 
 // List all coffees
 coffees, err := client.Coffee(nil).List(nil, nil)
+fmt.Println(coffees)
 ```
 
 ### Ruby
@@ -152,10 +152,13 @@ coffees, err := client.Coffee(nil).List(nil, nil)
 ```ruby
 require_relative "GithubProjectIssues_sdk"
 
-client = GithubProjectIssuesSDK.new({})
+client = GithubProjectIssuesSDK.new({
+  "apikey" => ENV["GITHUB-PROJECT-ISSUES_APIKEY"],
+})
 
 # List all coffees
-coffees, err = client.Coffee(nil).list(nil, nil)
+coffees, err = client.Coffee().list
+puts coffees
 ```
 
 ### Lua
@@ -163,10 +166,13 @@ coffees, err = client.Coffee(nil).list(nil, nil)
 ```lua
 local sdk = require("github-project-issues_sdk")
 
-local client = sdk.new({})
+local client = sdk.new({
+  apikey = os.getenv("GITHUB-PROJECT-ISSUES_APIKEY"),
+})
 
 -- List all coffees
-local coffees, err = client:Coffee(nil):list(nil, nil)
+local coffees, err = client:Coffee():list()
+print(coffees)
 ```
 
 ## Unit testing in offline mode
@@ -185,25 +191,21 @@ const result = await client.Coffee().load({ id: 'test01' })
 ### Python
 
 ```python
-client = GithubProjectIssuesSDK.test(None, None)
-result, err = client.Coffee(None).load(
-    {"id": "test01"}, None
-)
+client = GithubProjectIssuesSDK.test()
+result, err = client.Coffee().load({"id": "test01"})
 ```
 
 ### PHP
 
 ```php
-$client = GithubProjectIssuesSDK::test(null, null);
-[$result, $err] = $client->Coffee(null)->load(
-    ["id" => "test01"], null
-);
+$client = GithubProjectIssuesSDK::test();
+[$result, $err] = $client->Coffee()->load(["id" => "test01"]);
 ```
 
 ### Golang
 
 ```go
-client := sdk.TestSDK(nil, nil)
+client := sdk.Test()
 result, err := client.Coffee(nil).Load(
     map[string]any{"id": "test01"}, nil,
 )
@@ -212,19 +214,15 @@ result, err := client.Coffee(nil).Load(
 ### Ruby
 
 ```ruby
-client = GithubProjectIssuesSDK.test(nil, nil)
-result, err = client.Coffee(nil).load(
-  { "id" => "test01" }, nil
-)
+client = GithubProjectIssuesSDK.test
+result, err = client.Coffee().load({ "id" => "test01" })
 ```
 
 ### Lua
 
 ```lua
-local client = sdk.test(nil, nil)
-local result, err = client:Coffee(nil):load(
-  { id = "test01" }, nil
-)
+local client = sdk.test()
+local result, err = client:Coffee():load({ id = "test01" })
 ```
 
 ## How it works
@@ -328,16 +326,6 @@ local result, err = client:direct({
 - [Golang](go/README.md)
 - [Ruby](rb/README.md)
 - [Lua](lua/README.md)
-
-## Using the iRonoc API
-
-- Upstream: [https://ironoc.net](https://ironoc.net)
-- API docs: [https://ironoc.net/swagger-ui/index.html](https://ironoc.net/swagger-ui/index.html)
-
-- Source code for the underlying project is published under the **GPL-3.0 license**.
-- The API itself is hosted on a personal site (ironoc.net) run by an individual developer; treat availability and rate as best-effort.
-- No published terms of service or commercial SLA — if you build on it, vendor the data or proxy it.
-- CORS is disabled on the documented endpoints, so calls are expected to come from a server, not a browser.
 
 ---
 

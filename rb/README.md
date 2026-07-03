@@ -1,6 +1,11 @@
 # GithubProjectIssues Ruby SDK
 
-The Ruby SDK for the GithubProjectIssues API. Provides an entity-oriented interface using idiomatic Ruby conventions.
+
+
+The Ruby SDK for the GithubProjectIssues API — an entity-oriented client using idiomatic Ruby conventions.
+
+> Other languages, the CLI, and MCP server live alongside this one — see
+> the [top-level README](../README.md).
 
 
 ## Install
@@ -31,13 +36,15 @@ loading a specific record.
 ```ruby
 require_relative "GithubProjectIssues_sdk"
 
-client = GithubProjectIssuesSDK.new({})
+client = GithubProjectIssuesSDK.new({
+  "apikey" => ENV["GITHUB-PROJECT-ISSUES_APIKEY"],
+})
 ```
 
 ### 2. List coffees
 
 ```ruby
-result, err = client.Coffee(nil).list(nil, nil)
+result, err = client.Coffee().list
 raise err if err
 
 if result.is_a?(Array)
@@ -52,7 +59,7 @@ end
 
 ```ruby
 # Update
-client.Coffee(nil).update({ "id" => created["id"], "name" => "Example-Renamed" }, nil)
+client.Coffee().update({ "id" => created["id"], "name" => "Example-Renamed" })
 
 ```
 
@@ -97,11 +104,9 @@ puts fetchdef["headers"]
 Create a mock client for unit testing — no server required:
 
 ```ruby
-client = GithubProjectIssuesSDK.test(nil, nil)
+client = GithubProjectIssuesSDK.test
 
-result, err = client.GithubProjectIssues(nil).load(
-  { "id" => "test01" }, nil
-)
+result, err = client.GithubProjectIssues().load({ "id" => "test01" })
 # result contains mock response data
 ```
 
@@ -133,6 +138,7 @@ Create a `.env.local` file at the project root:
 
 ```
 GITHUB-PROJECT-ISSUES_TEST_LIVE=TRUE
+GITHUB-PROJECT-ISSUES_APIKEY=<your-key>
 ```
 
 Then run:
@@ -155,6 +161,7 @@ Creates a new SDK client.
 
 | Option | Type | Description |
 | --- | --- | --- |
+| `apikey` | `String` | API key for authentication. |
 | `base` | `String` | Base URL of the API server. |
 | `prefix` | `String` | URL path prefix prepended to all requests. |
 | `suffix` | `String` | URL path suffix appended to all requests. |

@@ -79,12 +79,14 @@ function directSetup(mockres?: any) {
   const env = envOverride({
     'GITHUBPROJECTISSUES_TEST_DONATE_REST_CONTROLLER_ENTID': {},
     'GITHUBPROJECTISSUES_TEST_LIVE': 'FALSE',
+    'GITHUBPROJECTISSUES_APIKEY': 'NONE',
   })
 
   const live = 'TRUE' === env.GITHUBPROJECTISSUES_TEST_LIVE
 
   if (live) {
     const client = new GithubProjectIssuesSDK({
+      apikey: env.GITHUBPROJECTISSUES_APIKEY,
     })
 
     let idmap: any = env['GITHUBPROJECTISSUES_TEST_DONATE_REST_CONTROLLER_ENTID']

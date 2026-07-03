@@ -30,12 +30,12 @@ Create a new SDK client instance.
 
 ### Static Methods
 
-#### `sdk.test(testopts, sdkopts)`
+#### `sdk.test(testopts?, sdkopts?)`
 
-Create a test client with mock features active. Both arguments may be `nil`.
+Create a test client with mock features active. Both arguments are optional.
 
 ```lua
-local client = sdk.test(nil, nil)
+local client = sdk.test()
 ```
 
 
@@ -128,7 +128,7 @@ local coffee = client:Coffee(nil)
 List entities matching the given criteria. Returns an array.
 
 ```lua
-local results, err = client:Coffee(nil):list(nil, nil)
+local results, err = client:Coffee():list()
 ```
 
 #### `update(reqdata, ctrl) -> any, err`
@@ -136,10 +136,10 @@ local results, err = client:Coffee(nil):list(nil, nil)
 Update an existing entity. The data must include the entity `id`.
 
 ```lua
-local result, err = client:Coffee(nil):update({
+local result, err = client:Coffee():update({
   id = "coffee_id",
   -- Fields to update
-}, nil)
+})
 ```
 
 ### Common Methods
@@ -195,7 +195,7 @@ local coffee_domain = client:CoffeeDomain(nil)
 List entities matching the given criteria. Returns an array.
 
 ```lua
-local results, err = client:CoffeeDomain(nil):list(nil, nil)
+local results, err = client:CoffeeDomain():list()
 ```
 
 ### Common Methods
@@ -241,7 +241,7 @@ local donate_rest_controller = client:DonateRestController(nil)
 List entities matching the given criteria. Returns an array.
 
 ```lua
-local results, err = client:DonateRestController(nil):list(nil, nil)
+local results, err = client:DonateRestController():list()
 ```
 
 ### Common Methods
@@ -287,7 +287,7 @@ local portfolio_controller = client:PortfolioController(nil)
 List entities matching the given criteria. Returns an array.
 
 ```lua
-local results, err = client:PortfolioController(nil):list(nil, nil)
+local results, err = client:PortfolioController():list()
 ```
 
 ### Common Methods
@@ -345,7 +345,7 @@ local repository_detail_domain = client:RepositoryDetailDomain(nil)
 List entities matching the given criteria. Returns an array.
 
 ```lua
-local results, err = client:RepositoryDetailDomain(nil):list(nil, nil)
+local results, err = client:RepositoryDetailDomain():list()
 ```
 
 #### `load(reqmatch, ctrl) -> any, err`
@@ -353,7 +353,7 @@ local results, err = client:RepositoryDetailDomain(nil):list(nil, nil)
 Load a single entity matching the given criteria.
 
 ```lua
-local result, err = client:RepositoryDetailDomain(nil):load({ id = "repository_detail_domain_id" }, nil)
+local result, err = client:RepositoryDetailDomain():load({ id = "repository_detail_domain_id" })
 ```
 
 ### Common Methods
@@ -409,7 +409,7 @@ local repository_issue_domain = client:RepositoryIssueDomain(nil)
 List entities matching the given criteria. Returns an array.
 
 ```lua
-local results, err = client:RepositoryIssueDomain(nil):list(nil, nil)
+local results, err = client:RepositoryIssueDomain():list()
 ```
 
 ### Common Methods
@@ -455,7 +455,7 @@ local version = client:Version(nil)
 Load a single entity matching the given criteria.
 
 ```lua
-local result, err = client:Version(nil):load({ id = "version_id" }, nil)
+local result, err = client:Version():load({ id = "version_id" })
 ```
 
 ### Common Methods
