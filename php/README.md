@@ -10,7 +10,7 @@ The PHP SDK for the GithubProjectIssues API — an entity-oriented client using 
 
 ## Install
 ```bash
-composer require voxgig/github-project-issues-sdk
+composer require voxgig-sdk/github-project-issues
 ```
 
 

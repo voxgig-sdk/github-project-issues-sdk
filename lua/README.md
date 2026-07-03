@@ -10,7 +10,7 @@ The Lua SDK for the GithubProjectIssues API — an entity-oriented client using 
 
 ## Install
 ```bash
-luarocks install github-project-issues-sdk
+luarocks install voxgig-sdk-github-project-issues
 ```
 
 If the module is not yet published, add the source directory to

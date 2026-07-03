@@ -10,13 +10,13 @@ The Ruby SDK for the GithubProjectIssues API — an entity-oriented client using
 
 ## Install
 ```bash
-gem install github-project-issues-sdk
+gem install voxgig-sdk-github-project-issues
 ```
 
 Or add to your `Gemfile`:
 
 ```ruby
-gem "github-project-issues-sdk"
+gem "voxgig-sdk-github-project-issues"
 ```
 
 Then run:

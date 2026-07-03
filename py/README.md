@@ -10,7 +10,7 @@ The Python SDK for the GithubProjectIssues API — an entity-oriented client fol
 
 ## Install
 ```bash
-pip install github-project-issues-sdk
+pip install voxgig-sdk-github-project-issues
 ```
 
 Or install from source:

@@ -10,7 +10,7 @@ The TypeScript SDK for the GithubProjectIssues API — a type-safe, entity-orien
 
 ## Install
 ```bash
-npm install github-project-issues
+npm install @voxgig-sdk/github-project-issues
 ```
 ## Tutorial: your first API call
 

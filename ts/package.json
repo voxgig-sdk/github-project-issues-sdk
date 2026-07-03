@@ -1,7 +1,23 @@
 {
   "name": "@voxgig-sdk/github-project-issues",
   "version": "0.0.1",
-  "description": "DESCRIPTION",
+  "description": "Unofficial generated TypeScript SDK for the iRonoc public API. Not affiliated with or endorsed by the upstream API provider.",
+  "keywords": [
+    "voxgig",
+    "sdk",
+    "generated-sdk",
+    "openapi",
+    "api-client",
+    "github-project-issues"
+  ],
+  "homepage": "https://github.com/voxgig-sdk/github-project-issues-sdk#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/voxgig-sdk/github-project-issues-sdk.git"
+  },
+  "bugs": {
+    "url": "https://github.com/voxgig-sdk/github-project-issues-sdk/issues"
+  },
   "main": "dist/GithubProjectIssuesSDK.js",
   "type": "commonjs",
   "types": "dist/GithubProjectIssuesSDK.d.ts",
@@ -14,7 +30,10 @@
     "clean": "rm -rf node_modules yarn.lock package-lock.json",
     "reset": "npm run clean && npm i && npm run build && npm test"
   },
-  "author": "GithubProjectIssues",
+  "author": {
+    "name": "Voxgig",
+    "url": "https://voxgig.com"
+  },
   "license": "MIT",
   "dependencies": {},
   "peerDependencies": {},
