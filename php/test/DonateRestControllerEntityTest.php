@@ -50,8 +50,7 @@ class DonateRestControllerEntityTest extends TestCase
         $donate_rest_controller_ref01_ent = $client->DonateRestController(null);
         $donate_rest_controller_ref01_match = [];
 
-        [$donate_rest_controller_ref01_list_result, $err] = $donate_rest_controller_ref01_ent->list($donate_rest_controller_ref01_match, null);
-        $this->assertNull($err);
+        $donate_rest_controller_ref01_list_result = $donate_rest_controller_ref01_ent->list($donate_rest_controller_ref01_match, null);
         $this->assertIsArray($donate_rest_controller_ref01_list_result);
 
     }
@@ -86,7 +85,6 @@ function donate_rest_controller_basic_setup($extra)
         "GITHUBPROJECTISSUES_TEST_DONATE_REST_CONTROLLER_ENTID" => $idmap,
         "GITHUBPROJECTISSUES_TEST_LIVE" => "FALSE",
         "GITHUBPROJECTISSUES_TEST_EXPLAIN" => "FALSE",
-        "GITHUBPROJECTISSUES_APIKEY" => "NONE",
     ]);
 
     $idmap_resolved = Helpers::to_map(
@@ -98,7 +96,6 @@ function donate_rest_controller_basic_setup($extra)
     if ($env["GITHUBPROJECTISSUES_TEST_LIVE"] === "TRUE") {
         $merged_opts = Vs::merge([
             [
-                "apikey" => $env["GITHUBPROJECTISSUES_APIKEY"],
             ],
             $extra ?? [],
         ]);

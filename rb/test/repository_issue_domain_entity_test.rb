@@ -46,8 +46,7 @@ class RepositoryIssueDomainEntityTest < Minitest::Test
       "username" => setup[:idmap]["username01"],
     }
 
-    repository_issue_domain_ref01_list_result, err = repository_issue_domain_ref01_ent.list(repository_issue_domain_ref01_match, nil)
-    assert_nil err
+    repository_issue_domain_ref01_list_result = repository_issue_domain_ref01_ent.list(repository_issue_domain_ref01_match, nil)
     assert repository_issue_domain_ref01_list_result.is_a?(Array)
 
   end
@@ -86,7 +85,6 @@ def repository_issue_domain_basic_setup(extra)
     "GITHUBPROJECTISSUES_TEST_REPOSITORY_ISSUE_DOMAIN_ENTID" => idmap,
     "GITHUBPROJECTISSUES_TEST_LIVE" => "FALSE",
     "GITHUBPROJECTISSUES_TEST_EXPLAIN" => "FALSE",
-    "GITHUBPROJECTISSUES_APIKEY" => "NONE",
   })
 
   idmap_resolved = Helpers.to_map(
@@ -98,7 +96,6 @@ def repository_issue_domain_basic_setup(extra)
   if env["GITHUBPROJECTISSUES_TEST_LIVE"] == "TRUE"
     merged_opts = Vs.merge([
       {
-        "apikey" => env["GITHUBPROJECTISSUES_APIKEY"],
       },
       extra || {},
     ])

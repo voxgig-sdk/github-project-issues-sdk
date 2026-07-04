@@ -81,6 +81,10 @@ end
 
 
 
+---@param reqmatch CoffeeListMatch
+---@param ctrl? table
+---@return Coffee[]
+---@return string? err
 function CoffeeEntity:list(reqmatch, ctrl)
   local utility = self._utility
   local ctx = utility.make_context({
@@ -105,6 +109,10 @@ end
 
 
 
+---@param reqdata CoffeeUpdateData
+---@param ctrl? table
+---@return Coffee
+---@return string? err
 function CoffeeEntity:update(reqdata, ctrl)
   local utility = self._utility
   local ctx = utility.make_context({

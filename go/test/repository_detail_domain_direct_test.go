@@ -195,14 +195,12 @@ func repository_detail_domainDirectSetup(mockres any) *repository_detail_domainD
 	env := envOverride(map[string]any{
 		"GITHUBPROJECTISSUES_TEST_REPOSITORY_DETAIL_DOMAIN_ENTID": map[string]any{},
 		"GITHUBPROJECTISSUES_TEST_LIVE":    "FALSE",
-		"GITHUBPROJECTISSUES_APIKEY":       "NONE",
 	})
 
 	live := env["GITHUBPROJECTISSUES_TEST_LIVE"] == "TRUE"
 
 	if live {
 		mergedOpts := map[string]any{
-			"apikey": env["GITHUBPROJECTISSUES_APIKEY"],
 		}
 		client := sdk.NewGithubProjectIssuesSDK(mergedOpts)
 

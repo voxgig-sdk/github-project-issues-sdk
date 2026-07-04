@@ -103,7 +103,7 @@ class GithubProjectIssuesSDK
         return $this->_rootctx;
     }
 
-    public function prepare(array $fetchargs = []): array
+    public function prepare(array $fetchargs = []): mixed
     {
         $utility = $this->_utility;
         $fetchargs = $fetchargs ?? [];
@@ -149,19 +149,27 @@ class GithubProjectIssuesSDK
 
         [$_, $err] = ($utility->prepare_auth)($ctx);
         if ($err) {
-            return [null, $err];
+            return ($utility->make_error)($ctx, $err);
         }
 
-        return ($utility->make_fetch_def)($ctx);
+        [$fetchdef, $fd_err] = ($utility->make_fetch_def)($ctx);
+        if ($fd_err) {
+            return ($utility->make_error)($ctx, $fd_err);
+        }
+        return $fetchdef;
     }
 
-    public function direct(array $fetchargs = []): array
+    public function direct(array $fetchargs = []): mixed
     {
         $utility = $this->_utility;
 
-        [$fetchdef, $err] = $this->prepare($fetchargs);
-        if ($err) {
-            return [["ok" => false, "err" => $err], null];
+        // direct() is the raw-HTTP escape hatch: it never throws, it returns
+        // an {ok, err, ...} dict. prepare() now raises on error, so catch it
+        // and surface the failure through the dict instead.
+        try {
+            $fetchdef = $this->prepare($fetchargs);
+        } catch (\Throwable $err) {
+            return ["ok" => false, "err" => $err];
         }
 
         $fetchargs = $fetchargs ?? [];
@@ -176,14 +184,14 @@ class GithubProjectIssuesSDK
         [$fetched, $fetch_err] = ($utility->fetcher)($ctx, $url, $fetchdef);
 
         if ($fetch_err) {
-            return [["ok" => false, "err" => $fetch_err], null];
+            return ["ok" => false, "err" => $fetch_err];
         }
 
         if ($fetched === null) {
-            return [[
+            return [
                 "ok" => false,
                 "err" => $ctx->make_error("direct_no_response", "response: undefined"),
-            ], null];
+            ];
         }
 
         if (is_array($fetched)) {
@@ -208,66 +216,143 @@ class GithubProjectIssuesSDK
                 }
             }
 
-            return [[
+            return [
                 "ok" => $status >= 200 && $status < 300,
                 "status" => $status,
                 "headers" => Struct::getprop($fetched, "headers"),
                 "data" => $json_data,
-            ], null];
+            ];
         }
 
-        return [[
+        return [
             "ok" => false,
             "err" => $ctx->make_error("direct_invalid", "invalid response type"),
-        ], null];
+        ];
     }
 
 
-    public function Coffee($data = null)
+    private $_coffee = null;
+
+    // Idiomatic facade: $client->coffee()->list() / ->load(["id" => ...]).
+    // Also serves the deprecated PascalCase alias Coffee() (PHP method
+    // names are case-insensitive).
+    public function coffee($data = null)
     {
         require_once __DIR__ . '/entity/coffee_entity.php';
+        if ($data === null) {
+            if ($this->_coffee === null) {
+                $this->_coffee = new CoffeeEntity($this, null);
+            }
+            return $this->_coffee;
+        }
         return new CoffeeEntity($this, $data);
     }
 
 
-    public function CoffeeDomain($data = null)
+    private $_coffee_domain = null;
+
+    // Idiomatic facade: $client->coffee_domain()->list() / ->load(["id" => ...]).
+    // Also serves the deprecated PascalCase alias CoffeeDomain() (PHP method
+    // names are case-insensitive).
+    public function coffee_domain($data = null)
     {
         require_once __DIR__ . '/entity/coffee_domain_entity.php';
+        if ($data === null) {
+            if ($this->_coffee_domain === null) {
+                $this->_coffee_domain = new CoffeeDomainEntity($this, null);
+            }
+            return $this->_coffee_domain;
+        }
         return new CoffeeDomainEntity($this, $data);
     }
 
 
-    public function DonateRestController($data = null)
+    private $_donate_rest_controller = null;
+
+    // Idiomatic facade: $client->donate_rest_controller()->list() / ->load(["id" => ...]).
+    // Also serves the deprecated PascalCase alias DonateRestController() (PHP method
+    // names are case-insensitive).
+    public function donate_rest_controller($data = null)
     {
         require_once __DIR__ . '/entity/donate_rest_controller_entity.php';
+        if ($data === null) {
+            if ($this->_donate_rest_controller === null) {
+                $this->_donate_rest_controller = new DonateRestControllerEntity($this, null);
+            }
+            return $this->_donate_rest_controller;
+        }
         return new DonateRestControllerEntity($this, $data);
     }
 
 
-    public function PortfolioController($data = null)
+    private $_portfolio_controller = null;
+
+    // Idiomatic facade: $client->portfolio_controller()->list() / ->load(["id" => ...]).
+    // Also serves the deprecated PascalCase alias PortfolioController() (PHP method
+    // names are case-insensitive).
+    public function portfolio_controller($data = null)
     {
         require_once __DIR__ . '/entity/portfolio_controller_entity.php';
+        if ($data === null) {
+            if ($this->_portfolio_controller === null) {
+                $this->_portfolio_controller = new PortfolioControllerEntity($this, null);
+            }
+            return $this->_portfolio_controller;
+        }
         return new PortfolioControllerEntity($this, $data);
     }
 
 
-    public function RepositoryDetailDomain($data = null)
+    private $_repository_detail_domain = null;
+
+    // Idiomatic facade: $client->repository_detail_domain()->list() / ->load(["id" => ...]).
+    // Also serves the deprecated PascalCase alias RepositoryDetailDomain() (PHP method
+    // names are case-insensitive).
+    public function repository_detail_domain($data = null)
     {
         require_once __DIR__ . '/entity/repository_detail_domain_entity.php';
+        if ($data === null) {
+            if ($this->_repository_detail_domain === null) {
+                $this->_repository_detail_domain = new RepositoryDetailDomainEntity($this, null);
+            }
+            return $this->_repository_detail_domain;
+        }
         return new RepositoryDetailDomainEntity($this, $data);
     }
 
 
-    public function RepositoryIssueDomain($data = null)
+    private $_repository_issue_domain = null;
+
+    // Idiomatic facade: $client->repository_issue_domain()->list() / ->load(["id" => ...]).
+    // Also serves the deprecated PascalCase alias RepositoryIssueDomain() (PHP method
+    // names are case-insensitive).
+    public function repository_issue_domain($data = null)
     {
         require_once __DIR__ . '/entity/repository_issue_domain_entity.php';
+        if ($data === null) {
+            if ($this->_repository_issue_domain === null) {
+                $this->_repository_issue_domain = new RepositoryIssueDomainEntity($this, null);
+            }
+            return $this->_repository_issue_domain;
+        }
         return new RepositoryIssueDomainEntity($this, $data);
     }
 
 
-    public function Version($data = null)
+    private $_version = null;
+
+    // Idiomatic facade: $client->version()->list() / ->load(["id" => ...]).
+    // Also serves the deprecated PascalCase alias Version() (PHP method
+    // names are case-insensitive).
+    public function version($data = null)
     {
         require_once __DIR__ . '/entity/version_entity.php';
+        if ($data === null) {
+            if ($this->_version === null) {
+                $this->_version = new VersionEntity($this, null);
+            }
+            return $this->_version;
+        }
         return new VersionEntity($this, $data);
     }
 

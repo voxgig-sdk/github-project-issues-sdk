@@ -38,10 +38,6 @@ class Config {
   options = {
     base: 'https://ironoc.net',
 
-    auth: {
-      prefix: 'Bearer',
-    },
-
     headers: {
       "content-type": "application/json"
     },
@@ -403,7 +399,8 @@ class Config {
                     "name": "username",
                     "orig": "username",
                     "reqd": true,
-                    "type": "`$STRING`"
+                    "type": "`$STRING`",
+                    "index$": 0
                   }
                 ]
               },
@@ -491,7 +488,8 @@ class Config {
                     "name": "repository",
                     "orig": "repository",
                     "reqd": true,
-                    "type": "`$STRING`"
+                    "type": "`$STRING`",
+                    "index$": 0
                   },
                   {
                     "active": true,
@@ -499,7 +497,8 @@ class Config {
                     "name": "username",
                     "orig": "username",
                     "reqd": true,
-                    "type": "`$STRING`"
+                    "type": "`$STRING`",
+                    "index$": 1
                   }
                 ]
               },

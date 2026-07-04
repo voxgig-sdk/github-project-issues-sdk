@@ -42,8 +42,7 @@ class VersionEntityTest < Minitest::Test
     # LOAD
     version_ref01_ent = client.Version(nil)
     version_ref01_match_dt0 = {}
-    version_ref01_data_dt0_loaded, err = version_ref01_ent.load(version_ref01_match_dt0, nil)
-    assert_nil err
+    version_ref01_data_dt0_loaded = version_ref01_ent.load(version_ref01_match_dt0, nil)
     assert !version_ref01_data_dt0_loaded.nil?
 
   end
@@ -82,7 +81,6 @@ def version_basic_setup(extra)
     "GITHUBPROJECTISSUES_TEST_VERSION_ENTID" => idmap,
     "GITHUBPROJECTISSUES_TEST_LIVE" => "FALSE",
     "GITHUBPROJECTISSUES_TEST_EXPLAIN" => "FALSE",
-    "GITHUBPROJECTISSUES_APIKEY" => "NONE",
   })
 
   idmap_resolved = Helpers.to_map(
@@ -94,7 +92,6 @@ def version_basic_setup(extra)
   if env["GITHUBPROJECTISSUES_TEST_LIVE"] == "TRUE"
     merged_opts = Vs.merge([
       {
-        "apikey" => env["GITHUBPROJECTISSUES_APIKEY"],
       },
       extra || {},
     ])

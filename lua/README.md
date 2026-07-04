@@ -9,12 +9,9 @@ The Lua SDK for the GithubProjectIssues API — an entity-oriented client using 
 
 
 ## Install
-```bash
-luarocks install voxgig-sdk-github-project-issues
-```
-
-If the module is not yet published, add the source directory to
-your `LUA_PATH`:
+This package is not yet published to LuaRocks. Install it from the
+GitHub release tag (`lua/vX.Y.Z`, see [Releases](https://github.com/voxgig-sdk/github-project-issues-sdk/releases)),
+or add the source directory to your `LUA_PATH`:
 
 ```bash
 export LUA_PATH="path/to/lua/?.lua;path/to/lua/?/init.lua;;"
@@ -31,15 +28,13 @@ loading a specific record.
 ```lua
 local sdk = require("github-project-issues_sdk")
 
-local client = sdk.new({
-  apikey = os.getenv("GITHUB-PROJECT-ISSUES_APIKEY"),
-})
+local client = sdk.new()
 ```
 
 ### 2. List coffees
 
 ```lua
-local result, err = client:Coffee():list()
+local result, err = client:coffee():list()
 if err then error(err) end
 
 if type(result) == "table" then
@@ -54,7 +49,7 @@ end
 
 ```lua
 -- Update
-client:Coffee():update({ id = created["id"], name = "Example-Renamed" })
+client:coffee():update({ id = created["id"], name = "Example-Renamed" })
 
 ```
 
@@ -101,7 +96,7 @@ Create a mock client for unit testing — no server required:
 ```lua
 local client = sdk.test()
 
-local result, err = client:GithubProjectIssues():load({ id = "test01" })
+local result, err = client:coffee():load({ id = "test01" })
 -- result contains mock response data
 ```
 
@@ -134,8 +129,7 @@ local client = sdk.new({
 Create a `.env.local` file at the project root:
 
 ```
-GITHUB-PROJECT-ISSUES_TEST_LIVE=TRUE
-GITHUB-PROJECT-ISSUES_APIKEY=<your-key>
+GITHUB_PROJECT_ISSUES_TEST_LIVE=TRUE
 ```
 
 Then run:
@@ -158,7 +152,6 @@ Creates a new SDK client.
 
 | Option | Type | Description |
 | --- | --- | --- |
-| `apikey` | `string` | API key for authentication. |
 | `base` | `string` | Base URL of the API server. |
 | `prefix` | `string` | URL path prefix prepended to all requests. |
 | `suffix` | `string` | URL path suffix appended to all requests. |
@@ -316,7 +309,7 @@ API path: `/api/application/version`
 
 ### Coffee
 
-Create an instance: `const coffee = client.Coffee()`
+Create an instance: `const coffee = client.coffee`
 
 #### Operations
 
@@ -338,13 +331,13 @@ Create an instance: `const coffee = client.Coffee()`
 #### Example: List
 
 ```ts
-const coffees = await client.Coffee().list()
+const coffees = await client.coffee.list()
 ```
 
 
 ### CoffeeDomain
 
-Create an instance: `const coffee_domain = client.CoffeeDomain()`
+Create an instance: `const coffee_domain = client.coffee_domain`
 
 #### Operations
 
@@ -365,13 +358,13 @@ Create an instance: `const coffee_domain = client.CoffeeDomain()`
 #### Example: List
 
 ```ts
-const coffee_domains = await client.CoffeeDomain().list()
+const coffee_domains = await client.coffee_domain.list()
 ```
 
 
 ### DonateRestController
 
-Create an instance: `const donate_rest_controller = client.DonateRestController()`
+Create an instance: `const donate_rest_controller = client.donate_rest_controller`
 
 #### Operations
 
@@ -382,13 +375,13 @@ Create an instance: `const donate_rest_controller = client.DonateRestController(
 #### Example: List
 
 ```ts
-const donate_rest_controllers = await client.DonateRestController().list()
+const donate_rest_controllers = await client.donate_rest_controller.list()
 ```
 
 
 ### PortfolioController
 
-Create an instance: `const portfolio_controller = client.PortfolioController()`
+Create an instance: `const portfolio_controller = client.portfolio_controller`
 
 #### Operations
 
@@ -399,13 +392,13 @@ Create an instance: `const portfolio_controller = client.PortfolioController()`
 #### Example: List
 
 ```ts
-const portfolio_controllers = await client.PortfolioController().list()
+const portfolio_controllers = await client.portfolio_controller.list()
 ```
 
 
 ### RepositoryDetailDomain
 
-Create an instance: `const repository_detail_domain = client.RepositoryDetailDomain()`
+Create an instance: `const repository_detail_domain = client.repository_detail_domain`
 
 #### Operations
 
@@ -429,19 +422,19 @@ Create an instance: `const repository_detail_domain = client.RepositoryDetailDom
 #### Example: Load
 
 ```ts
-const repository_detail_domain = await client.RepositoryDetailDomain().load({ id: 'repository_detail_domain_id' })
+const repository_detail_domain = await client.repository_detail_domain.load({ id: 'repository_detail_domain_id' })
 ```
 
 #### Example: List
 
 ```ts
-const repository_detail_domains = await client.RepositoryDetailDomain().list()
+const repository_detail_domains = await client.repository_detail_domain.list()
 ```
 
 
 ### RepositoryIssueDomain
 
-Create an instance: `const repository_issue_domain = client.RepositoryIssueDomain()`
+Create an instance: `const repository_issue_domain = client.repository_issue_domain`
 
 #### Operations
 
@@ -462,13 +455,13 @@ Create an instance: `const repository_issue_domain = client.RepositoryIssueDomai
 #### Example: List
 
 ```ts
-const repository_issue_domains = await client.RepositoryIssueDomain().list()
+const repository_issue_domains = await client.repository_issue_domain.list()
 ```
 
 
 ### Version
 
-Create an instance: `const version = client.Version()`
+Create an instance: `const version = client.version`
 
 #### Operations
 
@@ -479,7 +472,7 @@ Create an instance: `const version = client.Version()`
 #### Example: Load
 
 ```ts
-const version = await client.Version().load({ id: 'version_id' })
+const version = await client.version.load({ id: 'version_id' })
 ```
 
 
@@ -554,11 +547,11 @@ Entity instances are stateful. After a successful `load`, the entity
 stores the returned data and match criteria internally.
 
 ```lua
-local moon = client:Moon(nil)
-moon:load({ planet_id = "earth", id = "luna" }, nil)
+local coffee = client:coffee()
+coffee:load({ id = "example_id" })
 
--- moon:data_get() now returns the loaded moon data
--- moon:match_get() returns the last match criteria
+-- coffee:data_get() now returns the loaded coffee data
+-- coffee:match_get() returns the last match criteria
 ```
 
 Call `make()` to create a fresh instance with the same configuration

@@ -50,8 +50,7 @@ class TestPortfolioControllerEntity:
         portfolio_controller_ref01_ent = client.PortfolioController(None)
         portfolio_controller_ref01_match = {}
 
-        portfolio_controller_ref01_list_result, err = portfolio_controller_ref01_ent.list(portfolio_controller_ref01_match, None)
-        assert err is None
+        portfolio_controller_ref01_list_result = portfolio_controller_ref01_ent.list(portfolio_controller_ref01_match, None)
         assert isinstance(portfolio_controller_ref01_list_result, list)
 
 
@@ -92,7 +91,6 @@ def _portfolio_controller_basic_setup(extra):
         "GITHUBPROJECTISSUES_TEST_PORTFOLIO_CONTROLLER_ENTID": idmap,
         "GITHUBPROJECTISSUES_TEST_LIVE": "FALSE",
         "GITHUBPROJECTISSUES_TEST_EXPLAIN": "FALSE",
-        "GITHUBPROJECTISSUES_APIKEY": "NONE",
     })
 
     idmap_resolved = helpers.to_map(
@@ -103,7 +101,6 @@ def _portfolio_controller_basic_setup(extra):
     if env.get("GITHUBPROJECTISSUES_TEST_LIVE") == "TRUE":
         merged_opts = vs.merge([
             {
-                "apikey": env.get("GITHUBPROJECTISSUES_APIKEY"),
             },
             extra or {},
         ])

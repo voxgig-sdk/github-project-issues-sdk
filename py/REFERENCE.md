@@ -20,7 +20,6 @@ Create a new SDK client instance.
 | Name | Type | Description |
 | --- | --- | --- |
 | `options` | `dict` | SDK configuration options. |
-| `options["apikey"]` | `str` | API key for authentication. |
 | `options["base"]` | `str` | Base URL for API requests. |
 | `options["prefix"]` | `str` | URL prefix appended after base. |
 | `options["suffix"]` | `str` | URL suffix appended after path. |
@@ -78,9 +77,9 @@ Return a deep copy of the current SDK options.
 
 Return a copy of the SDK utility object.
 
-#### `direct(fetchargs=None) -> tuple`
+#### `direct(fetchargs=None) -> dict`
 
-Make a direct HTTP request to any API endpoint. Returns `(result, err)`.
+Make a direct HTTP request to any API endpoint. Returns a result `dict` with `ok`, `status`, `headers`, and `data` (or `err` on failure). This escape hatch never raises — branch on `result["ok"]`.
 
 **Parameters:**
 
@@ -93,11 +92,11 @@ Make a direct HTTP request to any API endpoint. Returns `(result, err)`.
 | `fetchargs["headers"]` | `dict` | Request headers (merged with defaults). |
 | `fetchargs["body"]` | `any` | Request body (dicts are JSON-serialized). |
 
-**Returns:** `(result_dict, err)`
+**Returns:** `result_dict`
 
-#### `prepare(fetchargs=None) -> tuple`
+#### `prepare(fetchargs=None) -> dict`
 
-Prepare a fetch definition without sending. Returns `(fetchdef, err)`.
+Prepare a fetch definition without sending. Returns the `fetchdef` and raises on error.
 
 
 ---
@@ -105,7 +104,7 @@ Prepare a fetch definition without sending. Returns `(fetchdef, err)`.
 ## CoffeeEntity
 
 ```python
-coffee = client.Coffee()
+coffee = client.coffee
 ```
 
 ### Fields
@@ -120,20 +119,20 @@ coffee = client.Coffee()
 
 ### Operations
 
-#### `list(reqmatch, ctrl=None) -> tuple`
+#### `list(reqmatch, ctrl=None) -> list`
 
-List entities matching the given criteria. Returns an array.
+List entities matching the given criteria. Returns a list and raises on error.
 
 ```python
-results, err = client.Coffee().list({})
+results = client.coffee.list({})
 ```
 
-#### `update(reqdata, ctrl=None) -> tuple`
+#### `update(reqdata, ctrl=None) -> dict`
 
-Update an existing entity. The data must include the entity `id`.
+Update an existing entity. The data must include the entity `id`. Returns the updated entity data and raises on error.
 
 ```python
-result, err = client.Coffee().update({
+result = client.coffee.update({
     "id": "coffee_id",
     # Fields to update
 })
@@ -171,7 +170,7 @@ Return the entity name.
 ## CoffeeDomainEntity
 
 ```python
-coffee_domain = client.CoffeeDomain()
+coffee_domain = client.coffee_domain
 ```
 
 ### Fields
@@ -186,12 +185,12 @@ coffee_domain = client.CoffeeDomain()
 
 ### Operations
 
-#### `list(reqmatch, ctrl=None) -> tuple`
+#### `list(reqmatch, ctrl=None) -> list`
 
-List entities matching the given criteria. Returns an array.
+List entities matching the given criteria. Returns a list and raises on error.
 
 ```python
-results, err = client.CoffeeDomain().list({})
+results = client.coffee_domain.list({})
 ```
 
 ### Common Methods
@@ -226,17 +225,17 @@ Return the entity name.
 ## DonateRestControllerEntity
 
 ```python
-donate_rest_controller = client.DonateRestController()
+donate_rest_controller = client.donate_rest_controller
 ```
 
 ### Operations
 
-#### `list(reqmatch, ctrl=None) -> tuple`
+#### `list(reqmatch, ctrl=None) -> list`
 
-List entities matching the given criteria. Returns an array.
+List entities matching the given criteria. Returns a list and raises on error.
 
 ```python
-results, err = client.DonateRestController().list({})
+results = client.donate_rest_controller.list({})
 ```
 
 ### Common Methods
@@ -271,17 +270,17 @@ Return the entity name.
 ## PortfolioControllerEntity
 
 ```python
-portfolio_controller = client.PortfolioController()
+portfolio_controller = client.portfolio_controller
 ```
 
 ### Operations
 
-#### `list(reqmatch, ctrl=None) -> tuple`
+#### `list(reqmatch, ctrl=None) -> list`
 
-List entities matching the given criteria. Returns an array.
+List entities matching the given criteria. Returns a list and raises on error.
 
 ```python
-results, err = client.PortfolioController().list({})
+results = client.portfolio_controller.list({})
 ```
 
 ### Common Methods
@@ -316,7 +315,7 @@ Return the entity name.
 ## RepositoryDetailDomainEntity
 
 ```python
-repository_detail_domain = client.RepositoryDetailDomain()
+repository_detail_domain = client.repository_detail_domain
 ```
 
 ### Fields
@@ -333,20 +332,20 @@ repository_detail_domain = client.RepositoryDetailDomain()
 
 ### Operations
 
-#### `list(reqmatch, ctrl=None) -> tuple`
+#### `list(reqmatch, ctrl=None) -> list`
 
-List entities matching the given criteria. Returns an array.
+List entities matching the given criteria. Returns a list and raises on error.
 
 ```python
-results, err = client.RepositoryDetailDomain().list({})
+results = client.repository_detail_domain.list({})
 ```
 
-#### `load(reqmatch, ctrl=None) -> tuple`
+#### `load(reqmatch, ctrl=None) -> dict`
 
-Load a single entity matching the given criteria.
+Load a single entity matching the given criteria. Returns the entity data and raises on error.
 
 ```python
-result, err = client.RepositoryDetailDomain().load({"id": "repository_detail_domain_id"})
+result = client.repository_detail_domain.load({"id": "repository_detail_domain_id"})
 ```
 
 ### Common Methods
@@ -381,7 +380,7 @@ Return the entity name.
 ## RepositoryIssueDomainEntity
 
 ```python
-repository_issue_domain = client.RepositoryIssueDomain()
+repository_issue_domain = client.repository_issue_domain
 ```
 
 ### Fields
@@ -396,12 +395,12 @@ repository_issue_domain = client.RepositoryIssueDomain()
 
 ### Operations
 
-#### `list(reqmatch, ctrl=None) -> tuple`
+#### `list(reqmatch, ctrl=None) -> list`
 
-List entities matching the given criteria. Returns an array.
+List entities matching the given criteria. Returns a list and raises on error.
 
 ```python
-results, err = client.RepositoryIssueDomain().list({})
+results = client.repository_issue_domain.list({})
 ```
 
 ### Common Methods
@@ -436,17 +435,17 @@ Return the entity name.
 ## VersionEntity
 
 ```python
-version = client.Version()
+version = client.version
 ```
 
 ### Operations
 
-#### `load(reqmatch, ctrl=None) -> tuple`
+#### `load(reqmatch, ctrl=None) -> dict`
 
-Load a single entity matching the given criteria.
+Load a single entity matching the given criteria. Returns the entity data and raises on error.
 
 ```python
-result, err = client.Version().load({"id": "version_id"})
+result = client.version.load({"id": "version_id"})
 ```
 
 ### Common Methods

@@ -19,7 +19,7 @@ class CoffeeDomainDirectTest < Minitest::Test
     client = setup[:client]
 
 
-    result, err = client.direct({
+    result = client.direct({
       "path" => "api/coffees-graph-ql",
       "method" => "GET",
       "params" => {},
@@ -28,8 +28,8 @@ class CoffeeDomainDirectTest < Minitest::Test
       # Live mode is lenient: synthetic IDs frequently 4xx and the list-
       # response shape varies wildly across public APIs. Skip rather than
       # fail when the call doesn't return a usable list.
-      if !err.nil?
-        skip("list call failed (likely synthetic IDs against live API): #{err}")
+      if !result["err"].nil?
+        skip("list call failed (likely synthetic IDs against live API): #{result["err"]}")
         return
       end
       unless result["ok"]
@@ -42,7 +42,7 @@ class CoffeeDomainDirectTest < Minitest::Test
         return
       end
     else
-      assert_nil err
+      assert_nil result["err"]
       assert result["ok"]
       assert_equal 200, Helpers.to_int(result["status"])
       assert result["data"].is_a?(Array)
@@ -62,14 +62,12 @@ def coffee_domain_direct_setup(mockres)
   env = Runner.env_override({
     "GITHUBPROJECTISSUES_TEST_COFFEE_DOMAIN_ENTID" => {},
     "GITHUBPROJECTISSUES_TEST_LIVE" => "FALSE",
-    "GITHUBPROJECTISSUES_APIKEY" => "NONE",
   })
 
   live = env["GITHUBPROJECTISSUES_TEST_LIVE"] == "TRUE"
 
   if live
     merged_opts = {
-      "apikey" => env["GITHUBPROJECTISSUES_APIKEY"],
     }
     client = GithubProjectIssuesSDK.new(merged_opts)
     return {

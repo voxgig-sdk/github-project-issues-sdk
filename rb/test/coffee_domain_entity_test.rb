@@ -43,8 +43,7 @@ class CoffeeDomainEntityTest < Minitest::Test
     coffee_domain_ref01_ent = client.CoffeeDomain(nil)
     coffee_domain_ref01_match = {}
 
-    coffee_domain_ref01_list_result, err = coffee_domain_ref01_ent.list(coffee_domain_ref01_match, nil)
-    assert_nil err
+    coffee_domain_ref01_list_result = coffee_domain_ref01_ent.list(coffee_domain_ref01_match, nil)
     assert coffee_domain_ref01_list_result.is_a?(Array)
 
   end
@@ -83,7 +82,6 @@ def coffee_domain_basic_setup(extra)
     "GITHUBPROJECTISSUES_TEST_COFFEE_DOMAIN_ENTID" => idmap,
     "GITHUBPROJECTISSUES_TEST_LIVE" => "FALSE",
     "GITHUBPROJECTISSUES_TEST_EXPLAIN" => "FALSE",
-    "GITHUBPROJECTISSUES_APIKEY" => "NONE",
   })
 
   idmap_resolved = Helpers.to_map(
@@ -95,7 +93,6 @@ def coffee_domain_basic_setup(extra)
   if env["GITHUBPROJECTISSUES_TEST_LIVE"] == "TRUE"
     merged_opts = Vs.merge([
       {
-        "apikey" => env["GITHUBPROJECTISSUES_APIKEY"],
       },
       extra || {},
     ])

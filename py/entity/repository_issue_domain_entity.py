@@ -1,7 +1,13 @@
 # GithubProjectIssues SDK RepositoryIssueDomain entity
 
+from __future__ import annotations
+
 from utility.voxgig_struct import voxgig_struct as vs
 from core import helpers
+from githubprojectissues_types import (
+    RepositoryIssueDomain,
+    RepositoryIssueDomainListMatch,
+)
 
 
 class RepositoryIssueDomainEntity:
@@ -44,7 +50,7 @@ class RepositoryIssueDomainEntity:
             self._data = helpers.to_map(vs.clone(args)) or {}
             self._utility.feature_hook(self._entctx, "SetData")
 
-    def data_get(self):
+    def data_get(self) -> RepositoryIssueDomain:
         self._utility.feature_hook(self._entctx, "GetData")
         return vs.clone(self._data)
 
@@ -53,14 +59,14 @@ class RepositoryIssueDomainEntity:
             self._match = helpers.to_map(vs.clone(args)) or {}
             self._utility.feature_hook(self._entctx, "SetMatch")
 
-    def match_get(self):
+    def match_get(self) -> RepositoryIssueDomain:
         self._utility.feature_hook(self._entctx, "GetMatch")
         return vs.clone(self._match)
 
     
 
     
-    def list(self, reqmatch, ctrl=None):
+    def list(self, reqmatch: RepositoryIssueDomainListMatch, ctrl=None) -> list[RepositoryIssueDomain]:
         utility = self._utility
         ctx = utility.make_context({
             "opname": "list",

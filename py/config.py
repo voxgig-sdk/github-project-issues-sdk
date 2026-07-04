@@ -15,9 +15,6 @@ def make_config():
         },
         "options": {
             "base": "https://ironoc.net",
-            "auth": {
-                "prefix": "Bearer",
-            },
             "headers": {
         "content-type": "application/json",
       },
@@ -362,6 +359,7 @@ def make_config():
                       "orig": "username",
                       "reqd": True,
                       "type": "`$STRING`",
+                      "index$": 0,
                     },
                   ],
                 },
@@ -450,6 +448,7 @@ def make_config():
                       "orig": "repository",
                       "reqd": True,
                       "type": "`$STRING`",
+                      "index$": 0,
                     },
                     {
                       "active": True,
@@ -458,6 +457,7 @@ def make_config():
                       "orig": "username",
                       "reqd": True,
                       "type": "`$STRING`",
+                      "index$": 1,
                     },
                   ],
                 },

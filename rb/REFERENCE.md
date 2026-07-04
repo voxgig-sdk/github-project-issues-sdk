@@ -20,7 +20,6 @@ Create a new SDK client instance.
 | Name | Type | Description |
 | --- | --- | --- |
 | `options` | `Hash` | SDK configuration options. |
-| `options["apikey"]` | `String` | API key for authentication. |
 | `options["base"]` | `String` | Base URL for API requests. |
 | `options["prefix"]` | `String` | URL prefix appended after base. |
 | `options["suffix"]` | `String` | URL suffix appended after path. |
@@ -78,9 +77,11 @@ Return a deep copy of the current SDK options.
 
 Return a copy of the SDK utility object.
 
-#### `direct(fetchargs = {}) -> Hash, err`
+#### `direct(fetchargs = {}) -> Hash`
 
-Make a direct HTTP request to any API endpoint.
+Make a direct HTTP request to any API endpoint. Returns a result hash
+(`{ "ok" => ..., "status" => ..., "data" => ..., "err" => ... }`); it
+does not raise — inspect `result["ok"]`.
 
 **Parameters:**
 
@@ -94,14 +95,14 @@ Make a direct HTTP request to any API endpoint.
 | `fetchargs["body"]` | `any` | Request body (hashes are JSON-serialized). |
 | `fetchargs["ctrl"]` | `Hash` | Control options (e.g. `{ "explain" => true }`). |
 
-**Returns:** `Hash, err`
+**Returns:** `Hash`
 
-#### `prepare(fetchargs = {}) -> Hash, err`
+#### `prepare(fetchargs = {}) -> Hash`
 
 Prepare a fetch definition without sending the request. Accepts the
-same parameters as `direct()`.
+same parameters as `direct()`. Raises on error.
 
-**Returns:** `Hash, err`
+**Returns:** `Hash` (the fetch definition; raises on error)
 
 
 ---
@@ -109,7 +110,7 @@ same parameters as `direct()`.
 ## CoffeeEntity
 
 ```ruby
-coffee = client.Coffee
+coffee = client.coffee
 ```
 
 ### Fields
@@ -124,20 +125,20 @@ coffee = client.Coffee
 
 ### Operations
 
-#### `list(reqmatch, ctrl = nil) -> result, err`
+#### `list(reqmatch, ctrl = nil) -> Array`
 
-List entities matching the given criteria. Returns an array.
+List entities matching the given criteria. Returns an array. Raises on error.
 
 ```ruby
-results, err = client.Coffee.list(nil)
+results = client.coffee.list(nil)
 ```
 
-#### `update(reqdata, ctrl = nil) -> result, err`
+#### `update(reqdata, ctrl = nil) -> result`
 
-Update an existing entity. The data must include the entity `id`.
+Update an existing entity. The data must include the entity `id`. Raises on error.
 
 ```ruby
-result, err = client.Coffee.update({
+result = client.coffee.update({
   "id" => "coffee_id",
   # Fields to update
 })
@@ -176,7 +177,7 @@ Return the entity name.
 ## CoffeeDomainEntity
 
 ```ruby
-coffee_domain = client.CoffeeDomain
+coffee_domain = client.coffee_domain
 ```
 
 ### Fields
@@ -191,12 +192,12 @@ coffee_domain = client.CoffeeDomain
 
 ### Operations
 
-#### `list(reqmatch, ctrl = nil) -> result, err`
+#### `list(reqmatch, ctrl = nil) -> Array`
 
-List entities matching the given criteria. Returns an array.
+List entities matching the given criteria. Returns an array. Raises on error.
 
 ```ruby
-results, err = client.CoffeeDomain.list(nil)
+results = client.coffee_domain.list(nil)
 ```
 
 ### Common Methods
@@ -232,17 +233,17 @@ Return the entity name.
 ## DonateRestControllerEntity
 
 ```ruby
-donate_rest_controller = client.DonateRestController
+donate_rest_controller = client.donate_rest_controller
 ```
 
 ### Operations
 
-#### `list(reqmatch, ctrl = nil) -> result, err`
+#### `list(reqmatch, ctrl = nil) -> Array`
 
-List entities matching the given criteria. Returns an array.
+List entities matching the given criteria. Returns an array. Raises on error.
 
 ```ruby
-results, err = client.DonateRestController.list(nil)
+results = client.donate_rest_controller.list(nil)
 ```
 
 ### Common Methods
@@ -278,17 +279,17 @@ Return the entity name.
 ## PortfolioControllerEntity
 
 ```ruby
-portfolio_controller = client.PortfolioController
+portfolio_controller = client.portfolio_controller
 ```
 
 ### Operations
 
-#### `list(reqmatch, ctrl = nil) -> result, err`
+#### `list(reqmatch, ctrl = nil) -> Array`
 
-List entities matching the given criteria. Returns an array.
+List entities matching the given criteria. Returns an array. Raises on error.
 
 ```ruby
-results, err = client.PortfolioController.list(nil)
+results = client.portfolio_controller.list(nil)
 ```
 
 ### Common Methods
@@ -324,7 +325,7 @@ Return the entity name.
 ## RepositoryDetailDomainEntity
 
 ```ruby
-repository_detail_domain = client.RepositoryDetailDomain
+repository_detail_domain = client.repository_detail_domain
 ```
 
 ### Fields
@@ -341,20 +342,20 @@ repository_detail_domain = client.RepositoryDetailDomain
 
 ### Operations
 
-#### `list(reqmatch, ctrl = nil) -> result, err`
+#### `list(reqmatch, ctrl = nil) -> Array`
 
-List entities matching the given criteria. Returns an array.
+List entities matching the given criteria. Returns an array. Raises on error.
 
 ```ruby
-results, err = client.RepositoryDetailDomain.list(nil)
+results = client.repository_detail_domain.list(nil)
 ```
 
-#### `load(reqmatch, ctrl = nil) -> result, err`
+#### `load(reqmatch, ctrl = nil) -> result`
 
-Load a single entity matching the given criteria.
+Load a single entity matching the given criteria. Raises on error.
 
 ```ruby
-result, err = client.RepositoryDetailDomain.load({ "id" => "repository_detail_domain_id" })
+result = client.repository_detail_domain.load({ "id" => "repository_detail_domain_id" })
 ```
 
 ### Common Methods
@@ -390,7 +391,7 @@ Return the entity name.
 ## RepositoryIssueDomainEntity
 
 ```ruby
-repository_issue_domain = client.RepositoryIssueDomain
+repository_issue_domain = client.repository_issue_domain
 ```
 
 ### Fields
@@ -405,12 +406,12 @@ repository_issue_domain = client.RepositoryIssueDomain
 
 ### Operations
 
-#### `list(reqmatch, ctrl = nil) -> result, err`
+#### `list(reqmatch, ctrl = nil) -> Array`
 
-List entities matching the given criteria. Returns an array.
+List entities matching the given criteria. Returns an array. Raises on error.
 
 ```ruby
-results, err = client.RepositoryIssueDomain.list(nil)
+results = client.repository_issue_domain.list(nil)
 ```
 
 ### Common Methods
@@ -446,17 +447,17 @@ Return the entity name.
 ## VersionEntity
 
 ```ruby
-version = client.Version
+version = client.version
 ```
 
 ### Operations
 
-#### `load(reqmatch, ctrl = nil) -> result, err`
+#### `load(reqmatch, ctrl = nil) -> result`
 
-Load a single entity matching the given criteria.
+Load a single entity matching the given criteria. Raises on error.
 
 ```ruby
-result, err = client.Version.load({ "id" => "version_id" })
+result = client.version.load({ "id" => "version_id" })
 ```
 
 ### Common Methods

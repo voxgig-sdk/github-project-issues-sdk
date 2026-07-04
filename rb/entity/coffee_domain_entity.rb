@@ -45,6 +45,7 @@ class CoffeeDomainEntity
     end
   end
 
+  # @return [CoffeeDomain, Hash] the current CoffeeDomain data
   def data_get
     @_utility.feature_hook.call(@_entctx, "GetData")
     VoxgigStruct.clone(@_data)
@@ -57,6 +58,7 @@ class CoffeeDomainEntity
     end
   end
 
+  # @return [Hash] the current match filter (any subset of CoffeeDomain fields)
   def match_get
     @_utility.feature_hook.call(@_entctx, "GetMatch")
     VoxgigStruct.clone(@_match)
@@ -65,6 +67,11 @@ class CoffeeDomainEntity
   
 
   
+  # List CoffeeDomain items matching the given filter.
+  #
+  # @param reqmatch [CoffeeDomainListMatch, Hash, nil] match filter (any subset of CoffeeDomain fields)
+  # @param ctrl [Object, nil] optional per-call control
+  # @return [Array<CoffeeDomain>, Array] the matching CoffeeDomain items; raises GithubProjectIssuesError on failure
   def list(reqmatch, ctrl = nil)
     utility = @_utility
     ctx = utility.make_context.call({

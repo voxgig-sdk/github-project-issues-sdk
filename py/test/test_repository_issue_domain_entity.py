@@ -53,8 +53,7 @@ class TestRepositoryIssueDomainEntity:
             "username": setup["idmap"]["username01"],
         }
 
-        repository_issue_domain_ref01_list_result, err = repository_issue_domain_ref01_ent.list(repository_issue_domain_ref01_match, None)
-        assert err is None
+        repository_issue_domain_ref01_list_result = repository_issue_domain_ref01_ent.list(repository_issue_domain_ref01_match, None)
         assert isinstance(repository_issue_domain_ref01_list_result, list)
 
 
@@ -95,7 +94,6 @@ def _repository_issue_domain_basic_setup(extra):
         "GITHUBPROJECTISSUES_TEST_REPOSITORY_ISSUE_DOMAIN_ENTID": idmap,
         "GITHUBPROJECTISSUES_TEST_LIVE": "FALSE",
         "GITHUBPROJECTISSUES_TEST_EXPLAIN": "FALSE",
-        "GITHUBPROJECTISSUES_APIKEY": "NONE",
     })
 
     idmap_resolved = helpers.to_map(
@@ -106,7 +104,6 @@ def _repository_issue_domain_basic_setup(extra):
     if env.get("GITHUBPROJECTISSUES_TEST_LIVE") == "TRUE":
         merged_opts = vs.merge([
             {
-                "apikey": env.get("GITHUBPROJECTISSUES_APIKEY"),
             },
             extra or {},
         ])

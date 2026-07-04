@@ -8,6 +8,8 @@ import { RepositoryDetailDomainEntity } from './entity/RepositoryDetailDomainEnt
 import { RepositoryIssueDomainEntity } from './entity/RepositoryIssueDomainEntity'
 import { VersionEntity } from './entity/VersionEntity'
 
+export type * from './GithubProjectIssuesTypes'
+
 
 import { inspect } from 'node:util'
 
@@ -208,42 +210,98 @@ class GithubProjectIssuesSDK {
 
 
 
+  _coffee?: CoffeeEntity
+
+  // Idiomatic facade: `client.coffee.list()` / `client.coffee.load({ id })`.
+  get coffee(): CoffeeEntity {
+    return (this._coffee ??= new CoffeeEntity(this, undefined))
+  }
+
+  /** @deprecated Use `client.coffee` instead. */
   Coffee(data?: any) {
     const self = this
     return new CoffeeEntity(self,data)
   }
 
 
+  _coffee_domain?: CoffeeDomainEntity
+
+  // Idiomatic facade: `client.coffee_domain.list()` / `client.coffee_domain.load({ id })`.
+  get coffee_domain(): CoffeeDomainEntity {
+    return (this._coffee_domain ??= new CoffeeDomainEntity(this, undefined))
+  }
+
+  /** @deprecated Use `client.coffee_domain` instead. */
   CoffeeDomain(data?: any) {
     const self = this
     return new CoffeeDomainEntity(self,data)
   }
 
 
+  _donate_rest_controller?: DonateRestControllerEntity
+
+  // Idiomatic facade: `client.donate_rest_controller.list()` / `client.donate_rest_controller.load({ id })`.
+  get donate_rest_controller(): DonateRestControllerEntity {
+    return (this._donate_rest_controller ??= new DonateRestControllerEntity(this, undefined))
+  }
+
+  /** @deprecated Use `client.donate_rest_controller` instead. */
   DonateRestController(data?: any) {
     const self = this
     return new DonateRestControllerEntity(self,data)
   }
 
 
+  _portfolio_controller?: PortfolioControllerEntity
+
+  // Idiomatic facade: `client.portfolio_controller.list()` / `client.portfolio_controller.load({ id })`.
+  get portfolio_controller(): PortfolioControllerEntity {
+    return (this._portfolio_controller ??= new PortfolioControllerEntity(this, undefined))
+  }
+
+  /** @deprecated Use `client.portfolio_controller` instead. */
   PortfolioController(data?: any) {
     const self = this
     return new PortfolioControllerEntity(self,data)
   }
 
 
+  _repository_detail_domain?: RepositoryDetailDomainEntity
+
+  // Idiomatic facade: `client.repository_detail_domain.list()` / `client.repository_detail_domain.load({ id })`.
+  get repository_detail_domain(): RepositoryDetailDomainEntity {
+    return (this._repository_detail_domain ??= new RepositoryDetailDomainEntity(this, undefined))
+  }
+
+  /** @deprecated Use `client.repository_detail_domain` instead. */
   RepositoryDetailDomain(data?: any) {
     const self = this
     return new RepositoryDetailDomainEntity(self,data)
   }
 
 
+  _repository_issue_domain?: RepositoryIssueDomainEntity
+
+  // Idiomatic facade: `client.repository_issue_domain.list()` / `client.repository_issue_domain.load({ id })`.
+  get repository_issue_domain(): RepositoryIssueDomainEntity {
+    return (this._repository_issue_domain ??= new RepositoryIssueDomainEntity(this, undefined))
+  }
+
+  /** @deprecated Use `client.repository_issue_domain` instead. */
   RepositoryIssueDomain(data?: any) {
     const self = this
     return new RepositoryIssueDomainEntity(self,data)
   }
 
 
+  _version?: VersionEntity
+
+  // Idiomatic facade: `client.version.list()` / `client.version.load({ id })`.
+  get version(): VersionEntity {
+    return (this._version ??= new VersionEntity(this, undefined))
+  }
+
+  /** @deprecated Use `client.version` instead. */
   Version(data?: any) {
     const self = this
     return new VersionEntity(self,data)

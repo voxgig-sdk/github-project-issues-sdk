@@ -14,9 +14,13 @@ import type {
   Control,
 } from '../types'
 
+import type {
+  PortfolioController,
+  PortfolioControllerListMatch,
+} from '../GithubProjectIssuesTypes'
 
 // TODO: needs Entity superclass
-class PortfolioControllerEntity extends GithubProjectIssuesEntityBase {
+class PortfolioControllerEntity extends GithubProjectIssuesEntityBase<PortfolioController> {
 
   constructor(client: GithubProjectIssuesSDK, entopts: any) {
     super(client, entopts)
@@ -33,7 +37,7 @@ class PortfolioControllerEntity extends GithubProjectIssuesEntityBase {
 
 
 
-  async list(this: any, reqmatch?: any, ctrl?: Control) {
+  async list(this: any, reqmatch?: PortfolioControllerListMatch, ctrl?: Control): Promise<PortfolioController[]> {
 
     const utility = this._utility
 
@@ -133,7 +137,9 @@ class PortfolioControllerEntity extends GithubProjectIssuesEntityBase {
         throw err
       }
       else {
-        return undefined
+        // Off-happy-path (throw disabled): typed as any so the method's
+        // Promise<PortfolioController[]> return stays clean under strict null checks.
+        return undefined as any
       }
     }
   }

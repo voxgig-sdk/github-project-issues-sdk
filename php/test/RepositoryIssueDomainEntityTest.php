@@ -53,8 +53,7 @@ class RepositoryIssueDomainEntityTest extends TestCase
             "username" => $setup["idmap"]["username01"],
         ];
 
-        [$repository_issue_domain_ref01_list_result, $err] = $repository_issue_domain_ref01_ent->list($repository_issue_domain_ref01_match, null);
-        $this->assertNull($err);
+        $repository_issue_domain_ref01_list_result = $repository_issue_domain_ref01_ent->list($repository_issue_domain_ref01_match, null);
         $this->assertIsArray($repository_issue_domain_ref01_list_result);
 
     }
@@ -89,7 +88,6 @@ function repository_issue_domain_basic_setup($extra)
         "GITHUBPROJECTISSUES_TEST_REPOSITORY_ISSUE_DOMAIN_ENTID" => $idmap,
         "GITHUBPROJECTISSUES_TEST_LIVE" => "FALSE",
         "GITHUBPROJECTISSUES_TEST_EXPLAIN" => "FALSE",
-        "GITHUBPROJECTISSUES_APIKEY" => "NONE",
     ]);
 
     $idmap_resolved = Helpers::to_map(
@@ -101,7 +99,6 @@ function repository_issue_domain_basic_setup($extra)
     if ($env["GITHUBPROJECTISSUES_TEST_LIVE"] === "TRUE") {
         $merged_opts = Vs::merge([
             [
-                "apikey" => $env["GITHUBPROJECTISSUES_APIKEY"],
             ],
             $extra ?? [],
         ]);

@@ -81,6 +81,10 @@ end
 
 
 
+---@param reqmatch PortfolioControllerListMatch
+---@param ctrl? table
+---@return PortfolioController[]
+---@return string? err
 function PortfolioControllerEntity:list(reqmatch, ctrl)
   local utility = self._utility
   local ctx = utility.make_context({

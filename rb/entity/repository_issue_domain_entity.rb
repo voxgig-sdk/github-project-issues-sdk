@@ -45,6 +45,7 @@ class RepositoryIssueDomainEntity
     end
   end
 
+  # @return [RepositoryIssueDomain, Hash] the current RepositoryIssueDomain data
   def data_get
     @_utility.feature_hook.call(@_entctx, "GetData")
     VoxgigStruct.clone(@_data)
@@ -57,6 +58,7 @@ class RepositoryIssueDomainEntity
     end
   end
 
+  # @return [Hash] the current match filter (any subset of RepositoryIssueDomain fields)
   def match_get
     @_utility.feature_hook.call(@_entctx, "GetMatch")
     VoxgigStruct.clone(@_match)
@@ -65,6 +67,11 @@ class RepositoryIssueDomainEntity
   
 
   
+  # List RepositoryIssueDomain items matching the given filter.
+  #
+  # @param reqmatch [RepositoryIssueDomainListMatch, Hash, nil] match filter (any subset of RepositoryIssueDomain fields)
+  # @param ctrl [Object, nil] optional per-call control
+  # @return [Array<RepositoryIssueDomain>, Array] the matching RepositoryIssueDomain items; raises GithubProjectIssuesError on failure
   def list(reqmatch, ctrl = nil)
     utility = @_utility
     ctx = utility.make_context.call({

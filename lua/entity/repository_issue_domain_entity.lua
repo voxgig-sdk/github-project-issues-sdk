@@ -81,6 +81,10 @@ end
 
 
 
+---@param reqmatch RepositoryIssueDomainListMatch
+---@param ctrl? table
+---@return RepositoryIssueDomain[]
+---@return string? err
 function RepositoryIssueDomainEntity:list(reqmatch, ctrl)
   local utility = self._utility
   local ctx = utility.make_context({

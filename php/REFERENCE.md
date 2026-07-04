@@ -20,7 +20,6 @@ Create a new SDK client instance.
 | Name | Type | Description |
 | --- | --- | --- |
 | `$options` | `array` | SDK configuration options. |
-| `$options["apikey"]` | `string` | API key for authentication. |
 | `$options["base"]` | `string` | Base URL for API requests. |
 | `$options["prefix"]` | `string` | URL prefix appended after base. |
 | `$options["suffix"]` | `string` | URL suffix appended after path. |
@@ -80,7 +79,10 @@ Return a copy of the SDK utility object.
 
 #### `direct(array $fetchargs = []): array`
 
-Make a direct HTTP request to any API endpoint. Returns `[$result, $err]`.
+Make a direct HTTP request to any API endpoint. This is the raw-HTTP escape
+hatch: it does **not** throw. It returns a result array
+`["ok" => bool, "status" => int, "headers" => array, "data" => mixed]`, or
+`["ok" => false, "err" => \Exception]` on failure. Branch on `$result["ok"]`.
 
 **Parameters:**
 
@@ -94,11 +96,12 @@ Make a direct HTTP request to any API endpoint. Returns `[$result, $err]`.
 | `$fetchargs["body"]` | `mixed` | Request body (arrays are JSON-serialized). |
 | `$fetchargs["ctrl"]` | `array` | Control options. |
 
-**Returns:** `array [$result, $err]`
+**Returns:** `array` — the result dict (see above); never throws.
 
-#### `prepare(array $fetchargs = []): array`
+#### `prepare(array $fetchargs = []): mixed`
 
-Prepare a fetch definition without sending the request. Returns `[$fetchdef, $err]`.
+Prepare a fetch definition without sending the request. Returns the
+`$fetchdef` array. Throws on error.
 
 
 ---
@@ -106,7 +109,7 @@ Prepare a fetch definition without sending the request. Returns `[$fetchdef, $er
 ## CoffeeEntity
 
 ```php
-$coffee = $client->Coffee();
+$coffee = $client->coffee();
 ```
 
 ### Fields
@@ -121,20 +124,20 @@ $coffee = $client->Coffee();
 
 ### Operations
 
-#### `list(array $reqmatch, ?array $ctrl = null): array`
+#### `list(array $reqmatch, ?array $ctrl = null): mixed`
 
-List entities matching the given criteria. Returns an array.
+List entities matching the given criteria. Returns an array. Throws on error.
 
 ```php
-[$results, $err] = $client->Coffee()->list([]);
+$results = $client->coffee()->list([]);
 ```
 
-#### `update(array $reqdata, ?array $ctrl = null): array`
+#### `update(array $reqdata, ?array $ctrl = null): mixed`
 
-Update an existing entity. The data must include the entity `id`.
+Update an existing entity. The data must include the entity `id`. Throws on error.
 
 ```php
-[$result, $err] = $client->Coffee()->update([
+$result = $client->coffee()->update([
   "id" => "coffee_id",
   // Fields to update
 ]);
@@ -173,7 +176,7 @@ Return the entity name.
 ## CoffeeDomainEntity
 
 ```php
-$coffee_domain = $client->CoffeeDomain();
+$coffee_domain = $client->coffee_domain();
 ```
 
 ### Fields
@@ -188,12 +191,12 @@ $coffee_domain = $client->CoffeeDomain();
 
 ### Operations
 
-#### `list(array $reqmatch, ?array $ctrl = null): array`
+#### `list(array $reqmatch, ?array $ctrl = null): mixed`
 
-List entities matching the given criteria. Returns an array.
+List entities matching the given criteria. Returns an array. Throws on error.
 
 ```php
-[$results, $err] = $client->CoffeeDomain()->list([]);
+$results = $client->coffee_domain()->list([]);
 ```
 
 ### Common Methods
@@ -229,17 +232,17 @@ Return the entity name.
 ## DonateRestControllerEntity
 
 ```php
-$donate_rest_controller = $client->DonateRestController();
+$donate_rest_controller = $client->donate_rest_controller();
 ```
 
 ### Operations
 
-#### `list(array $reqmatch, ?array $ctrl = null): array`
+#### `list(array $reqmatch, ?array $ctrl = null): mixed`
 
-List entities matching the given criteria. Returns an array.
+List entities matching the given criteria. Returns an array. Throws on error.
 
 ```php
-[$results, $err] = $client->DonateRestController()->list([]);
+$results = $client->donate_rest_controller()->list([]);
 ```
 
 ### Common Methods
@@ -275,17 +278,17 @@ Return the entity name.
 ## PortfolioControllerEntity
 
 ```php
-$portfolio_controller = $client->PortfolioController();
+$portfolio_controller = $client->portfolio_controller();
 ```
 
 ### Operations
 
-#### `list(array $reqmatch, ?array $ctrl = null): array`
+#### `list(array $reqmatch, ?array $ctrl = null): mixed`
 
-List entities matching the given criteria. Returns an array.
+List entities matching the given criteria. Returns an array. Throws on error.
 
 ```php
-[$results, $err] = $client->PortfolioController()->list([]);
+$results = $client->portfolio_controller()->list([]);
 ```
 
 ### Common Methods
@@ -321,7 +324,7 @@ Return the entity name.
 ## RepositoryDetailDomainEntity
 
 ```php
-$repository_detail_domain = $client->RepositoryDetailDomain();
+$repository_detail_domain = $client->repository_detail_domain();
 ```
 
 ### Fields
@@ -338,20 +341,20 @@ $repository_detail_domain = $client->RepositoryDetailDomain();
 
 ### Operations
 
-#### `list(array $reqmatch, ?array $ctrl = null): array`
+#### `list(array $reqmatch, ?array $ctrl = null): mixed`
 
-List entities matching the given criteria. Returns an array.
+List entities matching the given criteria. Returns an array. Throws on error.
 
 ```php
-[$results, $err] = $client->RepositoryDetailDomain()->list([]);
+$results = $client->repository_detail_domain()->list([]);
 ```
 
-#### `load(array $reqmatch, ?array $ctrl = null): array`
+#### `load(array $reqmatch, ?array $ctrl = null): mixed`
 
-Load a single entity matching the given criteria.
+Load a single entity matching the given criteria. Throws on error.
 
 ```php
-[$result, $err] = $client->RepositoryDetailDomain()->load(["id" => "repository_detail_domain_id"]);
+$result = $client->repository_detail_domain()->load(["id" => "repository_detail_domain_id"]);
 ```
 
 ### Common Methods
@@ -387,7 +390,7 @@ Return the entity name.
 ## RepositoryIssueDomainEntity
 
 ```php
-$repository_issue_domain = $client->RepositoryIssueDomain();
+$repository_issue_domain = $client->repository_issue_domain();
 ```
 
 ### Fields
@@ -402,12 +405,12 @@ $repository_issue_domain = $client->RepositoryIssueDomain();
 
 ### Operations
 
-#### `list(array $reqmatch, ?array $ctrl = null): array`
+#### `list(array $reqmatch, ?array $ctrl = null): mixed`
 
-List entities matching the given criteria. Returns an array.
+List entities matching the given criteria. Returns an array. Throws on error.
 
 ```php
-[$results, $err] = $client->RepositoryIssueDomain()->list([]);
+$results = $client->repository_issue_domain()->list([]);
 ```
 
 ### Common Methods
@@ -443,17 +446,17 @@ Return the entity name.
 ## VersionEntity
 
 ```php
-$version = $client->Version();
+$version = $client->version();
 ```
 
 ### Operations
 
-#### `load(array $reqmatch, ?array $ctrl = null): array`
+#### `load(array $reqmatch, ?array $ctrl = null): mixed`
 
-Load a single entity matching the given criteria.
+Load a single entity matching the given criteria. Throws on error.
 
 ```php
-[$result, $err] = $client->Version()->load(["id" => "version_id"]);
+$result = $client->version()->load(["id" => "version_id"]);
 ```
 
 ### Common Methods

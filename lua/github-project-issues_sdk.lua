@@ -244,42 +244,133 @@ end
 
 
 
+-- Idiomatic facade: client:coffee():list() / client:coffee():load({ id = ... })
+function GithubProjectIssuesSDK:coffee(data)
+  local EntityMod = require("entity.coffee_entity")
+  if data == nil then
+    if self._coffee == nil then
+      self._coffee = EntityMod.new(self, nil)
+    end
+    return self._coffee
+  end
+  return EntityMod.new(self, data)
+end
+
+-- Deprecated: use client:coffee() instead.
 function GithubProjectIssuesSDK:Coffee(data)
   local EntityMod = require("entity.coffee_entity")
   return EntityMod.new(self, data)
 end
 
 
+-- Idiomatic facade: client:coffee_domain():list() / client:coffee_domain():load({ id = ... })
+function GithubProjectIssuesSDK:coffee_domain(data)
+  local EntityMod = require("entity.coffee_domain_entity")
+  if data == nil then
+    if self._coffee_domain == nil then
+      self._coffee_domain = EntityMod.new(self, nil)
+    end
+    return self._coffee_domain
+  end
+  return EntityMod.new(self, data)
+end
+
+-- Deprecated: use client:coffee_domain() instead.
 function GithubProjectIssuesSDK:CoffeeDomain(data)
   local EntityMod = require("entity.coffee_domain_entity")
   return EntityMod.new(self, data)
 end
 
 
+-- Idiomatic facade: client:donate_rest_controller():list() / client:donate_rest_controller():load({ id = ... })
+function GithubProjectIssuesSDK:donate_rest_controller(data)
+  local EntityMod = require("entity.donate_rest_controller_entity")
+  if data == nil then
+    if self._donate_rest_controller == nil then
+      self._donate_rest_controller = EntityMod.new(self, nil)
+    end
+    return self._donate_rest_controller
+  end
+  return EntityMod.new(self, data)
+end
+
+-- Deprecated: use client:donate_rest_controller() instead.
 function GithubProjectIssuesSDK:DonateRestController(data)
   local EntityMod = require("entity.donate_rest_controller_entity")
   return EntityMod.new(self, data)
 end
 
 
+-- Idiomatic facade: client:portfolio_controller():list() / client:portfolio_controller():load({ id = ... })
+function GithubProjectIssuesSDK:portfolio_controller(data)
+  local EntityMod = require("entity.portfolio_controller_entity")
+  if data == nil then
+    if self._portfolio_controller == nil then
+      self._portfolio_controller = EntityMod.new(self, nil)
+    end
+    return self._portfolio_controller
+  end
+  return EntityMod.new(self, data)
+end
+
+-- Deprecated: use client:portfolio_controller() instead.
 function GithubProjectIssuesSDK:PortfolioController(data)
   local EntityMod = require("entity.portfolio_controller_entity")
   return EntityMod.new(self, data)
 end
 
 
+-- Idiomatic facade: client:repository_detail_domain():list() / client:repository_detail_domain():load({ id = ... })
+function GithubProjectIssuesSDK:repository_detail_domain(data)
+  local EntityMod = require("entity.repository_detail_domain_entity")
+  if data == nil then
+    if self._repository_detail_domain == nil then
+      self._repository_detail_domain = EntityMod.new(self, nil)
+    end
+    return self._repository_detail_domain
+  end
+  return EntityMod.new(self, data)
+end
+
+-- Deprecated: use client:repository_detail_domain() instead.
 function GithubProjectIssuesSDK:RepositoryDetailDomain(data)
   local EntityMod = require("entity.repository_detail_domain_entity")
   return EntityMod.new(self, data)
 end
 
 
+-- Idiomatic facade: client:repository_issue_domain():list() / client:repository_issue_domain():load({ id = ... })
+function GithubProjectIssuesSDK:repository_issue_domain(data)
+  local EntityMod = require("entity.repository_issue_domain_entity")
+  if data == nil then
+    if self._repository_issue_domain == nil then
+      self._repository_issue_domain = EntityMod.new(self, nil)
+    end
+    return self._repository_issue_domain
+  end
+  return EntityMod.new(self, data)
+end
+
+-- Deprecated: use client:repository_issue_domain() instead.
 function GithubProjectIssuesSDK:RepositoryIssueDomain(data)
   local EntityMod = require("entity.repository_issue_domain_entity")
   return EntityMod.new(self, data)
 end
 
 
+-- Idiomatic facade: client:version():list() / client:version():load({ id = ... })
+function GithubProjectIssuesSDK:version(data)
+  local EntityMod = require("entity.version_entity")
+  if data == nil then
+    if self._version == nil then
+      self._version = EntityMod.new(self, nil)
+    end
+    return self._version
+  end
+  return EntityMod.new(self, data)
+end
+
+-- Deprecated: use client:version() instead.
 function GithubProjectIssuesSDK:Version(data)
   local EntityMod = require("entity.version_entity")
   return EntityMod.new(self, data)

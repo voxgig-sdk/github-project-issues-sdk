@@ -55,6 +55,9 @@ class PortfolioControllerEntity
         return new PortfolioControllerEntity($this->_client, $opts);
     }
 
+    /**
+     * @param PortfolioController|array $args PortfolioController data (assoc-array) to store.
+     */
     public function data_set($args): void
     {
         if ($args) {
@@ -63,12 +66,18 @@ class PortfolioControllerEntity
         }
     }
 
+    /**
+     * @return PortfolioController|array The current PortfolioController data as an assoc-array.
+     */
     public function data_get()
     {
         ($this->_utility->feature_hook)($this->_entctx, "GetData");
         return Struct::clone($this->_data);
     }
 
+    /**
+     * @param array $args Match filter (any subset of PortfolioController fields).
+     */
     public function match_set($args): void
     {
         if ($args) {
@@ -77,6 +86,9 @@ class PortfolioControllerEntity
         }
     }
 
+    /**
+     * @return array The current match filter (any subset of PortfolioController fields).
+     */
     public function match_get()
     {
         ($this->_utility->feature_hook)($this->_entctx, "GetMatch");
@@ -86,7 +98,16 @@ class PortfolioControllerEntity
     
 
     
-    public function list($reqmatch, $ctrl = null): array
+    /**
+     * List PortfolioController items matching the given filter.
+     *
+     * @param PortfolioControllerListMatch|array|null $reqmatch Match filter (any subset
+     *   of PortfolioController fields) as an assoc-array; PortfolioControllerListMatch names the shape.
+     * @param mixed $ctrl Optional per-call control overrides.
+     * @return PortfolioController[]|array A list of PortfolioController items as assoc-arrays at
+     *   the SDK boundary; throws GithubProjectIssuesError on failure (item-5 convention).
+     */
+    public function list(?array $reqmatch = null, $ctrl = null): mixed
     {
         $utility = $this->_utility;
         $ctx = ($utility->make_context)([
@@ -114,7 +135,7 @@ class PortfolioControllerEntity
 
     
 
-    private function _run_op($ctx, callable $post_done): array
+    private function _run_op($ctx, callable $post_done): mixed
     {
         $utility = $this->_utility;
 

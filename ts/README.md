@@ -9,9 +9,12 @@ The TypeScript SDK for the GithubProjectIssues API — a type-safe, entity-orien
 
 
 ## Install
-```bash
-npm install @voxgig-sdk/github-project-issues
-```
+This package is not yet published to npm. Install it from the GitHub
+release tag (`ts/vX.Y.Z`):
+
+- Releases: [https://github.com/voxgig-sdk/github-project-issues-sdk/releases](https://github.com/voxgig-sdk/github-project-issues-sdk/releases)
+
+
 ## Tutorial: your first API call
 
 This tutorial walks through creating a client, listing entities, and
@@ -20,17 +23,15 @@ loading a specific record.
 ### 1. Create a client
 
 ```ts
-import { GithubProjectIssuesSDK } from 'github-project-issues'
+import { GithubProjectIssuesSDK } from '@voxgig-sdk/github-project-issues'
 
-const client = new GithubProjectIssuesSDK({
-  apikey: process.env.GITHUB-PROJECT-ISSUES_APIKEY,
-})
+const client = new GithubProjectIssuesSDK()
 ```
 
 ### 2. List coffees
 
 ```ts
-const result = await client.Coffee().list()
+const result = await client.coffee.list()
 
 if (result.ok) {
   for (const item of result.data) {
@@ -43,7 +44,7 @@ if (result.ok) {
 
 ```ts
 // Update
-const updated = await client.Coffee().update({
+const updated = await client.coffee.update({
   id: created.data.id,
   name: 'Example-Renamed',
 })
@@ -92,7 +93,7 @@ Create a mock client for unit testing — no server required:
 ```ts
 const client = GithubProjectIssuesSDK.test()
 
-const result = await client.Planet().load({ id: 'test01' })
+const result = await client.coffee.load({ id: 'test01' })
 // result.ok === true
 // result.data contains mock response data
 ```
@@ -100,7 +101,7 @@ const result = await client.Planet().load({ id: 'test01' })
 You can also use the instance method:
 
 ```ts
-const client = new GithubProjectIssuesSDK({ apikey: '...' })
+const client = new GithubProjectIssuesSDK()
 const testClient = client.tester()
 ```
 
@@ -109,7 +110,7 @@ const testClient = client.tester()
 Entity instances remember their last match and data:
 
 ```ts
-const entity = client.Planet()
+const entity = client.coffee
 
 // First call sets internal match
 await entity.load({ id: 'example' })
@@ -136,7 +137,6 @@ const logger = {
 }
 
 const client = new GithubProjectIssuesSDK({
-  apikey: '...',
   extend: [logger],
 })
 ```
@@ -146,8 +146,7 @@ const client = new GithubProjectIssuesSDK({
 Create a `.env.local` file at the project root:
 
 ```
-GITHUB-PROJECT-ISSUES_TEST_LIVE=TRUE
-GITHUB-PROJECT-ISSUES_APIKEY=<your-key>
+GITHUB_PROJECT_ISSUES_TEST_LIVE=TRUE
 ```
 
 Then run:
@@ -165,7 +164,6 @@ cd ts && npm test
 
 ```ts
 new GithubProjectIssuesSDK(options?: {
-  apikey?: string
   base?: string
   prefix?: string
   suffix?: string
@@ -176,7 +174,6 @@ new GithubProjectIssuesSDK(options?: {
 
 | Option | Type | Description |
 | --- | --- | --- |
-| `apikey` | `string` | API key for authentication. |
 | `base` | `string` | Base URL of the API server. |
 | `prefix` | `string` | URL path prefix prepended to all requests. |
 | `suffix` | `string` | URL path suffix appended to all requests. |
@@ -360,7 +357,7 @@ API path: `/api/application/version`
 
 ### Coffee
 
-Create an instance: `const coffee = client.Coffee()`
+Create an instance: `const coffee = client.coffee`
 
 #### Operations
 
@@ -382,13 +379,13 @@ Create an instance: `const coffee = client.Coffee()`
 #### Example: List
 
 ```ts
-const coffees = await client.Coffee().list()
+const coffees = await client.coffee.list()
 ```
 
 
 ### CoffeeDomain
 
-Create an instance: `const coffee_domain = client.CoffeeDomain()`
+Create an instance: `const coffee_domain = client.coffee_domain`
 
 #### Operations
 
@@ -409,13 +406,13 @@ Create an instance: `const coffee_domain = client.CoffeeDomain()`
 #### Example: List
 
 ```ts
-const coffee_domains = await client.CoffeeDomain().list()
+const coffee_domains = await client.coffee_domain.list()
 ```
 
 
 ### DonateRestController
 
-Create an instance: `const donate_rest_controller = client.DonateRestController()`
+Create an instance: `const donate_rest_controller = client.donate_rest_controller`
 
 #### Operations
 
@@ -426,13 +423,13 @@ Create an instance: `const donate_rest_controller = client.DonateRestController(
 #### Example: List
 
 ```ts
-const donate_rest_controllers = await client.DonateRestController().list()
+const donate_rest_controllers = await client.donate_rest_controller.list()
 ```
 
 
 ### PortfolioController
 
-Create an instance: `const portfolio_controller = client.PortfolioController()`
+Create an instance: `const portfolio_controller = client.portfolio_controller`
 
 #### Operations
 
@@ -443,13 +440,13 @@ Create an instance: `const portfolio_controller = client.PortfolioController()`
 #### Example: List
 
 ```ts
-const portfolio_controllers = await client.PortfolioController().list()
+const portfolio_controllers = await client.portfolio_controller.list()
 ```
 
 
 ### RepositoryDetailDomain
 
-Create an instance: `const repository_detail_domain = client.RepositoryDetailDomain()`
+Create an instance: `const repository_detail_domain = client.repository_detail_domain`
 
 #### Operations
 
@@ -473,19 +470,19 @@ Create an instance: `const repository_detail_domain = client.RepositoryDetailDom
 #### Example: Load
 
 ```ts
-const repository_detail_domain = await client.RepositoryDetailDomain().load({ id: 'repository_detail_domain_id' })
+const repository_detail_domain = await client.repository_detail_domain.load({ id: 'repository_detail_domain_id' })
 ```
 
 #### Example: List
 
 ```ts
-const repository_detail_domains = await client.RepositoryDetailDomain().list()
+const repository_detail_domains = await client.repository_detail_domain.list()
 ```
 
 
 ### RepositoryIssueDomain
 
-Create an instance: `const repository_issue_domain = client.RepositoryIssueDomain()`
+Create an instance: `const repository_issue_domain = client.repository_issue_domain`
 
 #### Operations
 
@@ -506,13 +503,13 @@ Create an instance: `const repository_issue_domain = client.RepositoryIssueDomai
 #### Example: List
 
 ```ts
-const repository_issue_domains = await client.RepositoryIssueDomain().list()
+const repository_issue_domains = await client.repository_issue_domain.list()
 ```
 
 
 ### Version
 
-Create an instance: `const version = client.Version()`
+Create an instance: `const version = client.version`
 
 #### Operations
 
@@ -523,7 +520,7 @@ Create an instance: `const version = client.Version()`
 #### Example: Load
 
 ```ts
-const version = await client.Version().load({ id: 'version_id' })
+const version = await client.version.load({ id: 'version_id' })
 ```
 
 
@@ -584,7 +581,7 @@ github-project-issues/
 Import the SDK from the package root:
 
 ```ts
-import { GithubProjectIssuesSDK } from 'github-project-issues'
+import { GithubProjectIssuesSDK } from '@voxgig-sdk/github-project-issues'
 ```
 
 ### Entity state
@@ -594,11 +591,11 @@ stores the returned data and match criteria internally. Subsequent
 calls on the same instance can rely on this state.
 
 ```ts
-const moon = client.Moon()
-await moon.load({ planet_id: 'earth', id: 'luna' })
+const coffee = client.coffee
+await coffee.load({ id: "example_id" })
 
-// moon.data() now returns the loaded moon data
-// moon.match() returns { planet_id: 'earth', id: 'luna' }
+// coffee.data() now returns the loaded coffee data
+// coffee.match() returns { id: "example_id" }
 ```
 
 Call `make()` to create a fresh instance with the same configuration

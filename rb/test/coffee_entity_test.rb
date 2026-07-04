@@ -43,8 +43,7 @@ class CoffeeEntityTest < Minitest::Test
     coffee_ref01_ent = client.Coffee(nil)
     coffee_ref01_match = {}
 
-    coffee_ref01_list_result, err = coffee_ref01_ent.list(coffee_ref01_match, nil)
-    assert_nil err
+    coffee_ref01_list_result = coffee_ref01_ent.list(coffee_ref01_match, nil)
     assert coffee_ref01_list_result.is_a?(Array)
 
     # UPDATE
@@ -56,8 +55,7 @@ class CoffeeEntityTest < Minitest::Test
     coffee_ref01_markdef_up0_value = "Mark01-coffee_ref01_#{setup[:now]}"
     coffee_ref01_data_up0_up[coffee_ref01_markdef_up0_name] = coffee_ref01_markdef_up0_value
 
-    coffee_ref01_resdata_up0_result, err = coffee_ref01_ent.update(coffee_ref01_data_up0_up, nil)
-    assert_nil err
+    coffee_ref01_resdata_up0_result = coffee_ref01_ent.update(coffee_ref01_data_up0_up, nil)
     coffee_ref01_resdata_up0 = Helpers.to_map(coffee_ref01_resdata_up0_result)
     assert !coffee_ref01_resdata_up0.nil?
     assert_equal coffee_ref01_resdata_up0["id"], coffee_ref01_data_up0_up["id"]
@@ -99,7 +97,6 @@ def coffee_basic_setup(extra)
     "GITHUBPROJECTISSUES_TEST_COFFEE_ENTID" => idmap,
     "GITHUBPROJECTISSUES_TEST_LIVE" => "FALSE",
     "GITHUBPROJECTISSUES_TEST_EXPLAIN" => "FALSE",
-    "GITHUBPROJECTISSUES_APIKEY" => "NONE",
   })
 
   idmap_resolved = Helpers.to_map(
@@ -111,7 +108,6 @@ def coffee_basic_setup(extra)
   if env["GITHUBPROJECTISSUES_TEST_LIVE"] == "TRUE"
     merged_opts = Vs.merge([
       {
-        "apikey" => env["GITHUBPROJECTISSUES_APIKEY"],
       },
       extra || {},
     ])

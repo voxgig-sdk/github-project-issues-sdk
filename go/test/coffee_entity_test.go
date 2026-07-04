@@ -144,7 +144,6 @@ func coffeeBasicSetup(extra map[string]any) *entityTestSetup {
 		"GITHUBPROJECTISSUES_TEST_COFFEE_ENTID": idmap,
 		"GITHUBPROJECTISSUES_TEST_LIVE":      "FALSE",
 		"GITHUBPROJECTISSUES_TEST_EXPLAIN":   "FALSE",
-		"GITHUBPROJECTISSUES_APIKEY":         "NONE",
 	})
 
 	idmapResolved := core.ToMapAny(env["GITHUBPROJECTISSUES_TEST_COFFEE_ENTID"])
@@ -155,7 +154,6 @@ func coffeeBasicSetup(extra map[string]any) *entityTestSetup {
 	if env["GITHUBPROJECTISSUES_TEST_LIVE"] == "TRUE" {
 		mergedOpts := vs.Merge([]any{
 			map[string]any{
-				"apikey": env["GITHUBPROJECTISSUES_APIKEY"],
 			},
 			extra,
 		})

@@ -45,6 +45,7 @@ class CoffeeEntity
     end
   end
 
+  # @return [Coffee, Hash] the current Coffee data
   def data_get
     @_utility.feature_hook.call(@_entctx, "GetData")
     VoxgigStruct.clone(@_data)
@@ -57,6 +58,7 @@ class CoffeeEntity
     end
   end
 
+  # @return [Hash] the current match filter (any subset of Coffee fields)
   def match_get
     @_utility.feature_hook.call(@_entctx, "GetMatch")
     VoxgigStruct.clone(@_match)
@@ -65,6 +67,11 @@ class CoffeeEntity
   
 
   
+  # List Coffee items matching the given filter.
+  #
+  # @param reqmatch [CoffeeListMatch, Hash, nil] match filter (any subset of Coffee fields)
+  # @param ctrl [Object, nil] optional per-call control
+  # @return [Array<Coffee>, Array] the matching Coffee items; raises GithubProjectIssuesError on failure
   def list(reqmatch, ctrl = nil)
     utility = @_utility
     ctx = utility.make_context.call({
@@ -87,6 +94,11 @@ class CoffeeEntity
   
 
   
+  # Update an existing Coffee.
+  #
+  # @param reqdata [CoffeeUpdateData, Hash, nil] body data
+  # @param ctrl [Object, nil] optional per-call control
+  # @return [Coffee, Hash] the updated Coffee; raises GithubProjectIssuesError on failure
   def update(reqdata, ctrl = nil)
     utility = @_utility
     ctx = utility.make_context.call({

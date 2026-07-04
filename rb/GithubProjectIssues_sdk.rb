@@ -13,6 +13,9 @@ require_relative 'config'
 require_relative 'feature/base_feature'
 require_relative 'features'
 
+# Load typed models (Struct value objects).
+require_relative 'GithubProjectIssues_types'
+
 
 class GithubProjectIssuesSDK
   attr_accessor :mode, :features, :options
@@ -131,7 +134,7 @@ class GithubProjectIssuesSDK
     end
 
     _, err = utility.prepare_auth.call(ctx)
-    return nil, err if err
+    raise err if err
 
     utility.make_fetch_def.call(ctx)
   end
@@ -139,8 +142,14 @@ class GithubProjectIssuesSDK
   def direct(fetchargs = {})
     utility = @_utility
 
-    fetchdef, err = prepare(fetchargs)
-    return { "ok" => false, "err" => err }, nil if err
+    # direct() is the raw-HTTP escape hatch: it always returns a result hash
+    # ({ "ok" => ..., ... }) and never raises. prepare() raises on error, so
+    # trap that and surface it in the hash.
+    begin
+      fetchdef = prepare(fetchargs)
+    rescue GithubProjectIssuesError => err
+      return { "ok" => false, "err" => err }
+    end
 
     fetchargs ||= {}
     ctrl = GithubProjectIssuesHelpers.to_map(VoxgigStruct.getprop(fetchargs, "ctrl")) || {}
@@ -153,13 +162,13 @@ class GithubProjectIssuesSDK
     url = fetchdef["url"] || ""
     fetched, fetch_err = utility.fetcher.call(ctx, url, fetchdef)
 
-    return { "ok" => false, "err" => fetch_err }, nil if fetch_err
+    return { "ok" => false, "err" => fetch_err } if fetch_err
 
     if fetched.nil?
       return {
         "ok" => false,
         "err" => ctx.make_error("direct_no_response", "response: undefined"),
-      }, nil
+      }
     end
 
     if fetched.is_a?(Hash)
@@ -189,52 +198,101 @@ class GithubProjectIssuesSDK
         "status" => status,
         "headers" => headers,
         "data" => json_data,
-      }, nil
+      }
     end
 
     return {
       "ok" => false,
       "err" => ctx.make_error("direct_invalid", "invalid response type"),
-    }, nil
+    }
   end
 
 
+  # Idiomatic facade: client.coffee.list / client.coffee.load({ "id" => ... })
+  def coffee
+    require_relative 'entity/coffee_entity'
+    @coffee ||= CoffeeEntity.new(self, nil)
+  end
+
+  # Deprecated: use client.coffee instead.
   def Coffee(data = nil)
     require_relative 'entity/coffee_entity'
     CoffeeEntity.new(self, data)
   end
 
 
+  # Idiomatic facade: client.coffee_domain.list / client.coffee_domain.load({ "id" => ... })
+  def coffee_domain
+    require_relative 'entity/coffee_domain_entity'
+    @coffee_domain ||= CoffeeDomainEntity.new(self, nil)
+  end
+
+  # Deprecated: use client.coffee_domain instead.
   def CoffeeDomain(data = nil)
     require_relative 'entity/coffee_domain_entity'
     CoffeeDomainEntity.new(self, data)
   end
 
 
+  # Idiomatic facade: client.donate_rest_controller.list / client.donate_rest_controller.load({ "id" => ... })
+  def donate_rest_controller
+    require_relative 'entity/donate_rest_controller_entity'
+    @donate_rest_controller ||= DonateRestControllerEntity.new(self, nil)
+  end
+
+  # Deprecated: use client.donate_rest_controller instead.
   def DonateRestController(data = nil)
     require_relative 'entity/donate_rest_controller_entity'
     DonateRestControllerEntity.new(self, data)
   end
 
 
+  # Idiomatic facade: client.portfolio_controller.list / client.portfolio_controller.load({ "id" => ... })
+  def portfolio_controller
+    require_relative 'entity/portfolio_controller_entity'
+    @portfolio_controller ||= PortfolioControllerEntity.new(self, nil)
+  end
+
+  # Deprecated: use client.portfolio_controller instead.
   def PortfolioController(data = nil)
     require_relative 'entity/portfolio_controller_entity'
     PortfolioControllerEntity.new(self, data)
   end
 
 
+  # Idiomatic facade: client.repository_detail_domain.list / client.repository_detail_domain.load({ "id" => ... })
+  def repository_detail_domain
+    require_relative 'entity/repository_detail_domain_entity'
+    @repository_detail_domain ||= RepositoryDetailDomainEntity.new(self, nil)
+  end
+
+  # Deprecated: use client.repository_detail_domain instead.
   def RepositoryDetailDomain(data = nil)
     require_relative 'entity/repository_detail_domain_entity'
     RepositoryDetailDomainEntity.new(self, data)
   end
 
 
+  # Idiomatic facade: client.repository_issue_domain.list / client.repository_issue_domain.load({ "id" => ... })
+  def repository_issue_domain
+    require_relative 'entity/repository_issue_domain_entity'
+    @repository_issue_domain ||= RepositoryIssueDomainEntity.new(self, nil)
+  end
+
+  # Deprecated: use client.repository_issue_domain instead.
   def RepositoryIssueDomain(data = nil)
     require_relative 'entity/repository_issue_domain_entity'
     RepositoryIssueDomainEntity.new(self, data)
   end
 
 
+  # Idiomatic facade: client.version.list / client.version.load({ "id" => ... })
+  def version
+    require_relative 'entity/version_entity'
+    @version ||= VersionEntity.new(self, nil)
+  end
+
+  # Deprecated: use client.version instead.
   def Version(data = nil)
     require_relative 'entity/version_entity'
     VersionEntity.new(self, data)

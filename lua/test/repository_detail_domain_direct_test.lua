@@ -117,14 +117,12 @@ function repository_detail_domain_direct_setup(mockres)
   local env = runner.env_override({
     ["GITHUBPROJECTISSUES_TEST_REPOSITORY_DETAIL_DOMAIN_ENTID"] = {},
     ["GITHUBPROJECTISSUES_TEST_LIVE"] = "FALSE",
-    ["GITHUBPROJECTISSUES_APIKEY"] = "NONE",
   })
 
   local live = env["GITHUBPROJECTISSUES_TEST_LIVE"] == "TRUE"
 
   if live then
     local merged_opts = {
-      apikey = env["GITHUBPROJECTISSUES_APIKEY"],
     }
     local client = sdk.new(merged_opts)
     return {

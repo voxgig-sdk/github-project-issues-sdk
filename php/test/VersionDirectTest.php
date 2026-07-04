@@ -21,7 +21,7 @@ class VersionDirectTest extends TestCase
         $client = $setup["client"];
 
 
-        [$result, $err] = $client->direct([
+        $result = $client->direct([
             "path" => "api/application/version",
             "method" => "GET",
             "params" => [],
@@ -30,8 +30,8 @@ class VersionDirectTest extends TestCase
             // Live mode is lenient: synthetic IDs frequently 4xx. Skip
             // rather than fail when the load endpoint isn't reachable
             // with the IDs we can construct from setup.idmap.
-            if ($err !== null) {
-                $this->markTestSkipped("load call failed (likely synthetic IDs against live API): " . (string)$err);
+            if (!empty($result["err"])) {
+                $this->markTestSkipped("load call failed (likely synthetic IDs against live API): " . (string)$result["err"]);
                 return;
             }
             if (empty($result["ok"])) {
@@ -44,7 +44,7 @@ class VersionDirectTest extends TestCase
                 return;
             }
         } else {
-            $this->assertNull($err);
+            $this->assertArrayNotHasKey("err", $result);
             $this->assertTrue($result["ok"]);
             $this->assertEquals(200, Helpers::to_int($result["status"]));
             $this->assertNotNull($result["data"]);
@@ -67,14 +67,12 @@ function version_direct_setup($mockres)
     $env = Runner::env_override([
         "GITHUBPROJECTISSUES_TEST_VERSION_ENTID" => [],
         "GITHUBPROJECTISSUES_TEST_LIVE" => "FALSE",
-        "GITHUBPROJECTISSUES_APIKEY" => "NONE",
     ]);
 
     $live = $env["GITHUBPROJECTISSUES_TEST_LIVE"] === "TRUE";
 
     if ($live) {
         $merged_opts = [
-            "apikey" => $env["GITHUBPROJECTISSUES_APIKEY"],
         ];
         $client = new GithubProjectIssuesSDK($merged_opts);
         return [

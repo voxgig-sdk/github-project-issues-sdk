@@ -49,8 +49,7 @@ class TestVersionEntity:
         # LOAD
         version_ref01_ent = client.Version(None)
         version_ref01_match_dt0 = {}
-        version_ref01_data_dt0_loaded, err = version_ref01_ent.load(version_ref01_match_dt0, None)
-        assert err is None
+        version_ref01_data_dt0_loaded = version_ref01_ent.load(version_ref01_match_dt0, None)
         assert version_ref01_data_dt0_loaded is not None
 
 
@@ -91,7 +90,6 @@ def _version_basic_setup(extra):
         "GITHUBPROJECTISSUES_TEST_VERSION_ENTID": idmap,
         "GITHUBPROJECTISSUES_TEST_LIVE": "FALSE",
         "GITHUBPROJECTISSUES_TEST_EXPLAIN": "FALSE",
-        "GITHUBPROJECTISSUES_APIKEY": "NONE",
     })
 
     idmap_resolved = helpers.to_map(
@@ -102,7 +100,6 @@ def _version_basic_setup(extra):
     if env.get("GITHUBPROJECTISSUES_TEST_LIVE") == "TRUE":
         merged_opts = vs.merge([
             {
-                "apikey": env.get("GITHUBPROJECTISSUES_APIKEY"),
             },
             extra or {},
         ])

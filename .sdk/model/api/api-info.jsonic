@@ -4,6 +4,7 @@
 main: {
   kit: {
     info: {
+      auth: false
       license: {
         name: "GPL-3.0 license"
         url: "https://ironoc.net"

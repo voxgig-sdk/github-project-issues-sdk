@@ -245,36 +245,57 @@ func (sdk *GithubProjectIssuesSDK) Direct(fetchargs map[string]any) (map[string]
 }
 
 
+// Coffee returns a Coffee entity bound to this client.
+// Idiomatic usage: client.Coffee(nil).List(nil, nil) or
+// client.Coffee(nil).Load(map[string]any{"id": ...}, nil).
 func (sdk *GithubProjectIssuesSDK) Coffee(data map[string]any) GithubProjectIssuesEntity {
 	return NewCoffeeEntityFunc(sdk, data)
 }
 
 
+// CoffeeDomain returns a CoffeeDomain entity bound to this client.
+// Idiomatic usage: client.CoffeeDomain(nil).List(nil, nil) or
+// client.CoffeeDomain(nil).Load(map[string]any{"id": ...}, nil).
 func (sdk *GithubProjectIssuesSDK) CoffeeDomain(data map[string]any) GithubProjectIssuesEntity {
 	return NewCoffeeDomainEntityFunc(sdk, data)
 }
 
 
+// DonateRestController returns a DonateRestController entity bound to this client.
+// Idiomatic usage: client.DonateRestController(nil).List(nil, nil) or
+// client.DonateRestController(nil).Load(map[string]any{"id": ...}, nil).
 func (sdk *GithubProjectIssuesSDK) DonateRestController(data map[string]any) GithubProjectIssuesEntity {
 	return NewDonateRestControllerEntityFunc(sdk, data)
 }
 
 
+// PortfolioController returns a PortfolioController entity bound to this client.
+// Idiomatic usage: client.PortfolioController(nil).List(nil, nil) or
+// client.PortfolioController(nil).Load(map[string]any{"id": ...}, nil).
 func (sdk *GithubProjectIssuesSDK) PortfolioController(data map[string]any) GithubProjectIssuesEntity {
 	return NewPortfolioControllerEntityFunc(sdk, data)
 }
 
 
+// RepositoryDetailDomain returns a RepositoryDetailDomain entity bound to this client.
+// Idiomatic usage: client.RepositoryDetailDomain(nil).List(nil, nil) or
+// client.RepositoryDetailDomain(nil).Load(map[string]any{"id": ...}, nil).
 func (sdk *GithubProjectIssuesSDK) RepositoryDetailDomain(data map[string]any) GithubProjectIssuesEntity {
 	return NewRepositoryDetailDomainEntityFunc(sdk, data)
 }
 
 
+// RepositoryIssueDomain returns a RepositoryIssueDomain entity bound to this client.
+// Idiomatic usage: client.RepositoryIssueDomain(nil).List(nil, nil) or
+// client.RepositoryIssueDomain(nil).Load(map[string]any{"id": ...}, nil).
 func (sdk *GithubProjectIssuesSDK) RepositoryIssueDomain(data map[string]any) GithubProjectIssuesEntity {
 	return NewRepositoryIssueDomainEntityFunc(sdk, data)
 }
 
 
+// Version returns a Version entity bound to this client.
+// Idiomatic usage: client.Version(nil).List(nil, nil) or
+// client.Version(nil).Load(map[string]any{"id": ...}, nil).
 func (sdk *GithubProjectIssuesSDK) Version(data map[string]any) GithubProjectIssuesEntity {
 	return NewVersionEntityFunc(sdk, data)
 }

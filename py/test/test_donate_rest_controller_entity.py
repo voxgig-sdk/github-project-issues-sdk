@@ -50,8 +50,7 @@ class TestDonateRestControllerEntity:
         donate_rest_controller_ref01_ent = client.DonateRestController(None)
         donate_rest_controller_ref01_match = {}
 
-        donate_rest_controller_ref01_list_result, err = donate_rest_controller_ref01_ent.list(donate_rest_controller_ref01_match, None)
-        assert err is None
+        donate_rest_controller_ref01_list_result = donate_rest_controller_ref01_ent.list(donate_rest_controller_ref01_match, None)
         assert isinstance(donate_rest_controller_ref01_list_result, list)
 
 
@@ -92,7 +91,6 @@ def _donate_rest_controller_basic_setup(extra):
         "GITHUBPROJECTISSUES_TEST_DONATE_REST_CONTROLLER_ENTID": idmap,
         "GITHUBPROJECTISSUES_TEST_LIVE": "FALSE",
         "GITHUBPROJECTISSUES_TEST_EXPLAIN": "FALSE",
-        "GITHUBPROJECTISSUES_APIKEY": "NONE",
     })
 
     idmap_resolved = helpers.to_map(
@@ -103,7 +101,6 @@ def _donate_rest_controller_basic_setup(extra):
     if env.get("GITHUBPROJECTISSUES_TEST_LIVE") == "TRUE":
         merged_opts = vs.merge([
             {
-                "apikey": env.get("GITHUBPROJECTISSUES_APIKEY"),
             },
             extra or {},
         ])

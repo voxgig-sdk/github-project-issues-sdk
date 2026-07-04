@@ -50,8 +50,7 @@ class CoffeeDomainEntityTest extends TestCase
         $coffee_domain_ref01_ent = $client->CoffeeDomain(null);
         $coffee_domain_ref01_match = [];
 
-        [$coffee_domain_ref01_list_result, $err] = $coffee_domain_ref01_ent->list($coffee_domain_ref01_match, null);
-        $this->assertNull($err);
+        $coffee_domain_ref01_list_result = $coffee_domain_ref01_ent->list($coffee_domain_ref01_match, null);
         $this->assertIsArray($coffee_domain_ref01_list_result);
 
     }
@@ -86,7 +85,6 @@ function coffee_domain_basic_setup($extra)
         "GITHUBPROJECTISSUES_TEST_COFFEE_DOMAIN_ENTID" => $idmap,
         "GITHUBPROJECTISSUES_TEST_LIVE" => "FALSE",
         "GITHUBPROJECTISSUES_TEST_EXPLAIN" => "FALSE",
-        "GITHUBPROJECTISSUES_APIKEY" => "NONE",
     ]);
 
     $idmap_resolved = Helpers::to_map(
@@ -98,7 +96,6 @@ function coffee_domain_basic_setup($extra)
     if ($env["GITHUBPROJECTISSUES_TEST_LIVE"] === "TRUE") {
         $merged_opts = Vs::merge([
             [
-                "apikey" => $env["GITHUBPROJECTISSUES_APIKEY"],
             ],
             $extra ?? [],
         ]);

@@ -79,6 +79,10 @@ end
 
 
 
+---@param reqmatch RepositoryDetailDomainLoadMatch
+---@param ctrl? table
+---@return RepositoryDetailDomain
+---@return string? err
 function RepositoryDetailDomainEntity:load(reqmatch, ctrl)
   local utility = self._utility
   local ctx = utility.make_context({
@@ -104,6 +108,10 @@ end
 
 
 
+---@param reqmatch RepositoryDetailDomainListMatch
+---@param ctrl? table
+---@return RepositoryDetailDomain[]
+---@return string? err
 function RepositoryDetailDomainEntity:list(reqmatch, ctrl)
   local utility = self._utility
   local ctx = utility.make_context({

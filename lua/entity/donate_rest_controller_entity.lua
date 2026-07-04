@@ -81,6 +81,10 @@ end
 
 
 
+---@param reqmatch DonateRestControllerListMatch
+---@param ctrl? table
+---@return DonateRestController[]
+---@return string? err
 function DonateRestControllerEntity:list(reqmatch, ctrl)
   local utility = self._utility
   local ctx = utility.make_context({

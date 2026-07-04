@@ -50,8 +50,7 @@ class TestCoffeeEntity:
         coffee_ref01_ent = client.Coffee(None)
         coffee_ref01_match = {}
 
-        coffee_ref01_list_result, err = coffee_ref01_ent.list(coffee_ref01_match, None)
-        assert err is None
+        coffee_ref01_list_result = coffee_ref01_ent.list(coffee_ref01_match, None)
         assert isinstance(coffee_ref01_list_result, list)
 
         # UPDATE
@@ -63,9 +62,7 @@ class TestCoffeeEntity:
         coffee_ref01_markdef_up0_value = "Mark01-coffee_ref01_" + str(setup["now"])
         coffee_ref01_data_up0_up[coffee_ref01_markdef_up0_name] = coffee_ref01_markdef_up0_value
 
-        coffee_ref01_resdata_up0_result, err = coffee_ref01_ent.update(coffee_ref01_data_up0_up, None)
-        assert err is None
-        coffee_ref01_resdata_up0 = helpers.to_map(coffee_ref01_resdata_up0_result)
+        coffee_ref01_resdata_up0 = helpers.to_map(coffee_ref01_ent.update(coffee_ref01_data_up0_up, None))
         assert coffee_ref01_resdata_up0 is not None
         assert coffee_ref01_resdata_up0["id"] == coffee_ref01_data_up0_up["id"]
         assert coffee_ref01_resdata_up0[coffee_ref01_markdef_up0_name] == coffee_ref01_markdef_up0_value
@@ -108,7 +105,6 @@ def _coffee_basic_setup(extra):
         "GITHUBPROJECTISSUES_TEST_COFFEE_ENTID": idmap,
         "GITHUBPROJECTISSUES_TEST_LIVE": "FALSE",
         "GITHUBPROJECTISSUES_TEST_EXPLAIN": "FALSE",
-        "GITHUBPROJECTISSUES_APIKEY": "NONE",
     })
 
     idmap_resolved = helpers.to_map(
@@ -119,7 +115,6 @@ def _coffee_basic_setup(extra):
     if env.get("GITHUBPROJECTISSUES_TEST_LIVE") == "TRUE":
         merged_opts = vs.merge([
             {
-                "apikey": env.get("GITHUBPROJECTISSUES_APIKEY"),
             },
             extra or {},
         ])

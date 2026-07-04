@@ -45,6 +45,7 @@ class DonateRestControllerEntity
     end
   end
 
+  # @return [DonateRestController, Hash] the current DonateRestController data
   def data_get
     @_utility.feature_hook.call(@_entctx, "GetData")
     VoxgigStruct.clone(@_data)
@@ -57,6 +58,7 @@ class DonateRestControllerEntity
     end
   end
 
+  # @return [Hash] the current match filter (any subset of DonateRestController fields)
   def match_get
     @_utility.feature_hook.call(@_entctx, "GetMatch")
     VoxgigStruct.clone(@_match)
@@ -65,6 +67,11 @@ class DonateRestControllerEntity
   
 
   
+  # List DonateRestController items matching the given filter.
+  #
+  # @param reqmatch [DonateRestControllerListMatch, Hash, nil] match filter (any subset of DonateRestController fields)
+  # @param ctrl [Object, nil] optional per-call control
+  # @return [Array<DonateRestController>, Array] the matching DonateRestController items; raises GithubProjectIssuesError on failure
   def list(reqmatch, ctrl = nil)
     utility = @_utility
     ctx = utility.make_context.call({

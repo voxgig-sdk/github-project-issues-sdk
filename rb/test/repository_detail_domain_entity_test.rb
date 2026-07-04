@@ -43,14 +43,12 @@ class RepositoryDetailDomainEntityTest < Minitest::Test
     repository_detail_domain_ref01_ent = client.RepositoryDetailDomain(nil)
     repository_detail_domain_ref01_match = {}
 
-    repository_detail_domain_ref01_list_result, err = repository_detail_domain_ref01_ent.list(repository_detail_domain_ref01_match, nil)
-    assert_nil err
+    repository_detail_domain_ref01_list_result = repository_detail_domain_ref01_ent.list(repository_detail_domain_ref01_match, nil)
     assert repository_detail_domain_ref01_list_result.is_a?(Array)
 
     # LOAD
     repository_detail_domain_ref01_match_dt0 = {}
-    repository_detail_domain_ref01_data_dt0_loaded, err = repository_detail_domain_ref01_ent.load(repository_detail_domain_ref01_match_dt0, nil)
-    assert_nil err
+    repository_detail_domain_ref01_data_dt0_loaded = repository_detail_domain_ref01_ent.load(repository_detail_domain_ref01_match_dt0, nil)
     assert !repository_detail_domain_ref01_data_dt0_loaded.nil?
 
   end
@@ -89,7 +87,6 @@ def repository_detail_domain_basic_setup(extra)
     "GITHUBPROJECTISSUES_TEST_REPOSITORY_DETAIL_DOMAIN_ENTID" => idmap,
     "GITHUBPROJECTISSUES_TEST_LIVE" => "FALSE",
     "GITHUBPROJECTISSUES_TEST_EXPLAIN" => "FALSE",
-    "GITHUBPROJECTISSUES_APIKEY" => "NONE",
   })
 
   idmap_resolved = Helpers.to_map(
@@ -101,7 +98,6 @@ def repository_detail_domain_basic_setup(extra)
   if env["GITHUBPROJECTISSUES_TEST_LIVE"] == "TRUE"
     merged_opts = Vs.merge([
       {
-        "apikey" => env["GITHUBPROJECTISSUES_APIKEY"],
       },
       extra || {},
     ])

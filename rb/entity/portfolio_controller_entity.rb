@@ -45,6 +45,7 @@ class PortfolioControllerEntity
     end
   end
 
+  # @return [PortfolioController, Hash] the current PortfolioController data
   def data_get
     @_utility.feature_hook.call(@_entctx, "GetData")
     VoxgigStruct.clone(@_data)
@@ -57,6 +58,7 @@ class PortfolioControllerEntity
     end
   end
 
+  # @return [Hash] the current match filter (any subset of PortfolioController fields)
   def match_get
     @_utility.feature_hook.call(@_entctx, "GetMatch")
     VoxgigStruct.clone(@_match)
@@ -65,6 +67,11 @@ class PortfolioControllerEntity
   
 
   
+  # List PortfolioController items matching the given filter.
+  #
+  # @param reqmatch [PortfolioControllerListMatch, Hash, nil] match filter (any subset of PortfolioController fields)
+  # @param ctrl [Object, nil] optional per-call control
+  # @return [Array<PortfolioController>, Array] the matching PortfolioController items; raises GithubProjectIssuesError on failure
   def list(reqmatch, ctrl = nil)
     utility = @_utility
     ctx = utility.make_context.call({

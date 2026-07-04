@@ -43,8 +43,7 @@ class PortfolioControllerEntityTest < Minitest::Test
     portfolio_controller_ref01_ent = client.PortfolioController(nil)
     portfolio_controller_ref01_match = {}
 
-    portfolio_controller_ref01_list_result, err = portfolio_controller_ref01_ent.list(portfolio_controller_ref01_match, nil)
-    assert_nil err
+    portfolio_controller_ref01_list_result = portfolio_controller_ref01_ent.list(portfolio_controller_ref01_match, nil)
     assert portfolio_controller_ref01_list_result.is_a?(Array)
 
   end
@@ -83,7 +82,6 @@ def portfolio_controller_basic_setup(extra)
     "GITHUBPROJECTISSUES_TEST_PORTFOLIO_CONTROLLER_ENTID" => idmap,
     "GITHUBPROJECTISSUES_TEST_LIVE" => "FALSE",
     "GITHUBPROJECTISSUES_TEST_EXPLAIN" => "FALSE",
-    "GITHUBPROJECTISSUES_APIKEY" => "NONE",
   })
 
   idmap_resolved = Helpers.to_map(
@@ -95,7 +93,6 @@ def portfolio_controller_basic_setup(extra)
   if env["GITHUBPROJECTISSUES_TEST_LIVE"] == "TRUE"
     merged_opts = Vs.merge([
       {
-        "apikey" => env["GITHUBPROJECTISSUES_APIKEY"],
       },
       extra || {},
     ])

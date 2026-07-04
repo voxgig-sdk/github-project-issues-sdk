@@ -81,6 +81,10 @@ end
 
 
 
+---@param reqmatch CoffeeDomainListMatch
+---@param ctrl? table
+---@return CoffeeDomain[]
+---@return string? err
 function CoffeeDomainEntity:list(reqmatch, ctrl)
   local utility = self._utility
   local ctx = utility.make_context({

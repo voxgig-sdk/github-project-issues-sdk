@@ -50,8 +50,7 @@ class TestCoffeeDomainEntity:
         coffee_domain_ref01_ent = client.CoffeeDomain(None)
         coffee_domain_ref01_match = {}
 
-        coffee_domain_ref01_list_result, err = coffee_domain_ref01_ent.list(coffee_domain_ref01_match, None)
-        assert err is None
+        coffee_domain_ref01_list_result = coffee_domain_ref01_ent.list(coffee_domain_ref01_match, None)
         assert isinstance(coffee_domain_ref01_list_result, list)
 
 
@@ -92,7 +91,6 @@ def _coffee_domain_basic_setup(extra):
         "GITHUBPROJECTISSUES_TEST_COFFEE_DOMAIN_ENTID": idmap,
         "GITHUBPROJECTISSUES_TEST_LIVE": "FALSE",
         "GITHUBPROJECTISSUES_TEST_EXPLAIN": "FALSE",
-        "GITHUBPROJECTISSUES_APIKEY": "NONE",
     })
 
     idmap_resolved = helpers.to_map(
@@ -103,7 +101,6 @@ def _coffee_domain_basic_setup(extra):
     if env.get("GITHUBPROJECTISSUES_TEST_LIVE") == "TRUE":
         merged_opts = vs.merge([
             {
-                "apikey": env.get("GITHUBPROJECTISSUES_APIKEY"),
             },
             extra or {},
         ])

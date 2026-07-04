@@ -9,21 +9,10 @@ The Ruby SDK for the GithubProjectIssues API — an entity-oriented client using
 
 
 ## Install
-```bash
-gem install voxgig-sdk-github-project-issues
-```
+This package is not yet published to RubyGems. Install it from the
+GitHub release tag (`rb/vX.Y.Z`):
 
-Or add to your `Gemfile`:
-
-```ruby
-gem "voxgig-sdk-github-project-issues"
-```
-
-Then run:
-
-```bash
-bundle install
-```
+- Releases: [https://github.com/voxgig-sdk/github-project-issues-sdk/releases](https://github.com/voxgig-sdk/github-project-issues-sdk/releases)
 
 
 ## Tutorial: your first API call
@@ -36,22 +25,22 @@ loading a specific record.
 ```ruby
 require_relative "GithubProjectIssues_sdk"
 
-client = GithubProjectIssuesSDK.new({
-  "apikey" => ENV["GITHUB-PROJECT-ISSUES_APIKEY"],
-})
+client = GithubProjectIssuesSDK.new
 ```
 
 ### 2. List coffees
 
 ```ruby
-result, err = client.Coffee().list
-raise err if err
-
-if result.is_a?(Array)
-  result.each do |item|
-    d = item.data_get
-    puts "#{d["id"]} #{d["name"]}"
+begin
+  result = client.coffee.list
+  if result.is_a?(Array)
+    result.each do |item|
+      d = item.data_get
+      puts "#{d["id"]} #{d["name"]}"
+    end
   end
+rescue => err
+  warn "list failed: #{err}"
 end
 ```
 
@@ -59,7 +48,7 @@ end
 
 ```ruby
 # Update
-client.Coffee().update({ "id" => created["id"], "name" => "Example-Renamed" })
+client.coffee.update({ "id" => created["id"], "name" => "Example-Renamed" })
 
 ```
 
@@ -71,32 +60,35 @@ client.Coffee().update({ "id" => created["id"], "name" => "Example-Renamed" })
 For endpoints not covered by entity methods:
 
 ```ruby
-result, err = client.direct({
+result = client.direct({
   "path" => "/api/resource/{id}",
   "method" => "GET",
   "params" => { "id" => "example" },
 })
-raise err if err
 
 if result["ok"]
   puts result["status"]  # 200
   puts result["data"]    # response body
+else
+  warn result["err"]
 end
 ```
 
 ### Prepare a request without sending it
 
 ```ruby
-fetchdef, err = client.prepare({
-  "path" => "/api/resource/{id}",
-  "method" => "DELETE",
-  "params" => { "id" => "example" },
-})
-raise err if err
-
-puts fetchdef["url"]
-puts fetchdef["method"]
-puts fetchdef["headers"]
+begin
+  fetchdef = client.prepare({
+    "path" => "/api/resource/{id}",
+    "method" => "DELETE",
+    "params" => { "id" => "example" },
+  })
+  puts fetchdef["url"]
+  puts fetchdef["method"]
+  puts fetchdef["headers"]
+rescue => err
+  warn "prepare failed: #{err}"
+end
 ```
 
 ### Use test mode
@@ -106,7 +98,7 @@ Create a mock client for unit testing — no server required:
 ```ruby
 client = GithubProjectIssuesSDK.test
 
-result, err = client.GithubProjectIssues().load({ "id" => "test01" })
+result = client.coffee.load({ "id" => "test01" })
 # result contains mock response data
 ```
 
@@ -137,8 +129,7 @@ client = GithubProjectIssuesSDK.new({
 Create a `.env.local` file at the project root:
 
 ```
-GITHUB-PROJECT-ISSUES_TEST_LIVE=TRUE
-GITHUB-PROJECT-ISSUES_APIKEY=<your-key>
+GITHUB_PROJECT_ISSUES_TEST_LIVE=TRUE
 ```
 
 Then run:
@@ -161,7 +152,6 @@ Creates a new SDK client.
 
 | Option | Type | Description |
 | --- | --- | --- |
-| `apikey` | `String` | API key for authentication. |
 | `base` | `String` | Base URL of the API server. |
 | `prefix` | `String` | URL path prefix prepended to all requests. |
 | `suffix` | `String` | URL path suffix appended to all requests. |
@@ -183,8 +173,8 @@ Creates a test-mode client with mock transport. Both arguments may be `nil`.
 | --- | --- | --- |
 | `options_map` | `() -> Hash` | Deep copy of current SDK options. |
 | `get_utility` | `() -> Utility` | Copy of the SDK utility object. |
-| `prepare` | `(fetchargs) -> [Hash, err]` | Build an HTTP request definition without sending. |
-| `direct` | `(fetchargs) -> [Hash, err]` | Build and send an HTTP request. |
+| `prepare` | `(fetchargs) -> Hash` | Build an HTTP request definition without sending. Raises on error. |
+| `direct` | `(fetchargs) -> Hash` | Build and send an HTTP request. Returns a result hash (`result["ok"]`); does not raise. |
 | `Coffee` | `(data) -> CoffeeEntity` | Create a Coffee entity instance. |
 | `CoffeeDomain` | `(data) -> CoffeeDomainEntity` | Create a CoffeeDomain entity instance. |
 | `DonateRestController` | `(data) -> DonateRestControllerEntity` | Create a DonateRestController entity instance. |
@@ -199,11 +189,11 @@ All entities share the same interface.
 
 | Method | Signature | Description |
 | --- | --- | --- |
-| `load` | `(reqmatch, ctrl) -> [any, err]` | Load a single entity by match criteria. |
-| `list` | `(reqmatch, ctrl) -> [any, err]` | List entities matching the criteria. |
-| `create` | `(reqdata, ctrl) -> [any, err]` | Create a new entity. |
-| `update` | `(reqdata, ctrl) -> [any, err]` | Update an existing entity. |
-| `remove` | `(reqmatch, ctrl) -> [any, err]` | Remove an entity. |
+| `load` | `(reqmatch, ctrl) -> any` | Load a single entity by match criteria. Raises on error. |
+| `list` | `(reqmatch, ctrl) -> Array` | List entities matching the criteria. Raises on error. |
+| `create` | `(reqdata, ctrl) -> any` | Create a new entity. Raises on error. |
+| `update` | `(reqdata, ctrl) -> any` | Update an existing entity. Raises on error. |
+| `remove` | `(reqmatch, ctrl) -> any` | Remove an entity. Raises on error. |
 | `data_get` | `() -> Hash` | Get entity data. |
 | `data_set` | `(data)` | Set entity data. |
 | `match_get` | `() -> Hash` | Get entity match criteria. |
@@ -213,8 +203,12 @@ All entities share the same interface.
 
 ### Result shape
 
-Entity operations return `[any, err]`. The first value is a
-`Hash` with these keys:
+Entity operations return the result data directly. On failure they
+raise a `GithubProjectIssuesError` (a `StandardError` subclass), so wrap
+calls in `begin`/`rescue` where you need to handle errors.
+
+The `direct` escape hatch is the exception: it never raises and instead
+returns a result `Hash` with these keys:
 
 | Key | Type | Description |
 | --- | --- | --- |
@@ -222,8 +216,7 @@ Entity operations return `[any, err]`. The first value is a
 | `status` | `Integer` | HTTP status code. |
 | `headers` | `Hash` | Response headers. |
 | `data` | `any` | Parsed JSON response body. |
-
-On error, `ok` is `false` and `err` contains the error value.
+| `err` | `Error` | Present when `ok` is `false`. |
 
 ### Entities
 
@@ -319,7 +312,7 @@ API path: `/api/application/version`
 
 ### Coffee
 
-Create an instance: `const coffee = client.Coffee()`
+Create an instance: `const coffee = client.coffee`
 
 #### Operations
 
@@ -341,13 +334,13 @@ Create an instance: `const coffee = client.Coffee()`
 #### Example: List
 
 ```ts
-const coffees = await client.Coffee().list()
+const coffees = await client.coffee.list()
 ```
 
 
 ### CoffeeDomain
 
-Create an instance: `const coffee_domain = client.CoffeeDomain()`
+Create an instance: `const coffee_domain = client.coffee_domain`
 
 #### Operations
 
@@ -368,13 +361,13 @@ Create an instance: `const coffee_domain = client.CoffeeDomain()`
 #### Example: List
 
 ```ts
-const coffee_domains = await client.CoffeeDomain().list()
+const coffee_domains = await client.coffee_domain.list()
 ```
 
 
 ### DonateRestController
 
-Create an instance: `const donate_rest_controller = client.DonateRestController()`
+Create an instance: `const donate_rest_controller = client.donate_rest_controller`
 
 #### Operations
 
@@ -385,13 +378,13 @@ Create an instance: `const donate_rest_controller = client.DonateRestController(
 #### Example: List
 
 ```ts
-const donate_rest_controllers = await client.DonateRestController().list()
+const donate_rest_controllers = await client.donate_rest_controller.list()
 ```
 
 
 ### PortfolioController
 
-Create an instance: `const portfolio_controller = client.PortfolioController()`
+Create an instance: `const portfolio_controller = client.portfolio_controller`
 
 #### Operations
 
@@ -402,13 +395,13 @@ Create an instance: `const portfolio_controller = client.PortfolioController()`
 #### Example: List
 
 ```ts
-const portfolio_controllers = await client.PortfolioController().list()
+const portfolio_controllers = await client.portfolio_controller.list()
 ```
 
 
 ### RepositoryDetailDomain
 
-Create an instance: `const repository_detail_domain = client.RepositoryDetailDomain()`
+Create an instance: `const repository_detail_domain = client.repository_detail_domain`
 
 #### Operations
 
@@ -432,19 +425,19 @@ Create an instance: `const repository_detail_domain = client.RepositoryDetailDom
 #### Example: Load
 
 ```ts
-const repository_detail_domain = await client.RepositoryDetailDomain().load({ id: 'repository_detail_domain_id' })
+const repository_detail_domain = await client.repository_detail_domain.load({ id: 'repository_detail_domain_id' })
 ```
 
 #### Example: List
 
 ```ts
-const repository_detail_domains = await client.RepositoryDetailDomain().list()
+const repository_detail_domains = await client.repository_detail_domain.list()
 ```
 
 
 ### RepositoryIssueDomain
 
-Create an instance: `const repository_issue_domain = client.RepositoryIssueDomain()`
+Create an instance: `const repository_issue_domain = client.repository_issue_domain`
 
 #### Operations
 
@@ -465,13 +458,13 @@ Create an instance: `const repository_issue_domain = client.RepositoryIssueDomai
 #### Example: List
 
 ```ts
-const repository_issue_domains = await client.RepositoryIssueDomain().list()
+const repository_issue_domains = await client.repository_issue_domain.list()
 ```
 
 
 ### Version
 
-Create an instance: `const version = client.Version()`
+Create an instance: `const version = client.version`
 
 #### Operations
 
@@ -482,7 +475,7 @@ Create an instance: `const version = client.Version()`
 #### Example: Load
 
 ```ts
-const version = await client.Version().load({ id: 'version_id' })
+const version = await client.version.load({ id: 'version_id' })
 ```
 
 
@@ -557,11 +550,11 @@ Entity instances are stateful. After a successful `load`, the entity
 stores the returned data and match criteria internally.
 
 ```ruby
-moon = client.Moon
-moon.load({ "planet_id" => "earth", "id" => "luna" })
+coffee = client.coffee
+coffee.load({ "id" => "example_id" })
 
-# moon.data_get now returns the loaded moon data
-# moon.match_get returns the last match criteria
+# coffee.data_get now returns the loaded coffee data
+# coffee.match_get returns the last match criteria
 ```
 
 Call `make` to create a fresh instance with the same configuration

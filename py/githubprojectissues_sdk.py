@@ -144,16 +144,23 @@ class GithubProjectIssuesSDK:
 
         _, err = utility.prepare_auth(ctx)
         if err is not None:
-            return None, err
+            raise err
 
-        return utility.make_fetch_def(ctx)
+        fetchdef, err = utility.make_fetch_def(ctx)
+        if err is not None:
+            raise err
+
+        return fetchdef
 
     def direct(self, fetchargs=None):
         utility = self._utility
 
-        fetchdef, err = self.prepare(fetchargs)
-        if err is not None:
-            return {"ok": False, "err": err}, None
+        try:
+            fetchdef = self.prepare(fetchargs)
+        except Exception as err:
+            # direct() is the raw-HTTP escape hatch: it never raises, it
+            # returns a result object callers branch on via result["ok"].
+            return {"ok": False, "err": err}
 
         if fetchargs is None:
             fetchargs = {}
@@ -170,13 +177,13 @@ class GithubProjectIssuesSDK:
         fetched, fetch_err = utility.fetcher(ctx, url, fetchdef)
 
         if fetch_err is not None:
-            return {"ok": False, "err": fetch_err}, None
+            return {"ok": False, "err": fetch_err}
 
         if fetched is None:
             return {
                 "ok": False,
                 "err": ctx.make_error("direct_no_response", "response: undefined"),
-            }, None
+            }
 
         if isinstance(fetched, dict):
             status = helpers.to_int(vs.getprop(fetched, "status"))
@@ -205,45 +212,122 @@ class GithubProjectIssuesSDK:
                 "status": status,
                 "headers": headers,
                 "data": json_data,
-            }, None
+            }
 
         return {
             "ok": False,
             "err": ctx.make_error("direct_invalid", "invalid response type"),
-        }, None
+        }
 
+
+    @property
+    def coffee(self):
+        """Idiomatic facade: client.coffee.list() / client.coffee.load({"id": ...})."""
+        from entity.coffee_entity import CoffeeEntity
+        cached = getattr(self, "_coffee", None)
+        if cached is None:
+            cached = CoffeeEntity(self, None)
+            self._coffee = cached
+        return cached
 
     def Coffee(self, data=None):
+        # Deprecated: use client.coffee instead.
         from entity.coffee_entity import CoffeeEntity
         return CoffeeEntity(self, data)
 
 
+    @property
+    def coffee_domain(self):
+        """Idiomatic facade: client.coffee_domain.list() / client.coffee_domain.load({"id": ...})."""
+        from entity.coffee_domain_entity import CoffeeDomainEntity
+        cached = getattr(self, "_coffee_domain", None)
+        if cached is None:
+            cached = CoffeeDomainEntity(self, None)
+            self._coffee_domain = cached
+        return cached
+
     def CoffeeDomain(self, data=None):
+        # Deprecated: use client.coffee_domain instead.
         from entity.coffee_domain_entity import CoffeeDomainEntity
         return CoffeeDomainEntity(self, data)
 
 
+    @property
+    def donate_rest_controller(self):
+        """Idiomatic facade: client.donate_rest_controller.list() / client.donate_rest_controller.load({"id": ...})."""
+        from entity.donate_rest_controller_entity import DonateRestControllerEntity
+        cached = getattr(self, "_donate_rest_controller", None)
+        if cached is None:
+            cached = DonateRestControllerEntity(self, None)
+            self._donate_rest_controller = cached
+        return cached
+
     def DonateRestController(self, data=None):
+        # Deprecated: use client.donate_rest_controller instead.
         from entity.donate_rest_controller_entity import DonateRestControllerEntity
         return DonateRestControllerEntity(self, data)
 
 
+    @property
+    def portfolio_controller(self):
+        """Idiomatic facade: client.portfolio_controller.list() / client.portfolio_controller.load({"id": ...})."""
+        from entity.portfolio_controller_entity import PortfolioControllerEntity
+        cached = getattr(self, "_portfolio_controller", None)
+        if cached is None:
+            cached = PortfolioControllerEntity(self, None)
+            self._portfolio_controller = cached
+        return cached
+
     def PortfolioController(self, data=None):
+        # Deprecated: use client.portfolio_controller instead.
         from entity.portfolio_controller_entity import PortfolioControllerEntity
         return PortfolioControllerEntity(self, data)
 
 
+    @property
+    def repository_detail_domain(self):
+        """Idiomatic facade: client.repository_detail_domain.list() / client.repository_detail_domain.load({"id": ...})."""
+        from entity.repository_detail_domain_entity import RepositoryDetailDomainEntity
+        cached = getattr(self, "_repository_detail_domain", None)
+        if cached is None:
+            cached = RepositoryDetailDomainEntity(self, None)
+            self._repository_detail_domain = cached
+        return cached
+
     def RepositoryDetailDomain(self, data=None):
+        # Deprecated: use client.repository_detail_domain instead.
         from entity.repository_detail_domain_entity import RepositoryDetailDomainEntity
         return RepositoryDetailDomainEntity(self, data)
 
 
+    @property
+    def repository_issue_domain(self):
+        """Idiomatic facade: client.repository_issue_domain.list() / client.repository_issue_domain.load({"id": ...})."""
+        from entity.repository_issue_domain_entity import RepositoryIssueDomainEntity
+        cached = getattr(self, "_repository_issue_domain", None)
+        if cached is None:
+            cached = RepositoryIssueDomainEntity(self, None)
+            self._repository_issue_domain = cached
+        return cached
+
     def RepositoryIssueDomain(self, data=None):
+        # Deprecated: use client.repository_issue_domain instead.
         from entity.repository_issue_domain_entity import RepositoryIssueDomainEntity
         return RepositoryIssueDomainEntity(self, data)
 
 
+    @property
+    def version(self):
+        """Idiomatic facade: client.version.list() / client.version.load({"id": ...})."""
+        from entity.version_entity import VersionEntity
+        cached = getattr(self, "_version", None)
+        if cached is None:
+            cached = VersionEntity(self, None)
+            self._version = cached
+        return cached
+
     def Version(self, data=None):
+        # Deprecated: use client.version instead.
         from entity.version_entity import VersionEntity
         return VersionEntity(self, data)
 

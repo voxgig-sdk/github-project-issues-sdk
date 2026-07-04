@@ -15,9 +15,6 @@ module GithubProjectIssuesConfig
       },
       "options" => {
         "base" => "https://ironoc.net",
-        "auth" => {
-          "prefix" => "Bearer",
-        },
         "headers" => {
           "content-type" => "application/json",
         },
@@ -362,6 +359,7 @@ module GithubProjectIssuesConfig
                         "orig" => "username",
                         "reqd" => true,
                         "type" => "`$STRING`",
+                        "index$" => 0,
                       },
                     ],
                   },
@@ -450,6 +448,7 @@ module GithubProjectIssuesConfig
                         "orig" => "repository",
                         "reqd" => true,
                         "type" => "`$STRING`",
+                        "index$" => 0,
                       },
                       {
                         "active" => true,
@@ -458,6 +457,7 @@ module GithubProjectIssuesConfig
                         "orig" => "username",
                         "reqd" => true,
                         "type" => "`$STRING`",
+                        "index$" => 1,
                       },
                     ],
                   },

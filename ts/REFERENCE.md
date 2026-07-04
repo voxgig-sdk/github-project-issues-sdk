@@ -18,7 +18,6 @@ Create a new SDK client instance.
 | Name | Type | Description |
 | --- | --- | --- |
 | `options` | `object` | SDK configuration options. |
-| `options.apikey` | `string` | API key for authentication. |
 | `options.base` | `string` | Base URL for API requests. |
 | `options.prefix` | `string` | URL prefix appended after base. |
 | `options.suffix` | `string` | URL suffix appended after path. |
@@ -182,7 +181,7 @@ Alias for `GithubProjectIssuesSDK.test()`.
 ## CoffeeEntity
 
 ```ts
-const coffee = client.Coffee()
+const coffee = client.coffee
 ```
 
 ### Fields
@@ -202,7 +201,7 @@ const coffee = client.Coffee()
 List entities matching the given criteria. Returns an array.
 
 ```ts
-const results = await client.Coffee().list()
+const results = await client.coffee.list()
 ```
 
 #### `update(data: object, ctrl?: object)`
@@ -210,7 +209,7 @@ const results = await client.Coffee().list()
 Update an existing entity. The data must include the entity `id`.
 
 ```ts
-const result = await client.Coffee().update({
+const result = await client.coffee.update({
   id: 'coffee_id',
   // Fields to update
 })
@@ -247,7 +246,7 @@ Return a copy of the entity options.
 ## CoffeeDomainEntity
 
 ```ts
-const coffee_domain = client.CoffeeDomain()
+const coffee_domain = client.coffee_domain
 ```
 
 ### Fields
@@ -267,7 +266,7 @@ const coffee_domain = client.CoffeeDomain()
 List entities matching the given criteria. Returns an array.
 
 ```ts
-const results = await client.CoffeeDomain().list()
+const results = await client.coffee_domain.list()
 ```
 
 ### Common Methods
@@ -301,7 +300,7 @@ Return a copy of the entity options.
 ## DonateRestControllerEntity
 
 ```ts
-const donate_rest_controller = client.DonateRestController()
+const donate_rest_controller = client.donate_rest_controller
 ```
 
 ### Operations
@@ -311,7 +310,7 @@ const donate_rest_controller = client.DonateRestController()
 List entities matching the given criteria. Returns an array.
 
 ```ts
-const results = await client.DonateRestController().list()
+const results = await client.donate_rest_controller.list()
 ```
 
 ### Common Methods
@@ -345,7 +344,7 @@ Return a copy of the entity options.
 ## PortfolioControllerEntity
 
 ```ts
-const portfolio_controller = client.PortfolioController()
+const portfolio_controller = client.portfolio_controller
 ```
 
 ### Operations
@@ -355,7 +354,7 @@ const portfolio_controller = client.PortfolioController()
 List entities matching the given criteria. Returns an array.
 
 ```ts
-const results = await client.PortfolioController().list()
+const results = await client.portfolio_controller.list()
 ```
 
 ### Common Methods
@@ -389,7 +388,7 @@ Return a copy of the entity options.
 ## RepositoryDetailDomainEntity
 
 ```ts
-const repository_detail_domain = client.RepositoryDetailDomain()
+const repository_detail_domain = client.repository_detail_domain
 ```
 
 ### Fields
@@ -411,7 +410,7 @@ const repository_detail_domain = client.RepositoryDetailDomain()
 List entities matching the given criteria. Returns an array.
 
 ```ts
-const results = await client.RepositoryDetailDomain().list()
+const results = await client.repository_detail_domain.list()
 ```
 
 #### `load(match: object, ctrl?: object)`
@@ -419,7 +418,7 @@ const results = await client.RepositoryDetailDomain().list()
 Load a single entity matching the given criteria.
 
 ```ts
-const result = await client.RepositoryDetailDomain().load({ id: 'repository_detail_domain_id' })
+const result = await client.repository_detail_domain.load({ id: 'repository_detail_domain_id' })
 ```
 
 ### Common Methods
@@ -453,7 +452,7 @@ Return a copy of the entity options.
 ## RepositoryIssueDomainEntity
 
 ```ts
-const repository_issue_domain = client.RepositoryIssueDomain()
+const repository_issue_domain = client.repository_issue_domain
 ```
 
 ### Fields
@@ -473,7 +472,7 @@ const repository_issue_domain = client.RepositoryIssueDomain()
 List entities matching the given criteria. Returns an array.
 
 ```ts
-const results = await client.RepositoryIssueDomain().list()
+const results = await client.repository_issue_domain.list()
 ```
 
 ### Common Methods
@@ -507,7 +506,7 @@ Return a copy of the entity options.
 ## VersionEntity
 
 ```ts
-const version = client.Version()
+const version = client.version
 ```
 
 ### Operations
@@ -517,7 +516,7 @@ const version = client.Version()
 Load a single entity matching the given criteria.
 
 ```ts
-const result = await client.Version().load({ id: 'version_id' })
+const result = await client.version.load({ id: 'version_id' })
 ```
 
 ### Common Methods
