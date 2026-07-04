@@ -4,126 +4,126 @@
 # params (op.<name>.points[].args.params[]). Field/param types come from the
 # canonical type sentinels via @voxgig/sdkgen canonToType (source of truth:
 # @voxgig/apidef VALID_CANON). Do not edit by hand.
+#
+# These are TypedDicts, not dataclasses: the SDK ops return/accept plain dicts
+# at runtime, and a TypedDict IS a dict shape, so the types match the runtime.
+# Optional (req:false) keys are modelled as TypedDict key-optionality
+# (total=False), split into a required base + total=False subclass when a type
+# has both required and optional keys.
 
 from __future__ import annotations
 
-from dataclasses import dataclass
-from typing import Optional, Any
+from typing import TypedDict, Any
 
 
-@dataclass
-class Coffee:
+class CoffeeRequired(TypedDict):
     image: str
     ingredient: list
     title: str
-    description: Optional[str] = None
-    id: Optional[int] = None
 
 
-@dataclass
-class CoffeeListMatch:
-    description: Optional[str] = None
-    id: Optional[int] = None
-    image: Optional[str] = None
-    ingredient: Optional[list] = None
-    title: Optional[str] = None
+class Coffee(CoffeeRequired, total=False):
+    description: str
+    id: int
 
 
-@dataclass
-class CoffeeUpdateData:
-    description: Optional[str] = None
-    id: Optional[int] = None
-    image: Optional[str] = None
-    ingredient: Optional[list] = None
-    title: Optional[str] = None
-
-
-@dataclass
-class CoffeeDomain:
+class CoffeeListMatch(TypedDict, total=False):
+    description: str
+    id: int
     image: str
     ingredient: list
     title: str
-    description: Optional[str] = None
-    id: Optional[int] = None
 
 
-@dataclass
-class CoffeeDomainListMatch:
-    description: Optional[str] = None
-    id: Optional[int] = None
-    image: Optional[str] = None
-    ingredient: Optional[list] = None
-    title: Optional[str] = None
+class CoffeeUpdateData(TypedDict, total=False):
+    description: str
+    id: int
+    image: str
+    ingredient: list
+    title: str
 
 
-@dataclass
-class DonateRestController:
+class CoffeeDomainRequired(TypedDict):
+    image: str
+    ingredient: list
+    title: str
+
+
+class CoffeeDomain(CoffeeDomainRequired, total=False):
+    description: str
+    id: int
+
+
+class CoffeeDomainListMatch(TypedDict, total=False):
+    description: str
+    id: int
+    image: str
+    ingredient: list
+    title: str
+
+
+class DonateRestController(TypedDict):
     pass
 
 
-@dataclass
-class DonateRestControllerListMatch:
+class DonateRestControllerListMatch(TypedDict):
     pass
 
 
-@dataclass
-class PortfolioController:
+class PortfolioController(TypedDict):
     pass
 
 
-@dataclass
-class PortfolioControllerListMatch:
+class PortfolioControllerListMatch(TypedDict):
     pass
 
 
-@dataclass
-class RepositoryDetailDomain:
+class RepositoryDetailDomainRequired(TypedDict):
     full_name: str
     name: str
     repo_url: str
-    app_home: Optional[str] = None
-    description: Optional[str] = None
-    issue_count: Optional[int] = None
-    topic: Optional[str] = None
 
 
-@dataclass
-class RepositoryDetailDomainLoadMatch:
+class RepositoryDetailDomain(RepositoryDetailDomainRequired, total=False):
+    app_home: str
+    description: str
+    issue_count: int
+    topic: str
+
+
+class RepositoryDetailDomainLoadMatch(TypedDict):
     username: str
 
 
-@dataclass
-class RepositoryDetailDomainListMatch:
-    app_home: Optional[str] = None
-    description: Optional[str] = None
-    full_name: Optional[str] = None
-    issue_count: Optional[int] = None
-    name: Optional[str] = None
-    repo_url: Optional[str] = None
-    topic: Optional[str] = None
+class RepositoryDetailDomainListMatch(TypedDict, total=False):
+    app_home: str
+    description: str
+    full_name: str
+    issue_count: int
+    name: str
+    repo_url: str
+    topic: str
 
 
-@dataclass
-class RepositoryIssueDomain:
+class RepositoryIssueDomainRequired(TypedDict):
     number: str
     title: str
-    body: Optional[str] = None
-    label: Optional[list] = None
-    state: Optional[str] = None
 
 
-@dataclass
-class RepositoryIssueDomainListMatch:
+class RepositoryIssueDomain(RepositoryIssueDomainRequired, total=False):
+    body: str
+    label: list
+    state: str
+
+
+class RepositoryIssueDomainListMatch(TypedDict):
     repository: str
     username: str
 
 
-@dataclass
-class Version:
+class Version(TypedDict):
     pass
 
 
-@dataclass
-class VersionLoadMatch:
+class VersionLoadMatch(TypedDict):
     pass
-

@@ -233,10 +233,10 @@ class GithubProjectIssuesSDK
 
     private $_coffee = null;
 
-    // Idiomatic facade: $client->coffee()->list() / ->load(["id" => ...]).
-    // Also serves the deprecated PascalCase alias Coffee() (PHP method
-    // names are case-insensitive).
-    public function coffee($data = null)
+    // Canonical facade: $client->Coffee()->list() / ->load(["id" => ...]).
+    // PHP method names are case-insensitive, so lowercase $client->coffee()
+    // resolves here too.
+    public function Coffee($data = null)
     {
         require_once __DIR__ . '/entity/coffee_entity.php';
         if ($data === null) {
@@ -251,10 +251,10 @@ class GithubProjectIssuesSDK
 
     private $_coffee_domain = null;
 
-    // Idiomatic facade: $client->coffee_domain()->list() / ->load(["id" => ...]).
-    // Also serves the deprecated PascalCase alias CoffeeDomain() (PHP method
-    // names are case-insensitive).
-    public function coffee_domain($data = null)
+    // Canonical facade: $client->CoffeeDomain()->list() / ->load(["id" => ...]).
+    // PHP method names are case-insensitive, so lowercase $client->coffee_domain()
+    // resolves here too.
+    public function CoffeeDomain($data = null)
     {
         require_once __DIR__ . '/entity/coffee_domain_entity.php';
         if ($data === null) {
@@ -269,10 +269,10 @@ class GithubProjectIssuesSDK
 
     private $_donate_rest_controller = null;
 
-    // Idiomatic facade: $client->donate_rest_controller()->list() / ->load(["id" => ...]).
-    // Also serves the deprecated PascalCase alias DonateRestController() (PHP method
-    // names are case-insensitive).
-    public function donate_rest_controller($data = null)
+    // Canonical facade: $client->DonateRestController()->list() / ->load(["id" => ...]).
+    // PHP method names are case-insensitive, so lowercase $client->donate_rest_controller()
+    // resolves here too.
+    public function DonateRestController($data = null)
     {
         require_once __DIR__ . '/entity/donate_rest_controller_entity.php';
         if ($data === null) {
@@ -287,10 +287,10 @@ class GithubProjectIssuesSDK
 
     private $_portfolio_controller = null;
 
-    // Idiomatic facade: $client->portfolio_controller()->list() / ->load(["id" => ...]).
-    // Also serves the deprecated PascalCase alias PortfolioController() (PHP method
-    // names are case-insensitive).
-    public function portfolio_controller($data = null)
+    // Canonical facade: $client->PortfolioController()->list() / ->load(["id" => ...]).
+    // PHP method names are case-insensitive, so lowercase $client->portfolio_controller()
+    // resolves here too.
+    public function PortfolioController($data = null)
     {
         require_once __DIR__ . '/entity/portfolio_controller_entity.php';
         if ($data === null) {
@@ -305,10 +305,10 @@ class GithubProjectIssuesSDK
 
     private $_repository_detail_domain = null;
 
-    // Idiomatic facade: $client->repository_detail_domain()->list() / ->load(["id" => ...]).
-    // Also serves the deprecated PascalCase alias RepositoryDetailDomain() (PHP method
-    // names are case-insensitive).
-    public function repository_detail_domain($data = null)
+    // Canonical facade: $client->RepositoryDetailDomain()->list() / ->load(["id" => ...]).
+    // PHP method names are case-insensitive, so lowercase $client->repository_detail_domain()
+    // resolves here too.
+    public function RepositoryDetailDomain($data = null)
     {
         require_once __DIR__ . '/entity/repository_detail_domain_entity.php';
         if ($data === null) {
@@ -323,10 +323,10 @@ class GithubProjectIssuesSDK
 
     private $_repository_issue_domain = null;
 
-    // Idiomatic facade: $client->repository_issue_domain()->list() / ->load(["id" => ...]).
-    // Also serves the deprecated PascalCase alias RepositoryIssueDomain() (PHP method
-    // names are case-insensitive).
-    public function repository_issue_domain($data = null)
+    // Canonical facade: $client->RepositoryIssueDomain()->list() / ->load(["id" => ...]).
+    // PHP method names are case-insensitive, so lowercase $client->repository_issue_domain()
+    // resolves here too.
+    public function RepositoryIssueDomain($data = null)
     {
         require_once __DIR__ . '/entity/repository_issue_domain_entity.php';
         if ($data === null) {
@@ -341,10 +341,10 @@ class GithubProjectIssuesSDK
 
     private $_version = null;
 
-    // Idiomatic facade: $client->version()->list() / ->load(["id" => ...]).
-    // Also serves the deprecated PascalCase alias Version() (PHP method
-    // names are case-insensitive).
-    public function version($data = null)
+    // Canonical facade: $client->Version()->list() / ->load(["id" => ...]).
+    // PHP method names are case-insensitive, so lowercase $client->version()
+    // resolves here too.
+    public function Version($data = null)
     {
         require_once __DIR__ . '/entity/version_entity.php';
         if ($data === null) {

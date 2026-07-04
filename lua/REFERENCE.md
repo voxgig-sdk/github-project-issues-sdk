@@ -107,7 +107,7 @@ same parameters as `direct()`.
 ## CoffeeEntity
 
 ```lua
-local coffee = client:coffee(nil)
+local coffee = client:Coffee(nil)
 ```
 
 ### Fields
@@ -127,7 +127,7 @@ local coffee = client:coffee(nil)
 List entities matching the given criteria. Returns an array.
 
 ```lua
-local results, err = client:coffee():list()
+local results, err = client:Coffee():list()
 ```
 
 #### `update(reqdata, ctrl) -> any, err`
@@ -135,7 +135,7 @@ local results, err = client:coffee():list()
 Update an existing entity. The data must include the entity `id`.
 
 ```lua
-local result, err = client:coffee():update({
+local result, err = client:Coffee():update({
   id = "coffee_id",
   -- Fields to update
 })
@@ -174,7 +174,7 @@ Return the entity name.
 ## CoffeeDomainEntity
 
 ```lua
-local coffee_domain = client:coffee_domain(nil)
+local coffee_domain = client:CoffeeDomain(nil)
 ```
 
 ### Fields
@@ -194,7 +194,7 @@ local coffee_domain = client:coffee_domain(nil)
 List entities matching the given criteria. Returns an array.
 
 ```lua
-local results, err = client:coffee_domain():list()
+local results, err = client:CoffeeDomain():list()
 ```
 
 ### Common Methods
@@ -230,7 +230,7 @@ Return the entity name.
 ## DonateRestControllerEntity
 
 ```lua
-local donate_rest_controller = client:donate_rest_controller(nil)
+local donate_rest_controller = client:DonateRestController(nil)
 ```
 
 ### Operations
@@ -240,7 +240,7 @@ local donate_rest_controller = client:donate_rest_controller(nil)
 List entities matching the given criteria. Returns an array.
 
 ```lua
-local results, err = client:donate_rest_controller():list()
+local results, err = client:DonateRestController():list()
 ```
 
 ### Common Methods
@@ -276,7 +276,7 @@ Return the entity name.
 ## PortfolioControllerEntity
 
 ```lua
-local portfolio_controller = client:portfolio_controller(nil)
+local portfolio_controller = client:PortfolioController(nil)
 ```
 
 ### Operations
@@ -286,7 +286,7 @@ local portfolio_controller = client:portfolio_controller(nil)
 List entities matching the given criteria. Returns an array.
 
 ```lua
-local results, err = client:portfolio_controller():list()
+local results, err = client:PortfolioController():list()
 ```
 
 ### Common Methods
@@ -322,7 +322,7 @@ Return the entity name.
 ## RepositoryDetailDomainEntity
 
 ```lua
-local repository_detail_domain = client:repository_detail_domain(nil)
+local repository_detail_domain = client:RepositoryDetailDomain(nil)
 ```
 
 ### Fields
@@ -344,7 +344,7 @@ local repository_detail_domain = client:repository_detail_domain(nil)
 List entities matching the given criteria. Returns an array.
 
 ```lua
-local results, err = client:repository_detail_domain():list()
+local results, err = client:RepositoryDetailDomain():list()
 ```
 
 #### `load(reqmatch, ctrl) -> any, err`
@@ -352,7 +352,7 @@ local results, err = client:repository_detail_domain():list()
 Load a single entity matching the given criteria.
 
 ```lua
-local result, err = client:repository_detail_domain():load({ id = "repository_detail_domain_id" })
+local result, err = client:RepositoryDetailDomain():load({ id = "repository_detail_domain_id" })
 ```
 
 ### Common Methods
@@ -388,7 +388,7 @@ Return the entity name.
 ## RepositoryIssueDomainEntity
 
 ```lua
-local repository_issue_domain = client:repository_issue_domain(nil)
+local repository_issue_domain = client:RepositoryIssueDomain(nil)
 ```
 
 ### Fields
@@ -408,7 +408,7 @@ local repository_issue_domain = client:repository_issue_domain(nil)
 List entities matching the given criteria. Returns an array.
 
 ```lua
-local results, err = client:repository_issue_domain():list()
+local results, err = client:RepositoryIssueDomain():list()
 ```
 
 ### Common Methods
@@ -444,7 +444,7 @@ Return the entity name.
 ## VersionEntity
 
 ```lua
-local version = client:version(nil)
+local version = client:Version(nil)
 ```
 
 ### Operations
@@ -454,7 +454,7 @@ local version = client:version(nil)
 Load a single entity matching the given criteria.
 
 ```lua
-local result, err = client:version():load({ id = "version_id" })
+local result, err = client:Version():load({ id = "version_id" })
 ```
 
 ### Common Methods

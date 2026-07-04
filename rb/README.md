@@ -28,16 +28,14 @@ require_relative "GithubProjectIssues_sdk"
 client = GithubProjectIssuesSDK.new
 ```
 
-### 2. List coffees
+### 2. List coffee records
 
 ```ruby
 begin
-  result = client.coffee.list
-  if result.is_a?(Array)
-    result.each do |item|
-      d = item.data_get
-      puts "#{d["id"]} #{d["name"]}"
-    end
+  # list returns an Array of Coffee records — iterate directly.
+  coffees = client.Coffee.list
+  coffees.each do |item|
+    puts "#{item["id"]} #{item["name"]}"
   end
 rescue => err
   warn "list failed: #{err}"
@@ -47,8 +45,8 @@ end
 ### 4. Create, update, and remove
 
 ```ruby
-# Update
-client.coffee.update({ "id" => created["id"], "name" => "Example-Renamed" })
+# Update — index the bare record directly (created["id"]).
+client.Coffee.update({ "id" => created["id"], "name" => "Example-Renamed" })
 
 ```
 
@@ -93,13 +91,17 @@ end
 
 ### Use test mode
 
-Create a mock client for unit testing — no server required:
+Create a mock client for unit testing — no server required. Seed fixture
+data via the `entity` option so offline calls resolve without a live server:
 
 ```ruby
-client = GithubProjectIssuesSDK.test
+client = GithubProjectIssuesSDK.test({
+  "entity" => { "coffee" => { "test01" => { "id" => "test01" } } },
+})
 
-result = client.coffee.load({ "id" => "test01" })
-# result contains mock response data
+# load returns the bare mock record (raises on error).
+coffee = client.Coffee.load({ "id" => "test01" })
+puts coffee
 ```
 
 ### Use a custom fetch function
@@ -312,7 +314,7 @@ API path: `/api/application/version`
 
 ### Coffee
 
-Create an instance: `const coffee = client.coffee`
+Create an instance: `coffee = client.Coffee`
 
 #### Operations
 
@@ -333,14 +335,15 @@ Create an instance: `const coffee = client.coffee`
 
 #### Example: List
 
-```ts
-const coffees = await client.coffee.list()
+```ruby
+# list returns an Array of Coffee records (raises on error).
+coffees = client.Coffee.list
 ```
 
 
 ### CoffeeDomain
 
-Create an instance: `const coffee_domain = client.coffee_domain`
+Create an instance: `coffee_domain = client.CoffeeDomain`
 
 #### Operations
 
@@ -360,14 +363,15 @@ Create an instance: `const coffee_domain = client.coffee_domain`
 
 #### Example: List
 
-```ts
-const coffee_domains = await client.coffee_domain.list()
+```ruby
+# list returns an Array of CoffeeDomain records (raises on error).
+coffee_domains = client.CoffeeDomain.list
 ```
 
 
 ### DonateRestController
 
-Create an instance: `const donate_rest_controller = client.donate_rest_controller`
+Create an instance: `donate_rest_controller = client.DonateRestController`
 
 #### Operations
 
@@ -377,14 +381,15 @@ Create an instance: `const donate_rest_controller = client.donate_rest_controlle
 
 #### Example: List
 
-```ts
-const donate_rest_controllers = await client.donate_rest_controller.list()
+```ruby
+# list returns an Array of DonateRestController records (raises on error).
+donate_rest_controllers = client.DonateRestController.list
 ```
 
 
 ### PortfolioController
 
-Create an instance: `const portfolio_controller = client.portfolio_controller`
+Create an instance: `portfolio_controller = client.PortfolioController`
 
 #### Operations
 
@@ -394,14 +399,15 @@ Create an instance: `const portfolio_controller = client.portfolio_controller`
 
 #### Example: List
 
-```ts
-const portfolio_controllers = await client.portfolio_controller.list()
+```ruby
+# list returns an Array of PortfolioController records (raises on error).
+portfolio_controllers = client.PortfolioController.list
 ```
 
 
 ### RepositoryDetailDomain
 
-Create an instance: `const repository_detail_domain = client.repository_detail_domain`
+Create an instance: `repository_detail_domain = client.RepositoryDetailDomain`
 
 #### Operations
 
@@ -424,20 +430,22 @@ Create an instance: `const repository_detail_domain = client.repository_detail_d
 
 #### Example: Load
 
-```ts
-const repository_detail_domain = await client.repository_detail_domain.load({ id: 'repository_detail_domain_id' })
+```ruby
+# load returns the bare RepositoryDetailDomain record (raises on error).
+repository_detail_domain = client.RepositoryDetailDomain.load({ "id" => "repository_detail_domain_id" })
 ```
 
 #### Example: List
 
-```ts
-const repository_detail_domains = await client.repository_detail_domain.list()
+```ruby
+# list returns an Array of RepositoryDetailDomain records (raises on error).
+repository_detail_domains = client.RepositoryDetailDomain.list
 ```
 
 
 ### RepositoryIssueDomain
 
-Create an instance: `const repository_issue_domain = client.repository_issue_domain`
+Create an instance: `repository_issue_domain = client.RepositoryIssueDomain`
 
 #### Operations
 
@@ -457,14 +465,15 @@ Create an instance: `const repository_issue_domain = client.repository_issue_dom
 
 #### Example: List
 
-```ts
-const repository_issue_domains = await client.repository_issue_domain.list()
+```ruby
+# list returns an Array of RepositoryIssueDomain records (raises on error).
+repository_issue_domains = client.RepositoryIssueDomain.list
 ```
 
 
 ### Version
 
-Create an instance: `const version = client.version`
+Create an instance: `version = client.Version`
 
 #### Operations
 
@@ -474,8 +483,9 @@ Create an instance: `const version = client.version`
 
 #### Example: Load
 
-```ts
-const version = await client.version.load({ id: 'version_id' })
+```ruby
+# load returns the bare Version record (raises on error).
+version = client.Version.load({ "id" => "version_id" })
 ```
 
 
@@ -550,7 +560,7 @@ Entity instances are stateful. After a successful `load`, the entity
 stores the returned data and match criteria internally.
 
 ```ruby
-coffee = client.coffee
+coffee = client.Coffee
 coffee.load({ "id" => "example_id" })
 
 # coffee.data_get now returns the loaded coffee data

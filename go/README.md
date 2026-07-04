@@ -30,47 +30,40 @@ go mod edit -replace github.com/voxgig-sdk/github-project-issues-sdk/go=../githu
 This tutorial walks through creating a client, listing entities, and
 loading a specific record.
 
-### 1. Create a client
+### Quickstart
+
+A complete program: create a client, then call the entity operations.
+Each operation returns `(value, error)` — the value is the data itself
+(there is no `{ok, data}` wrapper), so check `err` and use the value
+directly.
 
 ```go
 package main
 
 import (
     "fmt"
-
     sdk "github.com/voxgig-sdk/github-project-issues-sdk/go"
-    "github.com/voxgig-sdk/github-project-issues-sdk/go/core"
 )
 
 func main() {
     client := sdk.New()
-```
 
-### 2. List coffees
-
-```go
-    result, err := client.Coffee(nil).List(nil, nil)
+    // List coffee records — the value is the array of records itself.
+    coffees, err := client.Coffee(nil).List(nil, nil)
     if err != nil {
         panic(err)
     }
-
-    rm := core.ToMapAny(result)
-    if rm["ok"] == true {
-        for _, item := range rm["data"].([]any) {
-            p := core.ToMapAny(item)
-            fmt.Println(p["id"], p["name"])
-        }
+    for _, item := range coffees.([]any) {
+        fmt.Println(item)
     }
-```
 
-### 4. Create, update, and remove
-
-```go
-// Update
-client.Coffee(nil).Update(
-    map[string]any{"id": newID, "name": "Example-Renamed"}, nil,
-)
-
+    // Update a coffee.
+    updated, err := client.Coffee(nil).Update(map[string]any{"id": "example_id", "name": "Renamed"}, nil)
+    if err != nil {
+        panic(err)
+    }
+    fmt.Println(updated)
+}
 ```
 
 
@@ -120,10 +113,13 @@ Create a mock client for unit testing — no server required:
 ```go
 client := sdk.Test()
 
-result, err := client.Coffee(nil).Load(
+coffee, err := client.Coffee(nil).Load(
     map[string]any{"id": "test01"}, nil,
 )
-// result contains mock response data
+if err != nil {
+    panic(err)
+}
+fmt.Println(coffee) // the loaded mock data
 ```
 
 ### Use a custom fetch function
@@ -226,17 +222,24 @@ All entities implement the `GithubProjectIssuesEntity` interface.
 
 ### Result shape
 
-Entity operations return `(any, error)`. The `any` value is a
-`map[string]any` with these keys:
+Entity operations return `(value, error)`. The `value` is the
+operation's data **directly** — there is no wrapper:
 
-| Key | Type | Description |
-| --- | --- | --- |
-| `"ok"` | `bool` | `true` if the HTTP status is 2xx. |
-| `"status"` | `int` | HTTP status code. |
-| `"headers"` | `map[string]any` | Response headers. |
-| `"data"` | `any` | Parsed JSON response body. |
+| Operation | `value` |
+| --- | --- |
+| `Load` / `Create` / `Update` / `Remove` | the entity record (`map[string]any`) |
+| `List` | a `[]any` of entity records |
 
-On error, `"ok"` is `false` and `"err"` contains the error value.
+Check `err` first, then use the value directly (or the typed
+`...Typed` variants, which return the entity's model struct and a typed
+slice):
+
+    coffee, err := client.Coffee(nil).Load(map[string]any{"id": "example_id"}, nil)
+    if err != nil { /* handle */ }
+    // coffee is the loaded record
+
+Only `Direct()` returns a response envelope — a `map[string]any` with
+`"ok"`, `"status"`, `"headers"`, and `"data"` keys.
 
 ### Entities
 
@@ -354,7 +357,11 @@ Create an instance: `coffee := client.Coffee(nil)`
 #### Example: List
 
 ```go
-results, err := client.Coffee(nil).List(nil, nil)
+coffees, err := client.Coffee(nil).List(nil, nil)
+if err != nil {
+    panic(err)
+}
+fmt.Println(coffees) // the array of records
 ```
 
 
@@ -381,7 +388,11 @@ Create an instance: `coffee_domain := client.CoffeeDomain(nil)`
 #### Example: List
 
 ```go
-results, err := client.CoffeeDomain(nil).List(nil, nil)
+coffee_domains, err := client.CoffeeDomain(nil).List(nil, nil)
+if err != nil {
+    panic(err)
+}
+fmt.Println(coffee_domains) // the array of records
 ```
 
 
@@ -398,7 +409,11 @@ Create an instance: `donate_rest_controller := client.DonateRestController(nil)`
 #### Example: List
 
 ```go
-results, err := client.DonateRestController(nil).List(nil, nil)
+donate_rest_controllers, err := client.DonateRestController(nil).List(nil, nil)
+if err != nil {
+    panic(err)
+}
+fmt.Println(donate_rest_controllers) // the array of records
 ```
 
 
@@ -415,7 +430,11 @@ Create an instance: `portfolio_controller := client.PortfolioController(nil)`
 #### Example: List
 
 ```go
-results, err := client.PortfolioController(nil).List(nil, nil)
+portfolio_controllers, err := client.PortfolioController(nil).List(nil, nil)
+if err != nil {
+    panic(err)
+}
+fmt.Println(portfolio_controllers) // the array of records
 ```
 
 
@@ -445,13 +464,21 @@ Create an instance: `repository_detail_domain := client.RepositoryDetailDomain(n
 #### Example: Load
 
 ```go
-result, err := client.RepositoryDetailDomain(nil).Load(map[string]any{"id": "repository_detail_domain_id"}, nil)
+repository_detail_domain, err := client.RepositoryDetailDomain(nil).Load(map[string]any{"id": "repository_detail_domain_id"}, nil)
+if err != nil {
+    panic(err)
+}
+fmt.Println(repository_detail_domain) // the loaded record
 ```
 
 #### Example: List
 
 ```go
-results, err := client.RepositoryDetailDomain(nil).List(nil, nil)
+repository_detail_domains, err := client.RepositoryDetailDomain(nil).List(nil, nil)
+if err != nil {
+    panic(err)
+}
+fmt.Println(repository_detail_domains) // the array of records
 ```
 
 
@@ -478,7 +505,11 @@ Create an instance: `repository_issue_domain := client.RepositoryIssueDomain(nil
 #### Example: List
 
 ```go
-results, err := client.RepositoryIssueDomain(nil).List(nil, nil)
+repository_issue_domains, err := client.RepositoryIssueDomain(nil).List(nil, nil)
+if err != nil {
+    panic(err)
+}
+fmt.Println(repository_issue_domains) // the array of records
 ```
 
 
@@ -495,7 +526,11 @@ Create an instance: `version := client.Version(nil)`
 #### Example: Load
 
 ```go
-result, err := client.Version(nil).Load(map[string]any{"id": "version_id"}, nil)
+version, err := client.Version(nil).Load(map[string]any{"id": "version_id"}, nil)
+if err != nil {
+    panic(err)
+}
+fmt.Println(version) // the loaded record
 ```
 
 

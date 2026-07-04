@@ -220,121 +220,51 @@ class GithubProjectIssuesSDK:
         }
 
 
-    @property
-    def coffee(self):
-        """Idiomatic facade: client.coffee.list() / client.coffee.load({"id": ...})."""
-        from entity.coffee_entity import CoffeeEntity
-        cached = getattr(self, "_coffee", None)
-        if cached is None:
-            cached = CoffeeEntity(self, None)
-            self._coffee = cached
-        return cached
-
-    def Coffee(self, data=None):
-        # Deprecated: use client.coffee instead.
+    def Coffee(self, data=None) -> "CoffeeEntity":
+        """Entity factory: client.Coffee().list({}) / client.Coffee().load({"id": ...})."""
         from entity.coffee_entity import CoffeeEntity
         return CoffeeEntity(self, data)
 
 
-    @property
-    def coffee_domain(self):
-        """Idiomatic facade: client.coffee_domain.list() / client.coffee_domain.load({"id": ...})."""
-        from entity.coffee_domain_entity import CoffeeDomainEntity
-        cached = getattr(self, "_coffee_domain", None)
-        if cached is None:
-            cached = CoffeeDomainEntity(self, None)
-            self._coffee_domain = cached
-        return cached
-
-    def CoffeeDomain(self, data=None):
-        # Deprecated: use client.coffee_domain instead.
+    def CoffeeDomain(self, data=None) -> "CoffeeDomainEntity":
+        """Entity factory: client.CoffeeDomain().list({}) / client.CoffeeDomain().load({"id": ...})."""
         from entity.coffee_domain_entity import CoffeeDomainEntity
         return CoffeeDomainEntity(self, data)
 
 
-    @property
-    def donate_rest_controller(self):
-        """Idiomatic facade: client.donate_rest_controller.list() / client.donate_rest_controller.load({"id": ...})."""
-        from entity.donate_rest_controller_entity import DonateRestControllerEntity
-        cached = getattr(self, "_donate_rest_controller", None)
-        if cached is None:
-            cached = DonateRestControllerEntity(self, None)
-            self._donate_rest_controller = cached
-        return cached
-
-    def DonateRestController(self, data=None):
-        # Deprecated: use client.donate_rest_controller instead.
+    def DonateRestController(self, data=None) -> "DonateRestControllerEntity":
+        """Entity factory: client.DonateRestController().list({}) / client.DonateRestController().load({"id": ...})."""
         from entity.donate_rest_controller_entity import DonateRestControllerEntity
         return DonateRestControllerEntity(self, data)
 
 
-    @property
-    def portfolio_controller(self):
-        """Idiomatic facade: client.portfolio_controller.list() / client.portfolio_controller.load({"id": ...})."""
-        from entity.portfolio_controller_entity import PortfolioControllerEntity
-        cached = getattr(self, "_portfolio_controller", None)
-        if cached is None:
-            cached = PortfolioControllerEntity(self, None)
-            self._portfolio_controller = cached
-        return cached
-
-    def PortfolioController(self, data=None):
-        # Deprecated: use client.portfolio_controller instead.
+    def PortfolioController(self, data=None) -> "PortfolioControllerEntity":
+        """Entity factory: client.PortfolioController().list({}) / client.PortfolioController().load({"id": ...})."""
         from entity.portfolio_controller_entity import PortfolioControllerEntity
         return PortfolioControllerEntity(self, data)
 
 
-    @property
-    def repository_detail_domain(self):
-        """Idiomatic facade: client.repository_detail_domain.list() / client.repository_detail_domain.load({"id": ...})."""
-        from entity.repository_detail_domain_entity import RepositoryDetailDomainEntity
-        cached = getattr(self, "_repository_detail_domain", None)
-        if cached is None:
-            cached = RepositoryDetailDomainEntity(self, None)
-            self._repository_detail_domain = cached
-        return cached
-
-    def RepositoryDetailDomain(self, data=None):
-        # Deprecated: use client.repository_detail_domain instead.
+    def RepositoryDetailDomain(self, data=None) -> "RepositoryDetailDomainEntity":
+        """Entity factory: client.RepositoryDetailDomain().list({}) / client.RepositoryDetailDomain().load({"id": ...})."""
         from entity.repository_detail_domain_entity import RepositoryDetailDomainEntity
         return RepositoryDetailDomainEntity(self, data)
 
 
-    @property
-    def repository_issue_domain(self):
-        """Idiomatic facade: client.repository_issue_domain.list() / client.repository_issue_domain.load({"id": ...})."""
-        from entity.repository_issue_domain_entity import RepositoryIssueDomainEntity
-        cached = getattr(self, "_repository_issue_domain", None)
-        if cached is None:
-            cached = RepositoryIssueDomainEntity(self, None)
-            self._repository_issue_domain = cached
-        return cached
-
-    def RepositoryIssueDomain(self, data=None):
-        # Deprecated: use client.repository_issue_domain instead.
+    def RepositoryIssueDomain(self, data=None) -> "RepositoryIssueDomainEntity":
+        """Entity factory: client.RepositoryIssueDomain().list({}) / client.RepositoryIssueDomain().load({"id": ...})."""
         from entity.repository_issue_domain_entity import RepositoryIssueDomainEntity
         return RepositoryIssueDomainEntity(self, data)
 
 
-    @property
-    def version(self):
-        """Idiomatic facade: client.version.list() / client.version.load({"id": ...})."""
-        from entity.version_entity import VersionEntity
-        cached = getattr(self, "_version", None)
-        if cached is None:
-            cached = VersionEntity(self, None)
-            self._version = cached
-        return cached
-
-    def Version(self, data=None):
-        # Deprecated: use client.version instead.
+    def Version(self, data=None) -> "VersionEntity":
+        """Entity factory: client.Version().list({}) / client.Version().load({"id": ...})."""
         from entity.version_entity import VersionEntity
         return VersionEntity(self, data)
 
 
 
     @classmethod
-    def test(cls, testopts=None, sdkopts=None):
+    def test(cls, testopts=None, sdkopts=None) -> "GithubProjectIssuesSDK":
         if sdkopts is None:
             sdkopts = {}
         sdkopts = vs.clone(sdkopts)
@@ -354,3 +284,15 @@ class GithubProjectIssuesSDK:
         sdk.mode = "test"
 
         return sdk
+
+
+from typing import TYPE_CHECKING
+
+if TYPE_CHECKING:
+    from entity.coffee_entity import CoffeeEntity
+    from entity.coffee_domain_entity import CoffeeDomainEntity
+    from entity.donate_rest_controller_entity import DonateRestControllerEntity
+    from entity.portfolio_controller_entity import PortfolioControllerEntity
+    from entity.repository_detail_domain_entity import RepositoryDetailDomainEntity
+    from entity.repository_issue_domain_entity import RepositoryIssueDomainEntity
+    from entity.version_entity import VersionEntity

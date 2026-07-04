@@ -109,7 +109,7 @@ Prepare a fetch definition without sending the request. Returns the
 ## CoffeeEntity
 
 ```php
-$coffee = $client->coffee();
+$coffee = $client->Coffee();
 ```
 
 ### Fields
@@ -129,7 +129,7 @@ $coffee = $client->coffee();
 List entities matching the given criteria. Returns an array. Throws on error.
 
 ```php
-$results = $client->coffee()->list([]);
+$results = $client->Coffee()->list([]);
 ```
 
 #### `update(array $reqdata, ?array $ctrl = null): mixed`
@@ -137,7 +137,7 @@ $results = $client->coffee()->list([]);
 Update an existing entity. The data must include the entity `id`. Throws on error.
 
 ```php
-$result = $client->coffee()->update([
+$result = $client->Coffee()->update([
   "id" => "coffee_id",
   // Fields to update
 ]);
@@ -176,7 +176,7 @@ Return the entity name.
 ## CoffeeDomainEntity
 
 ```php
-$coffee_domain = $client->coffee_domain();
+$coffee_domain = $client->CoffeeDomain();
 ```
 
 ### Fields
@@ -196,7 +196,7 @@ $coffee_domain = $client->coffee_domain();
 List entities matching the given criteria. Returns an array. Throws on error.
 
 ```php
-$results = $client->coffee_domain()->list([]);
+$results = $client->CoffeeDomain()->list([]);
 ```
 
 ### Common Methods
@@ -232,7 +232,7 @@ Return the entity name.
 ## DonateRestControllerEntity
 
 ```php
-$donate_rest_controller = $client->donate_rest_controller();
+$donate_rest_controller = $client->DonateRestController();
 ```
 
 ### Operations
@@ -242,7 +242,7 @@ $donate_rest_controller = $client->donate_rest_controller();
 List entities matching the given criteria. Returns an array. Throws on error.
 
 ```php
-$results = $client->donate_rest_controller()->list([]);
+$results = $client->DonateRestController()->list([]);
 ```
 
 ### Common Methods
@@ -278,7 +278,7 @@ Return the entity name.
 ## PortfolioControllerEntity
 
 ```php
-$portfolio_controller = $client->portfolio_controller();
+$portfolio_controller = $client->PortfolioController();
 ```
 
 ### Operations
@@ -288,7 +288,7 @@ $portfolio_controller = $client->portfolio_controller();
 List entities matching the given criteria. Returns an array. Throws on error.
 
 ```php
-$results = $client->portfolio_controller()->list([]);
+$results = $client->PortfolioController()->list([]);
 ```
 
 ### Common Methods
@@ -324,7 +324,7 @@ Return the entity name.
 ## RepositoryDetailDomainEntity
 
 ```php
-$repository_detail_domain = $client->repository_detail_domain();
+$repository_detail_domain = $client->RepositoryDetailDomain();
 ```
 
 ### Fields
@@ -346,7 +346,7 @@ $repository_detail_domain = $client->repository_detail_domain();
 List entities matching the given criteria. Returns an array. Throws on error.
 
 ```php
-$results = $client->repository_detail_domain()->list([]);
+$results = $client->RepositoryDetailDomain()->list([]);
 ```
 
 #### `load(array $reqmatch, ?array $ctrl = null): mixed`
@@ -354,7 +354,7 @@ $results = $client->repository_detail_domain()->list([]);
 Load a single entity matching the given criteria. Throws on error.
 
 ```php
-$result = $client->repository_detail_domain()->load(["id" => "repository_detail_domain_id"]);
+$result = $client->RepositoryDetailDomain()->load(["id" => "repository_detail_domain_id"]);
 ```
 
 ### Common Methods
@@ -390,7 +390,7 @@ Return the entity name.
 ## RepositoryIssueDomainEntity
 
 ```php
-$repository_issue_domain = $client->repository_issue_domain();
+$repository_issue_domain = $client->RepositoryIssueDomain();
 ```
 
 ### Fields
@@ -410,7 +410,7 @@ $repository_issue_domain = $client->repository_issue_domain();
 List entities matching the given criteria. Returns an array. Throws on error.
 
 ```php
-$results = $client->repository_issue_domain()->list([]);
+$results = $client->RepositoryIssueDomain()->list([]);
 ```
 
 ### Common Methods
@@ -446,7 +446,7 @@ Return the entity name.
 ## VersionEntity
 
 ```php
-$version = $client->version();
+$version = $client->Version();
 ```
 
 ### Operations
@@ -456,7 +456,7 @@ $version = $client->version();
 Load a single entity matching the given criteria. Throws on error.
 
 ```php
-$result = $client->version()->load(["id" => "version_id"]);
+$result = $client->Version()->load(["id" => "version_id"]);
 ```
 
 ### Common Methods

@@ -28,24 +28,24 @@ import { GithubProjectIssuesSDK } from '@voxgig-sdk/github-project-issues'
 const client = new GithubProjectIssuesSDK()
 ```
 
-### 2. List coffees
+### 2. List coffee records
+
+`list()` resolves to an array of Coffee objects — iterate it directly:
 
 ```ts
-const result = await client.coffee.list()
+const coffees = await client.Coffee().list()
 
-if (result.ok) {
-  for (const item of result.data) {
-    console.log(item.id, item.name)
-  }
+for (const coffee of coffees) {
+  console.log(coffee)
 }
 ```
 
 ### 4. Create, update, and remove
 
 ```ts
-// Update
-const updated = await client.coffee.update({
-  id: created.data.id,
+// Update — the id comes straight off the returned entity
+const updated = await client.Coffee().update({
+  id: created.id,
   name: 'Example-Renamed',
 })
 
@@ -65,6 +65,9 @@ const result = await client.direct({
   params: { id: 'example' },
 })
 
+if (result instanceof Error) {
+  throw result
+}
 if (result.ok) {
   console.log(result.status)  // 200
   console.log(result.data)    // response body
@@ -93,9 +96,9 @@ Create a mock client for unit testing — no server required:
 ```ts
 const client = GithubProjectIssuesSDK.test()
 
-const result = await client.coffee.load({ id: 'test01' })
-// result.ok === true
-// result.data contains mock response data
+const coffee = await client.Coffee().load({ id: 'test01' })
+// coffee is a bare entity populated with mock response data
+console.log(coffee)
 ```
 
 You can also use the instance method:
@@ -110,7 +113,7 @@ const testClient = client.tester()
 Entity instances remember their last match and data:
 
 ```ts
-const entity = client.coffee
+const entity = client.Coffee()
 
 // First call sets internal match
 await entity.load({ id: 'example' })
@@ -211,29 +214,30 @@ All entities share the same interface.
 
 | Method | Signature | Description |
 | --- | --- | --- |
-| `load` | `load(reqmatch?, ctrl?): Promise<Result>` | Load a single entity by match criteria. |
-| `list` | `list(reqmatch?, ctrl?): Promise<Result>` | List entities matching the criteria. |
-| `create` | `create(reqdata?, ctrl?): Promise<Result>` | Create a new entity. |
-| `update` | `update(reqdata?, ctrl?): Promise<Result>` | Update an existing entity. |
-| `remove` | `remove(reqmatch?, ctrl?): Promise<Result>` | Remove an entity. |
+| `load` | `load(reqmatch?, ctrl?): Promise<Entity>` | Load a single entity by match criteria. |
+| `list` | `list(reqmatch?, ctrl?): Promise<Entity[]>` | List entities matching the criteria. |
+| `create` | `create(reqdata?, ctrl?): Promise<Entity>` | Create a new entity. |
+| `update` | `update(reqdata?, ctrl?): Promise<Entity>` | Update an existing entity. |
+| `remove` | `remove(reqmatch?, ctrl?): Promise<void>` | Remove an entity. |
 | `data` | `data(data?): any` | Get or set entity data. |
 | `match` | `match(match?): any` | Get or set entity match criteria. |
 | `make` | `make(): Entity` | Create a new instance with the same options. |
 | `client` | `client(): GithubProjectIssuesSDK` | Return the parent SDK client. |
 | `entopts` | `entopts(): object` | Return a copy of the entity options. |
 
-#### Result shape
+#### Return values
 
-All entity operations return a Result object:
+Entity operations resolve to the entity data directly — there is no
+result envelope:
 
-```ts
-{
-  ok: boolean      // true if the HTTP status is 2xx
-  status: number   // HTTP status code
-  headers: object  // response headers
-  data: any        // parsed JSON response body
-}
-```
+- `load`, `create` and `update` resolve to a single entity object.
+- `list` resolves to an **array** of entity objects (iterate it directly;
+  there is no `.data` and no `.ok`).
+- `remove` resolves to `void`.
+
+On a failed request these methods **throw**, so wrap calls in
+`try`/`catch` to handle errors. Only `direct()` returns the result
+envelope described below.
 
 ### DirectResult shape
 
@@ -357,7 +361,7 @@ API path: `/api/application/version`
 
 ### Coffee
 
-Create an instance: `const coffee = client.coffee`
+Create an instance: `const coffee = client.Coffee()`
 
 #### Operations
 
@@ -379,13 +383,13 @@ Create an instance: `const coffee = client.coffee`
 #### Example: List
 
 ```ts
-const coffees = await client.coffee.list()
+const coffees = await client.Coffee().list()
 ```
 
 
 ### CoffeeDomain
 
-Create an instance: `const coffee_domain = client.coffee_domain`
+Create an instance: `const coffee_domain = client.CoffeeDomain()`
 
 #### Operations
 
@@ -406,13 +410,13 @@ Create an instance: `const coffee_domain = client.coffee_domain`
 #### Example: List
 
 ```ts
-const coffee_domains = await client.coffee_domain.list()
+const coffee_domains = await client.CoffeeDomain().list()
 ```
 
 
 ### DonateRestController
 
-Create an instance: `const donate_rest_controller = client.donate_rest_controller`
+Create an instance: `const donate_rest_controller = client.DonateRestController()`
 
 #### Operations
 
@@ -423,13 +427,13 @@ Create an instance: `const donate_rest_controller = client.donate_rest_controlle
 #### Example: List
 
 ```ts
-const donate_rest_controllers = await client.donate_rest_controller.list()
+const donate_rest_controllers = await client.DonateRestController().list()
 ```
 
 
 ### PortfolioController
 
-Create an instance: `const portfolio_controller = client.portfolio_controller`
+Create an instance: `const portfolio_controller = client.PortfolioController()`
 
 #### Operations
 
@@ -440,13 +444,13 @@ Create an instance: `const portfolio_controller = client.portfolio_controller`
 #### Example: List
 
 ```ts
-const portfolio_controllers = await client.portfolio_controller.list()
+const portfolio_controllers = await client.PortfolioController().list()
 ```
 
 
 ### RepositoryDetailDomain
 
-Create an instance: `const repository_detail_domain = client.repository_detail_domain`
+Create an instance: `const repository_detail_domain = client.RepositoryDetailDomain()`
 
 #### Operations
 
@@ -470,19 +474,19 @@ Create an instance: `const repository_detail_domain = client.repository_detail_d
 #### Example: Load
 
 ```ts
-const repository_detail_domain = await client.repository_detail_domain.load({ id: 'repository_detail_domain_id' })
+const repository_detail_domain = await client.RepositoryDetailDomain().load({ id: 'repository_detail_domain_id' })
 ```
 
 #### Example: List
 
 ```ts
-const repository_detail_domains = await client.repository_detail_domain.list()
+const repository_detail_domains = await client.RepositoryDetailDomain().list()
 ```
 
 
 ### RepositoryIssueDomain
 
-Create an instance: `const repository_issue_domain = client.repository_issue_domain`
+Create an instance: `const repository_issue_domain = client.RepositoryIssueDomain()`
 
 #### Operations
 
@@ -503,13 +507,13 @@ Create an instance: `const repository_issue_domain = client.repository_issue_dom
 #### Example: List
 
 ```ts
-const repository_issue_domains = await client.repository_issue_domain.list()
+const repository_issue_domains = await client.RepositoryIssueDomain().list()
 ```
 
 
 ### Version
 
-Create an instance: `const version = client.version`
+Create an instance: `const version = client.Version()`
 
 #### Operations
 
@@ -520,7 +524,7 @@ Create an instance: `const version = client.version`
 #### Example: Load
 
 ```ts
-const version = await client.version.load({ id: 'version_id' })
+const version = await client.Version().load({ id: 'version_id' })
 ```
 
 
@@ -591,7 +595,7 @@ stores the returned data and match criteria internally. Subsequent
 calls on the same instance can rely on this state.
 
 ```ts
-const coffee = client.coffee
+const coffee = client.Coffee()
 await coffee.load({ id: "example_id" })
 
 // coffee.data() now returns the loaded coffee data

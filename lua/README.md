@@ -31,17 +31,17 @@ local sdk = require("github-project-issues_sdk")
 local client = sdk.new()
 ```
 
-### 2. List coffees
+### 2. List coffee records
+
+Entity operations return `(value, err)`. For `list`, `value` is the
+array of records itself — iterate it directly (there is no wrapper).
 
 ```lua
-local result, err = client:coffee():list()
+local coffees, err = client:Coffee():list()
 if err then error(err) end
 
-if type(result) == "table" then
-  for _, item in ipairs(result) do
-    local d = item:data_get()
-    print(d["id"], d["name"])
-  end
+for _, item in ipairs(coffees) do
+  print(item["id"], item["name"])
 end
 ```
 
@@ -49,7 +49,7 @@ end
 
 ```lua
 -- Update
-client:coffee():update({ id = created["id"], name = "Example-Renamed" })
+client:Coffee():update({ id = created["id"], name = "Example-Renamed" })
 
 ```
 
@@ -96,8 +96,8 @@ Create a mock client for unit testing — no server required:
 ```lua
 local client = sdk.test()
 
-local result, err = client:coffee():load({ id = "test01" })
--- result contains mock response data
+local result, err = client:Coffee():load({ id = "test01" })
+-- result is the loaded data; err is set on failure
 ```
 
 ### Use a custom fetch function
@@ -203,17 +203,22 @@ All entities share the same interface.
 
 ### Result shape
 
-Entity operations return `(any, err)`. The first value is a
-`table` with these keys:
+Entity operations return `(value, err)`. The `value` is the operation's
+data **directly** — there is no wrapper:
 
-| Key | Type | Description |
-| --- | --- | --- |
-| `ok` | `boolean` | `true` if the HTTP status is 2xx. |
-| `status` | `number` | HTTP status code. |
-| `headers` | `table` | Response headers. |
-| `data` | `any` | Parsed JSON response body. |
+| Operation | `value` |
+| --- | --- |
+| `load` / `create` / `update` / `remove` | the entity record (a `table`) |
+| `list` | an array (`table`) of entity records |
 
-On error, `ok` is `false` and `err` contains the error value.
+Check `err` first (it is non-`nil` on failure), then use `value`:
+
+    local coffee, err = client:Coffee():load({ id = "example_id" })
+    if err then error(err) end
+    -- coffee is the loaded record
+
+Only `direct()` returns a response envelope — a `table` with `ok`,
+`status`, `headers`, and `data` keys.
 
 ### Entities
 
@@ -309,7 +314,7 @@ API path: `/api/application/version`
 
 ### Coffee
 
-Create an instance: `const coffee = client.coffee`
+Create an instance: `local coffee = client:Coffee(nil)`
 
 #### Operations
 
@@ -330,14 +335,14 @@ Create an instance: `const coffee = client.coffee`
 
 #### Example: List
 
-```ts
-const coffees = await client.coffee.list()
+```lua
+local coffees, err = client:Coffee():list()
 ```
 
 
 ### CoffeeDomain
 
-Create an instance: `const coffee_domain = client.coffee_domain`
+Create an instance: `local coffee_domain = client:CoffeeDomain(nil)`
 
 #### Operations
 
@@ -357,14 +362,14 @@ Create an instance: `const coffee_domain = client.coffee_domain`
 
 #### Example: List
 
-```ts
-const coffee_domains = await client.coffee_domain.list()
+```lua
+local coffee_domains, err = client:CoffeeDomain():list()
 ```
 
 
 ### DonateRestController
 
-Create an instance: `const donate_rest_controller = client.donate_rest_controller`
+Create an instance: `local donate_rest_controller = client:DonateRestController(nil)`
 
 #### Operations
 
@@ -374,14 +379,14 @@ Create an instance: `const donate_rest_controller = client.donate_rest_controlle
 
 #### Example: List
 
-```ts
-const donate_rest_controllers = await client.donate_rest_controller.list()
+```lua
+local donate_rest_controllers, err = client:DonateRestController():list()
 ```
 
 
 ### PortfolioController
 
-Create an instance: `const portfolio_controller = client.portfolio_controller`
+Create an instance: `local portfolio_controller = client:PortfolioController(nil)`
 
 #### Operations
 
@@ -391,14 +396,14 @@ Create an instance: `const portfolio_controller = client.portfolio_controller`
 
 #### Example: List
 
-```ts
-const portfolio_controllers = await client.portfolio_controller.list()
+```lua
+local portfolio_controllers, err = client:PortfolioController():list()
 ```
 
 
 ### RepositoryDetailDomain
 
-Create an instance: `const repository_detail_domain = client.repository_detail_domain`
+Create an instance: `local repository_detail_domain = client:RepositoryDetailDomain(nil)`
 
 #### Operations
 
@@ -421,20 +426,20 @@ Create an instance: `const repository_detail_domain = client.repository_detail_d
 
 #### Example: Load
 
-```ts
-const repository_detail_domain = await client.repository_detail_domain.load({ id: 'repository_detail_domain_id' })
+```lua
+local repository_detail_domain, err = client:RepositoryDetailDomain():load({ id = "repository_detail_domain_id" })
 ```
 
 #### Example: List
 
-```ts
-const repository_detail_domains = await client.repository_detail_domain.list()
+```lua
+local repository_detail_domains, err = client:RepositoryDetailDomain():list()
 ```
 
 
 ### RepositoryIssueDomain
 
-Create an instance: `const repository_issue_domain = client.repository_issue_domain`
+Create an instance: `local repository_issue_domain = client:RepositoryIssueDomain(nil)`
 
 #### Operations
 
@@ -454,14 +459,14 @@ Create an instance: `const repository_issue_domain = client.repository_issue_dom
 
 #### Example: List
 
-```ts
-const repository_issue_domains = await client.repository_issue_domain.list()
+```lua
+local repository_issue_domains, err = client:RepositoryIssueDomain():list()
 ```
 
 
 ### Version
 
-Create an instance: `const version = client.version`
+Create an instance: `local version = client:Version(nil)`
 
 #### Operations
 
@@ -471,8 +476,8 @@ Create an instance: `const version = client.version`
 
 #### Example: Load
 
-```ts
-const version = await client.version.load({ id: 'version_id' })
+```lua
+local version, err = client:Version():load({ id = "version_id" })
 ```
 
 
@@ -547,7 +552,7 @@ Entity instances are stateful. After a successful `load`, the entity
 stores the returned data and match criteria internally.
 
 ```lua
-local coffee = client:coffee()
+local coffee = client:Coffee()
 coffee:load({ id = "example_id" })
 
 -- coffee:data_get() now returns the loaded coffee data

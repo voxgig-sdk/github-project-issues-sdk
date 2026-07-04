@@ -31,14 +31,16 @@ from githubprojectissues_sdk import GithubProjectIssuesSDK
 client = GithubProjectIssuesSDK()
 ```
 
-### 2. List coffees
+### 2. List coffee records
+
+`list()` returns a `list` of records (each a `dict`) and raises on
+error — iterate it directly.
 
 ```python
 try:
-    result = client.coffee.list()
-    for item in result:
-        d = item.data_get()
-        print(d["id"], d["name"])
+    coffees = client.Coffee().list({})
+    for coffee in coffees:
+        print(coffee)
 except Exception as err:
     print(f"list failed: {err}")
 ```
@@ -46,8 +48,8 @@ except Exception as err:
 ### 4. Create, update, and remove
 
 ```python
-# Update
-client.coffee.update({"id": created["id"], "name": "Example-Renamed"})
+# Update — the created record's id is a plain dict key
+client.Coffee().update({"id": created["id"], "name": "Example-Renamed"})
 
 ```
 
@@ -94,8 +96,9 @@ Create a mock client for unit testing — no server required:
 ```python
 client = GithubProjectIssuesSDK.test()
 
-result = client.coffee.load({"id": "test01"})
-# result contains mock response data
+# Entity ops return the bare record and raise on error.
+coffee = client.Coffee().load({"id": "test01"})
+# coffee contains the mock response record
 ```
 
 ### Use a custom fetch function
@@ -309,7 +312,7 @@ API path: `/api/application/version`
 
 ### Coffee
 
-Create an instance: `const coffee = client.coffee`
+Create an instance: `coffee = client.Coffee()`
 
 #### Operations
 
@@ -330,14 +333,14 @@ Create an instance: `const coffee = client.coffee`
 
 #### Example: List
 
-```ts
-const coffees = await client.coffee.list()
+```python
+coffees = client.Coffee().list({})
 ```
 
 
 ### CoffeeDomain
 
-Create an instance: `const coffee_domain = client.coffee_domain`
+Create an instance: `coffee_domain = client.CoffeeDomain()`
 
 #### Operations
 
@@ -357,14 +360,14 @@ Create an instance: `const coffee_domain = client.coffee_domain`
 
 #### Example: List
 
-```ts
-const coffee_domains = await client.coffee_domain.list()
+```python
+coffee_domains = client.CoffeeDomain().list({})
 ```
 
 
 ### DonateRestController
 
-Create an instance: `const donate_rest_controller = client.donate_rest_controller`
+Create an instance: `donate_rest_controller = client.DonateRestController()`
 
 #### Operations
 
@@ -374,14 +377,14 @@ Create an instance: `const donate_rest_controller = client.donate_rest_controlle
 
 #### Example: List
 
-```ts
-const donate_rest_controllers = await client.donate_rest_controller.list()
+```python
+donate_rest_controllers = client.DonateRestController().list({})
 ```
 
 
 ### PortfolioController
 
-Create an instance: `const portfolio_controller = client.portfolio_controller`
+Create an instance: `portfolio_controller = client.PortfolioController()`
 
 #### Operations
 
@@ -391,14 +394,14 @@ Create an instance: `const portfolio_controller = client.portfolio_controller`
 
 #### Example: List
 
-```ts
-const portfolio_controllers = await client.portfolio_controller.list()
+```python
+portfolio_controllers = client.PortfolioController().list({})
 ```
 
 
 ### RepositoryDetailDomain
 
-Create an instance: `const repository_detail_domain = client.repository_detail_domain`
+Create an instance: `repository_detail_domain = client.RepositoryDetailDomain()`
 
 #### Operations
 
@@ -421,20 +424,20 @@ Create an instance: `const repository_detail_domain = client.repository_detail_d
 
 #### Example: Load
 
-```ts
-const repository_detail_domain = await client.repository_detail_domain.load({ id: 'repository_detail_domain_id' })
+```python
+repository_detail_domain = client.RepositoryDetailDomain().load({"id": "repository_detail_domain_id"})
 ```
 
 #### Example: List
 
-```ts
-const repository_detail_domains = await client.repository_detail_domain.list()
+```python
+repository_detail_domains = client.RepositoryDetailDomain().list({})
 ```
 
 
 ### RepositoryIssueDomain
 
-Create an instance: `const repository_issue_domain = client.repository_issue_domain`
+Create an instance: `repository_issue_domain = client.RepositoryIssueDomain()`
 
 #### Operations
 
@@ -454,14 +457,14 @@ Create an instance: `const repository_issue_domain = client.repository_issue_dom
 
 #### Example: List
 
-```ts
-const repository_issue_domains = await client.repository_issue_domain.list()
+```python
+repository_issue_domains = client.RepositoryIssueDomain().list({})
 ```
 
 
 ### Version
 
-Create an instance: `const version = client.version`
+Create an instance: `version = client.Version()`
 
 #### Operations
 
@@ -471,8 +474,8 @@ Create an instance: `const version = client.version`
 
 #### Example: Load
 
-```ts
-const version = await client.version.load({ id: 'version_id' })
+```python
+version = client.Version().load({"id": "version_id"})
 ```
 
 
@@ -546,7 +549,7 @@ Entity instances are stateful. After a successful `load`, the entity
 stores the returned data and match criteria internally.
 
 ```python
-coffee = client.coffee
+coffee = client.Coffee()
 coffee.load({"id": "example_id"})
 
 # coffee.data_get() now returns the loaded coffee data

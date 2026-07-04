@@ -110,7 +110,7 @@ same parameters as `direct()`. Raises on error.
 ## CoffeeEntity
 
 ```ruby
-coffee = client.coffee
+coffee = client.Coffee
 ```
 
 ### Fields
@@ -130,7 +130,7 @@ coffee = client.coffee
 List entities matching the given criteria. Returns an array. Raises on error.
 
 ```ruby
-results = client.coffee.list(nil)
+results = client.Coffee.list(nil)
 ```
 
 #### `update(reqdata, ctrl = nil) -> result`
@@ -138,7 +138,7 @@ results = client.coffee.list(nil)
 Update an existing entity. The data must include the entity `id`. Raises on error.
 
 ```ruby
-result = client.coffee.update({
+result = client.Coffee.update({
   "id" => "coffee_id",
   # Fields to update
 })
@@ -177,7 +177,7 @@ Return the entity name.
 ## CoffeeDomainEntity
 
 ```ruby
-coffee_domain = client.coffee_domain
+coffee_domain = client.CoffeeDomain
 ```
 
 ### Fields
@@ -197,7 +197,7 @@ coffee_domain = client.coffee_domain
 List entities matching the given criteria. Returns an array. Raises on error.
 
 ```ruby
-results = client.coffee_domain.list(nil)
+results = client.CoffeeDomain.list(nil)
 ```
 
 ### Common Methods
@@ -233,7 +233,7 @@ Return the entity name.
 ## DonateRestControllerEntity
 
 ```ruby
-donate_rest_controller = client.donate_rest_controller
+donate_rest_controller = client.DonateRestController
 ```
 
 ### Operations
@@ -243,7 +243,7 @@ donate_rest_controller = client.donate_rest_controller
 List entities matching the given criteria. Returns an array. Raises on error.
 
 ```ruby
-results = client.donate_rest_controller.list(nil)
+results = client.DonateRestController.list(nil)
 ```
 
 ### Common Methods
@@ -279,7 +279,7 @@ Return the entity name.
 ## PortfolioControllerEntity
 
 ```ruby
-portfolio_controller = client.portfolio_controller
+portfolio_controller = client.PortfolioController
 ```
 
 ### Operations
@@ -289,7 +289,7 @@ portfolio_controller = client.portfolio_controller
 List entities matching the given criteria. Returns an array. Raises on error.
 
 ```ruby
-results = client.portfolio_controller.list(nil)
+results = client.PortfolioController.list(nil)
 ```
 
 ### Common Methods
@@ -325,7 +325,7 @@ Return the entity name.
 ## RepositoryDetailDomainEntity
 
 ```ruby
-repository_detail_domain = client.repository_detail_domain
+repository_detail_domain = client.RepositoryDetailDomain
 ```
 
 ### Fields
@@ -347,7 +347,7 @@ repository_detail_domain = client.repository_detail_domain
 List entities matching the given criteria. Returns an array. Raises on error.
 
 ```ruby
-results = client.repository_detail_domain.list(nil)
+results = client.RepositoryDetailDomain.list(nil)
 ```
 
 #### `load(reqmatch, ctrl = nil) -> result`
@@ -355,7 +355,7 @@ results = client.repository_detail_domain.list(nil)
 Load a single entity matching the given criteria. Raises on error.
 
 ```ruby
-result = client.repository_detail_domain.load({ "id" => "repository_detail_domain_id" })
+result = client.RepositoryDetailDomain.load({ "id" => "repository_detail_domain_id" })
 ```
 
 ### Common Methods
@@ -391,7 +391,7 @@ Return the entity name.
 ## RepositoryIssueDomainEntity
 
 ```ruby
-repository_issue_domain = client.repository_issue_domain
+repository_issue_domain = client.RepositoryIssueDomain
 ```
 
 ### Fields
@@ -411,7 +411,7 @@ repository_issue_domain = client.repository_issue_domain
 List entities matching the given criteria. Returns an array. Raises on error.
 
 ```ruby
-results = client.repository_issue_domain.list(nil)
+results = client.RepositoryIssueDomain.list(nil)
 ```
 
 ### Common Methods
@@ -447,7 +447,7 @@ Return the entity name.
 ## VersionEntity
 
 ```ruby
-version = client.version
+version = client.Version
 ```
 
 ### Operations
@@ -457,7 +457,7 @@ version = client.version
 Load a single entity matching the given criteria. Raises on error.
 
 ```ruby
-result = client.version.load({ "id" => "version_id" })
+result = client.Version.load({ "id" => "version_id" })
 ```
 
 ### Common Methods

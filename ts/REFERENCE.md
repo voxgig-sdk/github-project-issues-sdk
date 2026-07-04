@@ -181,7 +181,7 @@ Alias for `GithubProjectIssuesSDK.test()`.
 ## CoffeeEntity
 
 ```ts
-const coffee = client.coffee
+const coffee = client.Coffee()
 ```
 
 ### Fields
@@ -201,7 +201,7 @@ const coffee = client.coffee
 List entities matching the given criteria. Returns an array.
 
 ```ts
-const results = await client.coffee.list()
+const results = await client.Coffee().list()
 ```
 
 #### `update(data: object, ctrl?: object)`
@@ -209,7 +209,7 @@ const results = await client.coffee.list()
 Update an existing entity. The data must include the entity `id`.
 
 ```ts
-const result = await client.coffee.update({
+const result = await client.Coffee().update({
   id: 'coffee_id',
   // Fields to update
 })
@@ -246,7 +246,7 @@ Return a copy of the entity options.
 ## CoffeeDomainEntity
 
 ```ts
-const coffee_domain = client.coffee_domain
+const coffee_domain = client.CoffeeDomain()
 ```
 
 ### Fields
@@ -266,7 +266,7 @@ const coffee_domain = client.coffee_domain
 List entities matching the given criteria. Returns an array.
 
 ```ts
-const results = await client.coffee_domain.list()
+const results = await client.CoffeeDomain().list()
 ```
 
 ### Common Methods
@@ -300,7 +300,7 @@ Return a copy of the entity options.
 ## DonateRestControllerEntity
 
 ```ts
-const donate_rest_controller = client.donate_rest_controller
+const donate_rest_controller = client.DonateRestController()
 ```
 
 ### Operations
@@ -310,7 +310,7 @@ const donate_rest_controller = client.donate_rest_controller
 List entities matching the given criteria. Returns an array.
 
 ```ts
-const results = await client.donate_rest_controller.list()
+const results = await client.DonateRestController().list()
 ```
 
 ### Common Methods
@@ -344,7 +344,7 @@ Return a copy of the entity options.
 ## PortfolioControllerEntity
 
 ```ts
-const portfolio_controller = client.portfolio_controller
+const portfolio_controller = client.PortfolioController()
 ```
 
 ### Operations
@@ -354,7 +354,7 @@ const portfolio_controller = client.portfolio_controller
 List entities matching the given criteria. Returns an array.
 
 ```ts
-const results = await client.portfolio_controller.list()
+const results = await client.PortfolioController().list()
 ```
 
 ### Common Methods
@@ -388,7 +388,7 @@ Return a copy of the entity options.
 ## RepositoryDetailDomainEntity
 
 ```ts
-const repository_detail_domain = client.repository_detail_domain
+const repository_detail_domain = client.RepositoryDetailDomain()
 ```
 
 ### Fields
@@ -410,7 +410,7 @@ const repository_detail_domain = client.repository_detail_domain
 List entities matching the given criteria. Returns an array.
 
 ```ts
-const results = await client.repository_detail_domain.list()
+const results = await client.RepositoryDetailDomain().list()
 ```
 
 #### `load(match: object, ctrl?: object)`
@@ -418,7 +418,7 @@ const results = await client.repository_detail_domain.list()
 Load a single entity matching the given criteria.
 
 ```ts
-const result = await client.repository_detail_domain.load({ id: 'repository_detail_domain_id' })
+const result = await client.RepositoryDetailDomain().load({ id: 'repository_detail_domain_id' })
 ```
 
 ### Common Methods
@@ -452,7 +452,7 @@ Return a copy of the entity options.
 ## RepositoryIssueDomainEntity
 
 ```ts
-const repository_issue_domain = client.repository_issue_domain
+const repository_issue_domain = client.RepositoryIssueDomain()
 ```
 
 ### Fields
@@ -472,7 +472,7 @@ const repository_issue_domain = client.repository_issue_domain
 List entities matching the given criteria. Returns an array.
 
 ```ts
-const results = await client.repository_issue_domain.list()
+const results = await client.RepositoryIssueDomain().list()
 ```
 
 ### Common Methods
@@ -506,7 +506,7 @@ Return a copy of the entity options.
 ## VersionEntity
 
 ```ts
-const version = client.version
+const version = client.Version()
 ```
 
 ### Operations
@@ -516,7 +516,7 @@ const version = client.version
 Load a single entity matching the given criteria.
 
 ```ts
-const result = await client.version.load({ id: 'version_id' })
+const result = await client.Version().load({ id: 'version_id' })
 ```
 
 ### Common Methods

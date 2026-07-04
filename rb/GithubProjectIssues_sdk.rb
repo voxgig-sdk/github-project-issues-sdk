@@ -208,91 +208,49 @@ class GithubProjectIssuesSDK
   end
 
 
-  # Idiomatic facade: client.coffee.list / client.coffee.load({ "id" => ... })
-  def coffee
-    require_relative 'entity/coffee_entity'
-    @coffee ||= CoffeeEntity.new(self, nil)
-  end
-
-  # Deprecated: use client.coffee instead.
+  # Canonical facade: client.Coffee.list / client.Coffee.load({ "id" => ... })
   def Coffee(data = nil)
     require_relative 'entity/coffee_entity'
     CoffeeEntity.new(self, data)
   end
 
 
-  # Idiomatic facade: client.coffee_domain.list / client.coffee_domain.load({ "id" => ... })
-  def coffee_domain
-    require_relative 'entity/coffee_domain_entity'
-    @coffee_domain ||= CoffeeDomainEntity.new(self, nil)
-  end
-
-  # Deprecated: use client.coffee_domain instead.
+  # Canonical facade: client.CoffeeDomain.list / client.CoffeeDomain.load({ "id" => ... })
   def CoffeeDomain(data = nil)
     require_relative 'entity/coffee_domain_entity'
     CoffeeDomainEntity.new(self, data)
   end
 
 
-  # Idiomatic facade: client.donate_rest_controller.list / client.donate_rest_controller.load({ "id" => ... })
-  def donate_rest_controller
-    require_relative 'entity/donate_rest_controller_entity'
-    @donate_rest_controller ||= DonateRestControllerEntity.new(self, nil)
-  end
-
-  # Deprecated: use client.donate_rest_controller instead.
+  # Canonical facade: client.DonateRestController.list / client.DonateRestController.load({ "id" => ... })
   def DonateRestController(data = nil)
     require_relative 'entity/donate_rest_controller_entity'
     DonateRestControllerEntity.new(self, data)
   end
 
 
-  # Idiomatic facade: client.portfolio_controller.list / client.portfolio_controller.load({ "id" => ... })
-  def portfolio_controller
-    require_relative 'entity/portfolio_controller_entity'
-    @portfolio_controller ||= PortfolioControllerEntity.new(self, nil)
-  end
-
-  # Deprecated: use client.portfolio_controller instead.
+  # Canonical facade: client.PortfolioController.list / client.PortfolioController.load({ "id" => ... })
   def PortfolioController(data = nil)
     require_relative 'entity/portfolio_controller_entity'
     PortfolioControllerEntity.new(self, data)
   end
 
 
-  # Idiomatic facade: client.repository_detail_domain.list / client.repository_detail_domain.load({ "id" => ... })
-  def repository_detail_domain
-    require_relative 'entity/repository_detail_domain_entity'
-    @repository_detail_domain ||= RepositoryDetailDomainEntity.new(self, nil)
-  end
-
-  # Deprecated: use client.repository_detail_domain instead.
+  # Canonical facade: client.RepositoryDetailDomain.list / client.RepositoryDetailDomain.load({ "id" => ... })
   def RepositoryDetailDomain(data = nil)
     require_relative 'entity/repository_detail_domain_entity'
     RepositoryDetailDomainEntity.new(self, data)
   end
 
 
-  # Idiomatic facade: client.repository_issue_domain.list / client.repository_issue_domain.load({ "id" => ... })
-  def repository_issue_domain
-    require_relative 'entity/repository_issue_domain_entity'
-    @repository_issue_domain ||= RepositoryIssueDomainEntity.new(self, nil)
-  end
-
-  # Deprecated: use client.repository_issue_domain instead.
+  # Canonical facade: client.RepositoryIssueDomain.list / client.RepositoryIssueDomain.load({ "id" => ... })
   def RepositoryIssueDomain(data = nil)
     require_relative 'entity/repository_issue_domain_entity'
     RepositoryIssueDomainEntity.new(self, data)
   end
 
 
-  # Idiomatic facade: client.version.list / client.version.load({ "id" => ... })
-  def version
-    require_relative 'entity/version_entity'
-    @version ||= VersionEntity.new(self, nil)
-  end
-
-  # Deprecated: use client.version instead.
+  # Canonical facade: client.Version.list / client.Version.load({ "id" => ... })
   def Version(data = nil)
     require_relative 'entity/version_entity'
     VersionEntity.new(self, data)

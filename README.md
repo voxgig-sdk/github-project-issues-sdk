@@ -26,9 +26,11 @@ import { GithubProjectIssuesSDK } from '@voxgig-sdk/github-project-issues'
 
 const client = new GithubProjectIssuesSDK()
 
-// List all coffees
-const coffees = await client.coffee.list()
-console.log(coffees.data)
+// List all coffees (returns Coffee[])
+const coffees = await client.Coffee().list()
+for (const coffee of coffees) {
+  console.log(coffee)
+}
 ```
 
 See the [TypeScript README](ts/README.md) for the full guide.
@@ -89,9 +91,10 @@ from githubprojectissues_sdk import GithubProjectIssuesSDK
 
 client = GithubProjectIssuesSDK()
 
-# List all coffees
-coffees = client.coffee.list()
-print(coffees)
+# List all coffees (returns a list, raises on error)
+coffees = client.Coffee().list({})
+for coffee in coffees:
+    print(coffee)
 ```
 
 ### PHP
@@ -102,8 +105,8 @@ require_once 'githubprojectissues_sdk.php';
 
 $client = new GithubProjectIssuesSDK();
 
-// List all coffees (throws on error)
-$coffees = $client->coffee()->list();
+// List all coffees (returns an array; throws on error)
+$coffees = $client->Coffee()->list();
 print_r($coffees);
 ```
 
@@ -126,8 +129,8 @@ require_relative "GithubProjectIssues_sdk"
 
 client = GithubProjectIssuesSDK.new
 
-# List all coffees
-coffees = client.coffee.list
+# List all coffees (returns an Array; raises on error)
+coffees = client.Coffee.list
 puts coffees
 ```
 
@@ -139,7 +142,7 @@ local sdk = require("github-project-issues_sdk")
 local client = sdk.new()
 
 -- List all coffees
-local coffees, err = client:coffee():list()
+local coffees, err = client:Coffee():list()
 print(coffees)
 ```
 
@@ -152,22 +155,27 @@ in-memory mock, so unit tests run offline.
 
 ```ts
 const client = GithubProjectIssuesSDK.test()
-const result = await client.coffee.load({ id: 'test01' })
-// result.ok === true, result.data contains mock data
+const coffee = await client.Coffee().load({ id: 1 })
+// coffee is a bare Coffee populated with mock data
+console.log(coffee)
 ```
 
 ### Python
 
 ```python
 client = GithubProjectIssuesSDK.test()
-result = client.coffee.load({"id": "test01"})
+coffee = client.Coffee().load({"id": "test01"})
+print(coffee)
 ```
 
 ### PHP
 
 ```php
-$client = GithubProjectIssuesSDK::test();
-$result = $client->coffee()->load(["id" => "test01"]);
+// Seed fixture data so offline calls resolve without a live server.
+$client = GithubProjectIssuesSDK::test([
+    "entity" => ["coffee" => ["test01" => ["id" => "test01"]]],
+]);
+$coffee = $client->Coffee()->load(["id" => "test01"]);
 ```
 
 ### Golang
@@ -182,15 +190,18 @@ result, err := client.Coffee(nil).Load(
 ### Ruby
 
 ```ruby
-client = GithubProjectIssuesSDK.test
-result = client.coffee.load({ "id" => "test01" })
+# Seed fixture data so offline calls resolve without a live server.
+client = GithubProjectIssuesSDK.test({
+  "entity" => { "coffee" => { "test01" => { "id" => "test01" } } },
+})
+coffee = client.Coffee.load({ "id" => "test01" })
 ```
 
 ### Lua
 
 ```lua
 local client = sdk.test()
-local result, err = client:coffee():load({ id = "test01" })
+local result, err = client:Coffee():load({ id = "test01" })
 ```
 
 ## How it works
@@ -238,6 +249,9 @@ const result = await client.direct({
   method: 'GET',
   params: { id: 'example' },
 })
+if (result instanceof Error) {
+  throw result
+}
 console.log(result.data)
 ```
 

@@ -244,8 +244,9 @@ end
 
 
 
--- Idiomatic facade: client:coffee():list() / client:coffee():load({ id = ... })
-function GithubProjectIssuesSDK:coffee(data)
+-- Idiomatic facade: client:Coffee():list() / client:Coffee():load({ id = ... })
+-- Entity access is capitalised (PascalCase) for parity with the other SDKs.
+function GithubProjectIssuesSDK:Coffee(data)
   local EntityMod = require("entity.coffee_entity")
   if data == nil then
     if self._coffee == nil then
@@ -256,15 +257,10 @@ function GithubProjectIssuesSDK:coffee(data)
   return EntityMod.new(self, data)
 end
 
--- Deprecated: use client:coffee() instead.
-function GithubProjectIssuesSDK:Coffee(data)
-  local EntityMod = require("entity.coffee_entity")
-  return EntityMod.new(self, data)
-end
 
-
--- Idiomatic facade: client:coffee_domain():list() / client:coffee_domain():load({ id = ... })
-function GithubProjectIssuesSDK:coffee_domain(data)
+-- Idiomatic facade: client:CoffeeDomain():list() / client:CoffeeDomain():load({ id = ... })
+-- Entity access is capitalised (PascalCase) for parity with the other SDKs.
+function GithubProjectIssuesSDK:CoffeeDomain(data)
   local EntityMod = require("entity.coffee_domain_entity")
   if data == nil then
     if self._coffee_domain == nil then
@@ -275,15 +271,10 @@ function GithubProjectIssuesSDK:coffee_domain(data)
   return EntityMod.new(self, data)
 end
 
--- Deprecated: use client:coffee_domain() instead.
-function GithubProjectIssuesSDK:CoffeeDomain(data)
-  local EntityMod = require("entity.coffee_domain_entity")
-  return EntityMod.new(self, data)
-end
 
-
--- Idiomatic facade: client:donate_rest_controller():list() / client:donate_rest_controller():load({ id = ... })
-function GithubProjectIssuesSDK:donate_rest_controller(data)
+-- Idiomatic facade: client:DonateRestController():list() / client:DonateRestController():load({ id = ... })
+-- Entity access is capitalised (PascalCase) for parity with the other SDKs.
+function GithubProjectIssuesSDK:DonateRestController(data)
   local EntityMod = require("entity.donate_rest_controller_entity")
   if data == nil then
     if self._donate_rest_controller == nil then
@@ -294,15 +285,10 @@ function GithubProjectIssuesSDK:donate_rest_controller(data)
   return EntityMod.new(self, data)
 end
 
--- Deprecated: use client:donate_rest_controller() instead.
-function GithubProjectIssuesSDK:DonateRestController(data)
-  local EntityMod = require("entity.donate_rest_controller_entity")
-  return EntityMod.new(self, data)
-end
 
-
--- Idiomatic facade: client:portfolio_controller():list() / client:portfolio_controller():load({ id = ... })
-function GithubProjectIssuesSDK:portfolio_controller(data)
+-- Idiomatic facade: client:PortfolioController():list() / client:PortfolioController():load({ id = ... })
+-- Entity access is capitalised (PascalCase) for parity with the other SDKs.
+function GithubProjectIssuesSDK:PortfolioController(data)
   local EntityMod = require("entity.portfolio_controller_entity")
   if data == nil then
     if self._portfolio_controller == nil then
@@ -313,15 +299,10 @@ function GithubProjectIssuesSDK:portfolio_controller(data)
   return EntityMod.new(self, data)
 end
 
--- Deprecated: use client:portfolio_controller() instead.
-function GithubProjectIssuesSDK:PortfolioController(data)
-  local EntityMod = require("entity.portfolio_controller_entity")
-  return EntityMod.new(self, data)
-end
 
-
--- Idiomatic facade: client:repository_detail_domain():list() / client:repository_detail_domain():load({ id = ... })
-function GithubProjectIssuesSDK:repository_detail_domain(data)
+-- Idiomatic facade: client:RepositoryDetailDomain():list() / client:RepositoryDetailDomain():load({ id = ... })
+-- Entity access is capitalised (PascalCase) for parity with the other SDKs.
+function GithubProjectIssuesSDK:RepositoryDetailDomain(data)
   local EntityMod = require("entity.repository_detail_domain_entity")
   if data == nil then
     if self._repository_detail_domain == nil then
@@ -332,15 +313,10 @@ function GithubProjectIssuesSDK:repository_detail_domain(data)
   return EntityMod.new(self, data)
 end
 
--- Deprecated: use client:repository_detail_domain() instead.
-function GithubProjectIssuesSDK:RepositoryDetailDomain(data)
-  local EntityMod = require("entity.repository_detail_domain_entity")
-  return EntityMod.new(self, data)
-end
 
-
--- Idiomatic facade: client:repository_issue_domain():list() / client:repository_issue_domain():load({ id = ... })
-function GithubProjectIssuesSDK:repository_issue_domain(data)
+-- Idiomatic facade: client:RepositoryIssueDomain():list() / client:RepositoryIssueDomain():load({ id = ... })
+-- Entity access is capitalised (PascalCase) for parity with the other SDKs.
+function GithubProjectIssuesSDK:RepositoryIssueDomain(data)
   local EntityMod = require("entity.repository_issue_domain_entity")
   if data == nil then
     if self._repository_issue_domain == nil then
@@ -351,15 +327,10 @@ function GithubProjectIssuesSDK:repository_issue_domain(data)
   return EntityMod.new(self, data)
 end
 
--- Deprecated: use client:repository_issue_domain() instead.
-function GithubProjectIssuesSDK:RepositoryIssueDomain(data)
-  local EntityMod = require("entity.repository_issue_domain_entity")
-  return EntityMod.new(self, data)
-end
 
-
--- Idiomatic facade: client:version():list() / client:version():load({ id = ... })
-function GithubProjectIssuesSDK:version(data)
+-- Idiomatic facade: client:Version():list() / client:Version():load({ id = ... })
+-- Entity access is capitalised (PascalCase) for parity with the other SDKs.
+function GithubProjectIssuesSDK:Version(data)
   local EntityMod = require("entity.version_entity")
   if data == nil then
     if self._version == nil then
@@ -367,12 +338,6 @@ function GithubProjectIssuesSDK:version(data)
     end
     return self._version
   end
-  return EntityMod.new(self, data)
-end
-
--- Deprecated: use client:version() instead.
-function GithubProjectIssuesSDK:Version(data)
-  local EntityMod = require("entity.version_entity")
   return EntityMod.new(self, data)
 end
 
