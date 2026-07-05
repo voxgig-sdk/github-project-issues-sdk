@@ -8,7 +8,7 @@ Complete API reference for the GithubProjectIssues Ruby SDK.
 ### Constructor
 
 ```ruby
-require_relative 'github-project-issues_sdk'
+require_relative 'GithubProjectIssues_sdk'
 
 client = GithubProjectIssuesSDK.new(options)
 ```
@@ -117,20 +117,20 @@ coffee = client.Coffee
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `description` | ``$STRING`` | No |  |
-| `id` | ``$INTEGER`` | No |  |
-| `image` | ``$STRING`` | Yes |  |
-| `ingredient` | ``$ARRAY`` | Yes |  |
-| `title` | ``$STRING`` | Yes |  |
+| `description` | `String` | No |  |
+| `id` | `Integer` | No |  |
+| `image` | `String` | Yes |  |
+| `ingredient` | `Array` | Yes |  |
+| `title` | `String` | Yes |  |
 
 ### Operations
 
-#### `list(reqmatch, ctrl = nil) -> Array`
+#### `list(reqmatch = nil, ctrl = nil) -> Array`
 
-List entities matching the given criteria. Returns an array. Raises on error.
+List entities matching the given criteria (call with no argument to list all). Returns an array. Raises on error.
 
 ```ruby
-results = client.Coffee.list(nil)
+results = client.Coffee.list
 ```
 
 #### `update(reqdata, ctrl = nil) -> result`
@@ -139,7 +139,6 @@ Update an existing entity. The data must include the entity `id`. Raises on erro
 
 ```ruby
 result = client.Coffee.update({
-  "id" => "coffee_id",
   # Fields to update
 })
 ```
@@ -184,20 +183,20 @@ coffee_domain = client.CoffeeDomain
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `description` | ``$STRING`` | No |  |
-| `id` | ``$INTEGER`` | No |  |
-| `image` | ``$STRING`` | Yes |  |
-| `ingredient` | ``$ARRAY`` | Yes |  |
-| `title` | ``$STRING`` | Yes |  |
+| `description` | `String` | No |  |
+| `id` | `Integer` | No |  |
+| `image` | `String` | Yes |  |
+| `ingredient` | `Array` | Yes |  |
+| `title` | `String` | Yes |  |
 
 ### Operations
 
-#### `list(reqmatch, ctrl = nil) -> Array`
+#### `list(reqmatch = nil, ctrl = nil) -> Array`
 
-List entities matching the given criteria. Returns an array. Raises on error.
+List entities matching the given criteria (call with no argument to list all). Returns an array. Raises on error.
 
 ```ruby
-results = client.CoffeeDomain.list(nil)
+results = client.CoffeeDomain.list
 ```
 
 ### Common Methods
@@ -238,12 +237,12 @@ donate_rest_controller = client.DonateRestController
 
 ### Operations
 
-#### `list(reqmatch, ctrl = nil) -> Array`
+#### `list(reqmatch = nil, ctrl = nil) -> Array`
 
-List entities matching the given criteria. Returns an array. Raises on error.
+List entities matching the given criteria (call with no argument to list all). Returns an array. Raises on error.
 
 ```ruby
-results = client.DonateRestController.list(nil)
+results = client.DonateRestController.list
 ```
 
 ### Common Methods
@@ -284,12 +283,12 @@ portfolio_controller = client.PortfolioController
 
 ### Operations
 
-#### `list(reqmatch, ctrl = nil) -> Array`
+#### `list(reqmatch = nil, ctrl = nil) -> Array`
 
-List entities matching the given criteria. Returns an array. Raises on error.
+List entities matching the given criteria (call with no argument to list all). Returns an array. Raises on error.
 
 ```ruby
-results = client.PortfolioController.list(nil)
+results = client.PortfolioController.list
 ```
 
 ### Common Methods
@@ -332,22 +331,22 @@ repository_detail_domain = client.RepositoryDetailDomain
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `app_home` | ``$STRING`` | No |  |
-| `description` | ``$STRING`` | No |  |
-| `full_name` | ``$STRING`` | Yes |  |
-| `issue_count` | ``$INTEGER`` | No |  |
-| `name` | ``$STRING`` | Yes |  |
-| `repo_url` | ``$STRING`` | Yes |  |
-| `topic` | ``$STRING`` | No |  |
+| `app_home` | `String` | No |  |
+| `description` | `String` | No |  |
+| `full_name` | `String` | Yes |  |
+| `issue_count` | `Integer` | No |  |
+| `name` | `String` | Yes |  |
+| `repo_url` | `String` | Yes |  |
+| `topic` | `String` | No |  |
 
 ### Operations
 
-#### `list(reqmatch, ctrl = nil) -> Array`
+#### `list(reqmatch = nil, ctrl = nil) -> Array`
 
-List entities matching the given criteria. Returns an array. Raises on error.
+List entities matching the given criteria (call with no argument to list all). Returns an array. Raises on error.
 
 ```ruby
-results = client.RepositoryDetailDomain.list(nil)
+results = client.RepositoryDetailDomain.list
 ```
 
 #### `load(reqmatch, ctrl = nil) -> result`
@@ -355,7 +354,7 @@ results = client.RepositoryDetailDomain.list(nil)
 Load a single entity matching the given criteria. Raises on error.
 
 ```ruby
-result = client.RepositoryDetailDomain.load({ "id" => "repository_detail_domain_id" })
+result = client.RepositoryDetailDomain.load()
 ```
 
 ### Common Methods
@@ -398,20 +397,20 @@ repository_issue_domain = client.RepositoryIssueDomain
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `body` | ``$STRING`` | No |  |
-| `label` | ``$ARRAY`` | No |  |
-| `number` | ``$STRING`` | Yes |  |
-| `state` | ``$STRING`` | No |  |
-| `title` | ``$STRING`` | Yes |  |
+| `body` | `String` | No |  |
+| `label` | `Array` | No |  |
+| `number` | `String` | Yes |  |
+| `state` | `String` | No |  |
+| `title` | `String` | Yes |  |
 
 ### Operations
 
-#### `list(reqmatch, ctrl = nil) -> Array`
+#### `list(reqmatch = nil, ctrl = nil) -> Array`
 
-List entities matching the given criteria. Returns an array. Raises on error.
+List entities matching the given criteria (call with no argument to list all). Returns an array. Raises on error.
 
 ```ruby
-results = client.RepositoryIssueDomain.list(nil)
+results = client.RepositoryIssueDomain.list
 ```
 
 ### Common Methods
@@ -457,7 +456,7 @@ version = client.Version
 Load a single entity matching the given criteria. Raises on error.
 
 ```ruby
-result = client.Version.load({ "id" => "version_id" })
+result = client.Version.load()
 ```
 
 ### Common Methods

@@ -114,11 +114,11 @@ local coffee = client:Coffee(nil)
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `description` | ``$STRING`` | No |  |
-| `id` | ``$INTEGER`` | No |  |
-| `image` | ``$STRING`` | Yes |  |
-| `ingredient` | ``$ARRAY`` | Yes |  |
-| `title` | ``$STRING`` | Yes |  |
+| `description` | `string` | No |  |
+| `id` | `number` | No |  |
+| `image` | `string` | Yes |  |
+| `ingredient` | `table` | Yes |  |
+| `title` | `string` | Yes |  |
 
 ### Operations
 
@@ -136,7 +136,6 @@ Update an existing entity. The data must include the entity `id`.
 
 ```lua
 local result, err = client:Coffee():update({
-  id = "coffee_id",
   -- Fields to update
 })
 ```
@@ -181,11 +180,11 @@ local coffee_domain = client:CoffeeDomain(nil)
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `description` | ``$STRING`` | No |  |
-| `id` | ``$INTEGER`` | No |  |
-| `image` | ``$STRING`` | Yes |  |
-| `ingredient` | ``$ARRAY`` | Yes |  |
-| `title` | ``$STRING`` | Yes |  |
+| `description` | `string` | No |  |
+| `id` | `number` | No |  |
+| `image` | `string` | Yes |  |
+| `ingredient` | `table` | Yes |  |
+| `title` | `string` | Yes |  |
 
 ### Operations
 
@@ -329,13 +328,13 @@ local repository_detail_domain = client:RepositoryDetailDomain(nil)
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `app_home` | ``$STRING`` | No |  |
-| `description` | ``$STRING`` | No |  |
-| `full_name` | ``$STRING`` | Yes |  |
-| `issue_count` | ``$INTEGER`` | No |  |
-| `name` | ``$STRING`` | Yes |  |
-| `repo_url` | ``$STRING`` | Yes |  |
-| `topic` | ``$STRING`` | No |  |
+| `app_home` | `string` | No |  |
+| `description` | `string` | No |  |
+| `full_name` | `string` | Yes |  |
+| `issue_count` | `number` | No |  |
+| `name` | `string` | Yes |  |
+| `repo_url` | `string` | Yes |  |
+| `topic` | `string` | No |  |
 
 ### Operations
 
@@ -352,7 +351,7 @@ local results, err = client:RepositoryDetailDomain():list()
 Load a single entity matching the given criteria.
 
 ```lua
-local result, err = client:RepositoryDetailDomain():load({ id = "repository_detail_domain_id" })
+local result, err = client:RepositoryDetailDomain():load()
 ```
 
 ### Common Methods
@@ -395,11 +394,11 @@ local repository_issue_domain = client:RepositoryIssueDomain(nil)
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `body` | ``$STRING`` | No |  |
-| `label` | ``$ARRAY`` | No |  |
-| `number` | ``$STRING`` | Yes |  |
-| `state` | ``$STRING`` | No |  |
-| `title` | ``$STRING`` | Yes |  |
+| `body` | `string` | No |  |
+| `label` | `table` | No |  |
+| `number` | `string` | Yes |  |
+| `state` | `string` | No |  |
+| `title` | `string` | Yes |  |
 
 ### Operations
 
@@ -454,7 +453,7 @@ local version = client:Version(nil)
 Load a single entity matching the given criteria.
 
 ```lua
-local result, err = client:Version():load({ id = "version_id" })
+local result, err = client:Version():load()
 ```
 
 ### Common Methods

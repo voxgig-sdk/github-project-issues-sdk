@@ -8,7 +8,7 @@ Complete API reference for the GithubProjectIssues Python SDK.
 ### Constructor
 
 ```python
-from github-project-issues_sdk import GithubProjectIssuesSDK
+from githubprojectissues_sdk import GithubProjectIssuesSDK
 
 client = GithubProjectIssuesSDK(options)
 ```
@@ -111,20 +111,20 @@ coffee = client.Coffee()
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `description` | ``$STRING`` | No |  |
-| `id` | ``$INTEGER`` | No |  |
-| `image` | ``$STRING`` | Yes |  |
-| `ingredient` | ``$ARRAY`` | Yes |  |
-| `title` | ``$STRING`` | Yes |  |
+| `description` | `str` | No |  |
+| `id` | `int` | No |  |
+| `image` | `str` | Yes |  |
+| `ingredient` | `list` | Yes |  |
+| `title` | `str` | Yes |  |
 
 ### Operations
 
-#### `list(reqmatch, ctrl=None) -> list`
+#### `list(reqmatch=None, ctrl=None) -> list`
 
-List entities matching the given criteria. Returns a list and raises on error.
+List entities matching the given criteria. The match is optional — call `list()` with no argument to list all records. Returns a list and raises on error.
 
 ```python
-results = client.Coffee().list({})
+results = client.Coffee().list()
 for coffee in results:
     print(coffee)
 ```
@@ -135,7 +135,6 @@ Update an existing entity. The data must include the entity `id`. Returns the up
 
 ```python
 result = client.Coffee().update({
-    "id": "coffee_id",
     # Fields to update
 })
 ```
@@ -179,20 +178,20 @@ coffee_domain = client.CoffeeDomain()
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `description` | ``$STRING`` | No |  |
-| `id` | ``$INTEGER`` | No |  |
-| `image` | ``$STRING`` | Yes |  |
-| `ingredient` | ``$ARRAY`` | Yes |  |
-| `title` | ``$STRING`` | Yes |  |
+| `description` | `str` | No |  |
+| `id` | `int` | No |  |
+| `image` | `str` | Yes |  |
+| `ingredient` | `list` | Yes |  |
+| `title` | `str` | Yes |  |
 
 ### Operations
 
-#### `list(reqmatch, ctrl=None) -> list`
+#### `list(reqmatch=None, ctrl=None) -> list`
 
-List entities matching the given criteria. Returns a list and raises on error.
+List entities matching the given criteria. The match is optional — call `list()` with no argument to list all records. Returns a list and raises on error.
 
 ```python
-results = client.CoffeeDomain().list({})
+results = client.CoffeeDomain().list()
 for coffee_domain in results:
     print(coffee_domain)
 ```
@@ -234,12 +233,12 @@ donate_rest_controller = client.DonateRestController()
 
 ### Operations
 
-#### `list(reqmatch, ctrl=None) -> list`
+#### `list(reqmatch=None, ctrl=None) -> list`
 
-List entities matching the given criteria. Returns a list and raises on error.
+List entities matching the given criteria. The match is optional — call `list()` with no argument to list all records. Returns a list and raises on error.
 
 ```python
-results = client.DonateRestController().list({})
+results = client.DonateRestController().list()
 for donate_rest_controller in results:
     print(donate_rest_controller)
 ```
@@ -281,12 +280,12 @@ portfolio_controller = client.PortfolioController()
 
 ### Operations
 
-#### `list(reqmatch, ctrl=None) -> list`
+#### `list(reqmatch=None, ctrl=None) -> list`
 
-List entities matching the given criteria. Returns a list and raises on error.
+List entities matching the given criteria. The match is optional — call `list()` with no argument to list all records. Returns a list and raises on error.
 
 ```python
-results = client.PortfolioController().list({})
+results = client.PortfolioController().list()
 for portfolio_controller in results:
     print(portfolio_controller)
 ```
@@ -330,22 +329,22 @@ repository_detail_domain = client.RepositoryDetailDomain()
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `app_home` | ``$STRING`` | No |  |
-| `description` | ``$STRING`` | No |  |
-| `full_name` | ``$STRING`` | Yes |  |
-| `issue_count` | ``$INTEGER`` | No |  |
-| `name` | ``$STRING`` | Yes |  |
-| `repo_url` | ``$STRING`` | Yes |  |
-| `topic` | ``$STRING`` | No |  |
+| `app_home` | `str` | No |  |
+| `description` | `str` | No |  |
+| `full_name` | `str` | Yes |  |
+| `issue_count` | `int` | No |  |
+| `name` | `str` | Yes |  |
+| `repo_url` | `str` | Yes |  |
+| `topic` | `str` | No |  |
 
 ### Operations
 
-#### `list(reqmatch, ctrl=None) -> list`
+#### `list(reqmatch=None, ctrl=None) -> list`
 
-List entities matching the given criteria. Returns a list and raises on error.
+List entities matching the given criteria. The match is optional — call `list()` with no argument to list all records. Returns a list and raises on error.
 
 ```python
-results = client.RepositoryDetailDomain().list({})
+results = client.RepositoryDetailDomain().list()
 for repository_detail_domain in results:
     print(repository_detail_domain)
 ```
@@ -355,7 +354,7 @@ for repository_detail_domain in results:
 Load a single entity matching the given criteria. Returns the entity data and raises on error.
 
 ```python
-result = client.RepositoryDetailDomain().load({"id": "repository_detail_domain_id"})
+result = client.RepositoryDetailDomain().load()
 ```
 
 ### Common Methods
@@ -397,20 +396,20 @@ repository_issue_domain = client.RepositoryIssueDomain()
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `body` | ``$STRING`` | No |  |
-| `label` | ``$ARRAY`` | No |  |
-| `number` | ``$STRING`` | Yes |  |
-| `state` | ``$STRING`` | No |  |
-| `title` | ``$STRING`` | Yes |  |
+| `body` | `str` | No |  |
+| `label` | `list` | No |  |
+| `number` | `str` | Yes |  |
+| `state` | `str` | No |  |
+| `title` | `str` | Yes |  |
 
 ### Operations
 
-#### `list(reqmatch, ctrl=None) -> list`
+#### `list(reqmatch=None, ctrl=None) -> list`
 
-List entities matching the given criteria. Returns a list and raises on error.
+List entities matching the given criteria. The match is optional — call `list()` with no argument to list all records. Returns a list and raises on error.
 
 ```python
-results = client.RepositoryIssueDomain().list({})
+results = client.RepositoryIssueDomain().list()
 for repository_issue_domain in results:
     print(repository_issue_domain)
 ```
@@ -457,7 +456,7 @@ version = client.Version()
 Load a single entity matching the given criteria. Returns the entity data and raises on error.
 
 ```python
-result = client.Version().load({"id": "version_id"})
+result = client.Version().load()
 ```
 
 ### Common Methods

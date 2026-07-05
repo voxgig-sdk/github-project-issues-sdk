@@ -17,8 +17,7 @@ type Coffee struct {
 	Title string `json:"title"`
 }
 
-// CoffeeListMatch mirrors the coffee fields as an all-optional match
-// filter (Go analog of Partial<Coffee>).
+// CoffeeListMatch is the typed request payload for Coffee.ListTyped.
 type CoffeeListMatch struct {
 	Description *string `json:"description,omitempty"`
 	Id *int `json:"id,omitempty"`
@@ -27,8 +26,7 @@ type CoffeeListMatch struct {
 	Title *string `json:"title,omitempty"`
 }
 
-// CoffeeUpdateData mirrors the coffee fields as an all-optional match
-// filter (Go analog of Partial<Coffee>).
+// CoffeeUpdateData is the typed request payload for Coffee.UpdateTyped.
 type CoffeeUpdateData struct {
 	Description *string `json:"description,omitempty"`
 	Id *int `json:"id,omitempty"`
@@ -46,8 +44,7 @@ type CoffeeDomain struct {
 	Title string `json:"title"`
 }
 
-// CoffeeDomainListMatch mirrors the coffee_domain fields as an all-optional match
-// filter (Go analog of Partial<CoffeeDomain>).
+// CoffeeDomainListMatch is the typed request payload for CoffeeDomain.ListTyped.
 type CoffeeDomainListMatch struct {
 	Description *string `json:"description,omitempty"`
 	Id *int `json:"id,omitempty"`
@@ -60,8 +57,7 @@ type CoffeeDomainListMatch struct {
 type DonateRestController struct {
 }
 
-// DonateRestControllerListMatch mirrors the donate_rest_controller fields as an all-optional match
-// filter (Go analog of Partial<DonateRestController>).
+// DonateRestControllerListMatch is the typed request payload for DonateRestController.ListTyped.
 type DonateRestControllerListMatch struct {
 }
 
@@ -69,8 +65,7 @@ type DonateRestControllerListMatch struct {
 type PortfolioController struct {
 }
 
-// PortfolioControllerListMatch mirrors the portfolio_controller fields as an all-optional match
-// filter (Go analog of Partial<PortfolioController>).
+// PortfolioControllerListMatch is the typed request payload for PortfolioController.ListTyped.
 type PortfolioControllerListMatch struct {
 }
 
@@ -90,8 +85,7 @@ type RepositoryDetailDomainLoadMatch struct {
 	Username string `json:"username"`
 }
 
-// RepositoryDetailDomainListMatch mirrors the repository_detail_domain fields as an all-optional match
-// filter (Go analog of Partial<RepositoryDetailDomain>).
+// RepositoryDetailDomainListMatch is the typed request payload for RepositoryDetailDomain.ListTyped.
 type RepositoryDetailDomainListMatch struct {
 	AppHome *string `json:"app_home,omitempty"`
 	Description *string `json:"description,omitempty"`
@@ -121,8 +115,7 @@ type RepositoryIssueDomainListMatch struct {
 type Version struct {
 }
 
-// VersionLoadMatch mirrors the version fields as an all-optional match
-// filter (Go analog of Partial<Version>).
+// VersionLoadMatch is the typed request payload for Version.LoadTyped.
 type VersionLoadMatch struct {
 }
 

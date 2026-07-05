@@ -71,12 +71,12 @@ describe('CoffeeEntity', async () => {
     coffee_ref01_data_up0.id = coffee_ref01_data.id
 
     const coffee_ref01_markdef_up0 = { name: 'description', value: 'Mark01-coffee_ref01_' + setup.now }
-    coffee_ref01_data_up0 [coffee_ref01_markdef_up0.name] = coffee_ref01_markdef_up0.value
+    ;(coffee_ref01_data_up0 as any)[coffee_ref01_markdef_up0.name] = coffee_ref01_markdef_up0.value
 
     const coffee_ref01_resdata_up0 = await coffee_ref01_ent.update(coffee_ref01_data_up0)
     assert(coffee_ref01_resdata_up0.id === coffee_ref01_data_up0.id)
 
-    assert(coffee_ref01_resdata_up0[coffee_ref01_markdef_up0.name] === coffee_ref01_markdef_up0.value)
+    assert((coffee_ref01_resdata_up0 as any)[coffee_ref01_markdef_up0.name] === coffee_ref01_markdef_up0.value)
 
 
   })

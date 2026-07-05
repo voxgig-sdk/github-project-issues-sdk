@@ -221,43 +221,43 @@ class GithubProjectIssuesSDK:
 
 
     def Coffee(self, data=None) -> "CoffeeEntity":
-        """Entity factory: client.Coffee().list({}) / client.Coffee().load({"id": ...})."""
+        """Entity factory: client.Coffee().list() / client.Coffee().load({"id": ...})."""
         from entity.coffee_entity import CoffeeEntity
         return CoffeeEntity(self, data)
 
 
     def CoffeeDomain(self, data=None) -> "CoffeeDomainEntity":
-        """Entity factory: client.CoffeeDomain().list({}) / client.CoffeeDomain().load({"id": ...})."""
+        """Entity factory: client.CoffeeDomain().list() / client.CoffeeDomain().load({"id": ...})."""
         from entity.coffee_domain_entity import CoffeeDomainEntity
         return CoffeeDomainEntity(self, data)
 
 
     def DonateRestController(self, data=None) -> "DonateRestControllerEntity":
-        """Entity factory: client.DonateRestController().list({}) / client.DonateRestController().load({"id": ...})."""
+        """Entity factory: client.DonateRestController().list() / client.DonateRestController().load({"id": ...})."""
         from entity.donate_rest_controller_entity import DonateRestControllerEntity
         return DonateRestControllerEntity(self, data)
 
 
     def PortfolioController(self, data=None) -> "PortfolioControllerEntity":
-        """Entity factory: client.PortfolioController().list({}) / client.PortfolioController().load({"id": ...})."""
+        """Entity factory: client.PortfolioController().list() / client.PortfolioController().load({"id": ...})."""
         from entity.portfolio_controller_entity import PortfolioControllerEntity
         return PortfolioControllerEntity(self, data)
 
 
     def RepositoryDetailDomain(self, data=None) -> "RepositoryDetailDomainEntity":
-        """Entity factory: client.RepositoryDetailDomain().list({}) / client.RepositoryDetailDomain().load({"id": ...})."""
+        """Entity factory: client.RepositoryDetailDomain().list() / client.RepositoryDetailDomain().load({"id": ...})."""
         from entity.repository_detail_domain_entity import RepositoryDetailDomainEntity
         return RepositoryDetailDomainEntity(self, data)
 
 
     def RepositoryIssueDomain(self, data=None) -> "RepositoryIssueDomainEntity":
-        """Entity factory: client.RepositoryIssueDomain().list({}) / client.RepositoryIssueDomain().load({"id": ...})."""
+        """Entity factory: client.RepositoryIssueDomain().list() / client.RepositoryIssueDomain().load({"id": ...})."""
         from entity.repository_issue_domain_entity import RepositoryIssueDomainEntity
         return RepositoryIssueDomainEntity(self, data)
 
 
     def Version(self, data=None) -> "VersionEntity":
-        """Entity factory: client.Version().list({}) / client.Version().load({"id": ...})."""
+        """Entity factory: client.Version().list() / client.Version().load({"id": ...})."""
         from entity.version_entity import VersionEntity
         return VersionEntity(self, data)
 

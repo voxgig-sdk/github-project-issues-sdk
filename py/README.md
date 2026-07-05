@@ -4,6 +4,11 @@
 
 The Python SDK for the GithubProjectIssues API — an entity-oriented client following Pythonic conventions.
 
+The SDK exposes the API as capitalised, semantic **Entities** — for example `client.Coffee()` — each
+carrying a small, uniform set of operations (`list`, `load`, `update`) instead of raw URL
+paths and query strings. You work with named resources and verbs, which
+keeps the cognitive load low.
+
 > Other languages, the CLI, and MCP server live alongside this one — see
 > the [top-level README](../README.md).
 
@@ -38,7 +43,7 @@ error — iterate it directly.
 
 ```python
 try:
-    coffees = client.Coffee().list({})
+    coffees = client.Coffee().list()
     for coffee in coffees:
         print(coffee)
 except Exception as err:
@@ -48,9 +53,37 @@ except Exception as err:
 ### 4. Create, update, and remove
 
 ```python
-# Update — the created record's id is a plain dict key
-client.Coffee().update({"id": created["id"], "name": "Example-Renamed"})
+# Update
+client.Coffee().update({"description": "example", "image": "example"})
 
+```
+
+
+## Error handling
+
+Entity operations raise on failure, so wrap them in `try` / `except`:
+
+```python
+try:
+    coffees = client.Coffee().list()
+    print(coffees)
+except Exception as err:
+    print(f"list failed: {err}")
+```
+
+`direct()` does **not** raise — it returns the result envelope. Branch
+on `ok`; on failure `status` holds the HTTP status (for error responses)
+and `err` holds a transport error, so read both defensively:
+
+```python
+result = client.direct({
+    "path": "/api/resource/{id}",
+    "method": "GET",
+    "params": {"id": "example_id"},
+})
+
+if not result["ok"]:
+    print("request failed:", result.get("status"), result.get("err"))
 ```
 
 
@@ -71,7 +104,10 @@ if result["ok"]:
     print(result["status"])  # 200
     print(result["data"])    # response body
 else:
-    print(result["err"])     # error value
+    # A non-2xx response carries status + data (the error body); a
+    # transport-level failure carries err instead. Only one is present, so
+    # read both with .get() rather than indexing a key that may be absent.
+    print(result.get("status"), result.get("err"))
 ```
 
 ### Prepare a request without sending it
@@ -97,7 +133,7 @@ Create a mock client for unit testing — no server required:
 client = GithubProjectIssuesSDK.test()
 
 # Entity ops return the bare record and raise on error.
-coffee = client.Coffee().load({"id": "test01"})
+coffee = client.Coffee().list()
 # coffee contains the mock response record
 ```
 
@@ -190,9 +226,7 @@ All entities share the same interface.
 | --- | --- | --- |
 | `load` | `(reqmatch, ctrl) -> any` | Load a single entity by match criteria. Raises on error. |
 | `list` | `(reqmatch, ctrl) -> list` | List entities matching the criteria. Raises on error. |
-| `create` | `(reqdata, ctrl) -> any` | Create a new entity. Raises on error. |
 | `update` | `(reqdata, ctrl) -> any` | Update an existing entity. Raises on error. |
-| `remove` | `(reqmatch, ctrl) -> any` | Remove an entity. Raises on error. |
 | `data_get` | `() -> dict` | Get entity data. |
 | `data_set` | `(data)` | Set entity data. |
 | `match_get` | `() -> dict` | Get entity match criteria. |
@@ -318,23 +352,23 @@ Create an instance: `coffee = client.Coffee()`
 
 | Method | Description |
 | --- | --- |
-| `list(match)` | List entities matching the criteria. |
+| `list()` | List entities, optionally matching the given criteria. |
 | `update(data)` | Update an existing entity. |
 
 #### Fields
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `description` | ``$STRING`` |  |
-| `id` | ``$INTEGER`` |  |
-| `image` | ``$STRING`` |  |
-| `ingredient` | ``$ARRAY`` |  |
-| `title` | ``$STRING`` |  |
+| `description` | `str` |  |
+| `id` | `int` |  |
+| `image` | `str` |  |
+| `ingredient` | `list` |  |
+| `title` | `str` |  |
 
 #### Example: List
 
 ```python
-coffees = client.Coffee().list({})
+coffees = client.Coffee().list()
 ```
 
 
@@ -346,22 +380,22 @@ Create an instance: `coffee_domain = client.CoffeeDomain()`
 
 | Method | Description |
 | --- | --- |
-| `list(match)` | List entities matching the criteria. |
+| `list()` | List entities, optionally matching the given criteria. |
 
 #### Fields
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `description` | ``$STRING`` |  |
-| `id` | ``$INTEGER`` |  |
-| `image` | ``$STRING`` |  |
-| `ingredient` | ``$ARRAY`` |  |
-| `title` | ``$STRING`` |  |
+| `description` | `str` |  |
+| `id` | `int` |  |
+| `image` | `str` |  |
+| `ingredient` | `list` |  |
+| `title` | `str` |  |
 
 #### Example: List
 
 ```python
-coffee_domains = client.CoffeeDomain().list({})
+coffee_domains = client.CoffeeDomain().list()
 ```
 
 
@@ -373,12 +407,12 @@ Create an instance: `donate_rest_controller = client.DonateRestController()`
 
 | Method | Description |
 | --- | --- |
-| `list(match)` | List entities matching the criteria. |
+| `list()` | List entities, optionally matching the given criteria. |
 
 #### Example: List
 
 ```python
-donate_rest_controllers = client.DonateRestController().list({})
+donate_rest_controllers = client.DonateRestController().list()
 ```
 
 
@@ -390,12 +424,12 @@ Create an instance: `portfolio_controller = client.PortfolioController()`
 
 | Method | Description |
 | --- | --- |
-| `list(match)` | List entities matching the criteria. |
+| `list()` | List entities, optionally matching the given criteria. |
 
 #### Example: List
 
 ```python
-portfolio_controllers = client.PortfolioController().list({})
+portfolio_controllers = client.PortfolioController().list()
 ```
 
 
@@ -407,31 +441,31 @@ Create an instance: `repository_detail_domain = client.RepositoryDetailDomain()`
 
 | Method | Description |
 | --- | --- |
-| `list(match)` | List entities matching the criteria. |
+| `list()` | List entities, optionally matching the given criteria. |
 | `load(match)` | Load a single entity by match criteria. |
 
 #### Fields
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `app_home` | ``$STRING`` |  |
-| `description` | ``$STRING`` |  |
-| `full_name` | ``$STRING`` |  |
-| `issue_count` | ``$INTEGER`` |  |
-| `name` | ``$STRING`` |  |
-| `repo_url` | ``$STRING`` |  |
-| `topic` | ``$STRING`` |  |
+| `app_home` | `str` |  |
+| `description` | `str` |  |
+| `full_name` | `str` |  |
+| `issue_count` | `int` |  |
+| `name` | `str` |  |
+| `repo_url` | `str` |  |
+| `topic` | `str` |  |
 
 #### Example: Load
 
 ```python
-repository_detail_domain = client.RepositoryDetailDomain().load({"id": "repository_detail_domain_id"})
+repository_detail_domain = client.RepositoryDetailDomain().load()
 ```
 
 #### Example: List
 
 ```python
-repository_detail_domains = client.RepositoryDetailDomain().list({})
+repository_detail_domains = client.RepositoryDetailDomain().list()
 ```
 
 
@@ -443,22 +477,22 @@ Create an instance: `repository_issue_domain = client.RepositoryIssueDomain()`
 
 | Method | Description |
 | --- | --- |
-| `list(match)` | List entities matching the criteria. |
+| `list()` | List entities, optionally matching the given criteria. |
 
 #### Fields
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `body` | ``$STRING`` |  |
-| `label` | ``$ARRAY`` |  |
-| `number` | ``$STRING`` |  |
-| `state` | ``$STRING`` |  |
-| `title` | ``$STRING`` |  |
+| `body` | `str` |  |
+| `label` | `list` |  |
+| `number` | `str` |  |
+| `state` | `str` |  |
+| `title` | `str` |  |
 
 #### Example: List
 
 ```python
-repository_issue_domains = client.RepositoryIssueDomain().list({})
+repository_issue_domains = client.RepositoryIssueDomain().list()
 ```
 
 
@@ -475,16 +509,20 @@ Create an instance: `version = client.Version()`
 #### Example: Load
 
 ```python
-version = client.Version().load({"id": "version_id"})
+version = client.Version().load()
 ```
 
 
-## Explanation
+## Advanced
+
+> The sections above cover everyday use. The material below explains the
+> SDK's internals — useful when extending it with custom features, but not
+> needed for normal use.
 
 ### The operation pipeline
 
-Every entity operation (load, list, create, update, remove) follows a
-six-stage pipeline. Each stage fires a feature hook before executing:
+Every entity operation follows a six-stage pipeline. Each stage fires a
+feature hook before executing:
 
 ```
 PrePoint → PreSpec → PreRequest → PreResponse → PreResult → PreDone
@@ -501,8 +539,9 @@ PrePoint → PreSpec → PreRequest → PreResponse → PreResult → PreDone
 - **PreDone**: Final stage before returning to the caller. Entity
   state (match, data) is updated here.
 
-If any stage returns an error, the pipeline short-circuits and the
-error is returned to the caller as the second element in the return tuple.
+If any stage errors, the pipeline short-circuits and the error surfaces
+to the caller — see [Error handling](#error-handling) for how that looks
+in this language.
 
 ### Features and hooks
 
@@ -545,14 +584,14 @@ Import entity or utility modules directly only when needed.
 
 ### Entity state
 
-Entity instances are stateful. After a successful `load`, the entity
+Entity instances are stateful. After a successful `list`, the entity
 stores the returned data and match criteria internally.
 
 ```python
 coffee = client.Coffee()
-coffee.load({"id": "example_id"})
+coffee.list()
 
-# coffee.data_get() now returns the loaded coffee data
+# coffee.data_get() now returns the coffee data from the last list
 # coffee.match_get() returns the last match criteria
 ```
 

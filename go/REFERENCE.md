@@ -121,11 +121,11 @@ coffee := client.Coffee(nil)
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `description` | ``$STRING`` | No |  |
-| `id` | ``$INTEGER`` | No |  |
-| `image` | ``$STRING`` | Yes |  |
-| `ingredient` | ``$ARRAY`` | Yes |  |
-| `title` | ``$STRING`` | Yes |  |
+| `description` | `string` | No |  |
+| `id` | `int` | No |  |
+| `image` | `string` | Yes |  |
+| `ingredient` | `[]any` | Yes |  |
+| `title` | `string` | Yes |  |
 
 ### Operations
 
@@ -143,7 +143,6 @@ Update an existing entity. The data must include the entity `id`.
 
 ```go
 result, err := client.Coffee(nil).Update(map[string]any{
-    "id": "coffee_id",
     // Fields to update
 }, nil)
 ```
@@ -182,11 +181,11 @@ coffee_domain := client.CoffeeDomain(nil)
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `description` | ``$STRING`` | No |  |
-| `id` | ``$INTEGER`` | No |  |
-| `image` | ``$STRING`` | Yes |  |
-| `ingredient` | ``$ARRAY`` | Yes |  |
-| `title` | ``$STRING`` | Yes |  |
+| `description` | `string` | No |  |
+| `id` | `int` | No |  |
+| `image` | `string` | Yes |  |
+| `ingredient` | `[]any` | Yes |  |
+| `title` | `string` | Yes |  |
 
 ### Operations
 
@@ -312,13 +311,13 @@ repository_detail_domain := client.RepositoryDetailDomain(nil)
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `app_home` | ``$STRING`` | No |  |
-| `description` | ``$STRING`` | No |  |
-| `full_name` | ``$STRING`` | Yes |  |
-| `issue_count` | ``$INTEGER`` | No |  |
-| `name` | ``$STRING`` | Yes |  |
-| `repo_url` | ``$STRING`` | Yes |  |
-| `topic` | ``$STRING`` | No |  |
+| `app_home` | `string` | No |  |
+| `description` | `string` | No |  |
+| `full_name` | `string` | Yes |  |
+| `issue_count` | `int` | No |  |
+| `name` | `string` | Yes |  |
+| `repo_url` | `string` | Yes |  |
+| `topic` | `string` | No |  |
 
 ### Operations
 
@@ -335,7 +334,7 @@ results, err := client.RepositoryDetailDomain(nil).List(nil, nil)
 Load a single entity matching the given criteria.
 
 ```go
-result, err := client.RepositoryDetailDomain(nil).Load(map[string]any{"id": "repository_detail_domain_id"}, nil)
+result, err := client.RepositoryDetailDomain(nil).Load(nil, nil)
 ```
 
 ### Common Methods
@@ -372,11 +371,11 @@ repository_issue_domain := client.RepositoryIssueDomain(nil)
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `body` | ``$STRING`` | No |  |
-| `label` | ``$ARRAY`` | No |  |
-| `number` | ``$STRING`` | Yes |  |
-| `state` | ``$STRING`` | No |  |
-| `title` | ``$STRING`` | Yes |  |
+| `body` | `string` | No |  |
+| `label` | `[]any` | No |  |
+| `number` | `string` | Yes |  |
+| `state` | `string` | No |  |
+| `title` | `string` | Yes |  |
 
 ### Operations
 
@@ -425,7 +424,7 @@ version := client.Version(nil)
 Load a single entity matching the given criteria.
 
 ```go
-result, err := client.Version(nil).Load(map[string]any{"id": "version_id"}, nil)
+result, err := client.Version(nil).Load(nil, nil)
 ```
 
 ### Common Methods

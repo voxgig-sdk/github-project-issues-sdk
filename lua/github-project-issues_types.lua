@@ -14,8 +14,18 @@
 ---@field title string
 
 ---@class CoffeeListMatch
+---@field description? string
+---@field id? number
+---@field image? string
+---@field ingredient? table
+---@field title? string
 
 ---@class CoffeeUpdateData
+---@field description? string
+---@field id? number
+---@field image? string
+---@field ingredient? table
+---@field title? string
 
 ---@class CoffeeDomain
 ---@field description? string
@@ -25,6 +35,11 @@
 ---@field title string
 
 ---@class CoffeeDomainListMatch
+---@field description? string
+---@field id? number
+---@field image? string
+---@field ingredient? table
+---@field title? string
 
 ---@class DonateRestController
 
@@ -47,6 +62,13 @@
 ---@field username string
 
 ---@class RepositoryDetailDomainListMatch
+---@field app_home? string
+---@field description? string
+---@field full_name? string
+---@field issue_count? number
+---@field name? string
+---@field repo_url? string
+---@field topic? string
 
 ---@class RepositoryIssueDomain
 ---@field body? string

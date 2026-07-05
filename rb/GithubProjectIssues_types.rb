@@ -33,7 +33,7 @@ Coffee = Struct.new(
   keyword_init: true
 )
 
-# Match filter for Coffee#list (any subset of Coffee fields).
+# Request payload for Coffee#list.
 #
 # @!attribute [rw] description
 #   @return [String, nil]
@@ -58,7 +58,7 @@ CoffeeListMatch = Struct.new(
   keyword_init: true
 )
 
-# Match filter for Coffee#update (any subset of Coffee fields).
+# Request payload for Coffee#update.
 #
 # @!attribute [rw] description
 #   @return [String, nil]
@@ -108,7 +108,7 @@ CoffeeDomain = Struct.new(
   keyword_init: true
 )
 
-# Match filter for CoffeeDomain#list (any subset of CoffeeDomain fields).
+# Request payload for CoffeeDomain#list.
 #
 # @!attribute [rw] description
 #   @return [String, nil]
@@ -137,7 +137,7 @@ CoffeeDomainListMatch = Struct.new(
 class DonateRestController
 end
 
-# Match filter for DonateRestController#list (any subset of DonateRestController fields).
+# Request payload for DonateRestController#list.
 class DonateRestControllerListMatch
 end
 
@@ -145,7 +145,7 @@ end
 class PortfolioController
 end
 
-# Match filter for PortfolioController#list (any subset of PortfolioController fields).
+# Request payload for PortfolioController#list.
 class PortfolioControllerListMatch
 end
 
@@ -191,7 +191,7 @@ RepositoryDetailDomainLoadMatch = Struct.new(
   keyword_init: true
 )
 
-# Match filter for RepositoryDetailDomain#list (any subset of RepositoryDetailDomain fields).
+# Request payload for RepositoryDetailDomain#list.
 #
 # @!attribute [rw] app_home
 #   @return [String, nil]
@@ -266,7 +266,7 @@ RepositoryIssueDomainListMatch = Struct.new(
 class Version
 end
 
-# Match filter for Version#load (any subset of Version fields).
+# Request payload for Version#load.
 class VersionLoadMatch
 end
 

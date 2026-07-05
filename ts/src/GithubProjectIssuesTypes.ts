@@ -13,9 +13,21 @@ export interface Coffee {
   title: string
 }
 
-export type CoffeeListMatch = Partial<Coffee>
+export interface CoffeeListMatch {
+  description?: string
+  id?: number
+  image?: string
+  ingredient?: any[]
+  title?: string
+}
 
-export type CoffeeUpdateData = Partial<Coffee>
+export interface CoffeeUpdateData {
+  description?: string
+  id?: number
+  image?: string
+  ingredient?: any[]
+  title?: string
+}
 
 export interface CoffeeDomain {
   description?: string
@@ -25,17 +37,25 @@ export interface CoffeeDomain {
   title: string
 }
 
-export type CoffeeDomainListMatch = Partial<CoffeeDomain>
+export interface CoffeeDomainListMatch {
+  description?: string
+  id?: number
+  image?: string
+  ingredient?: any[]
+  title?: string
+}
 
 export interface DonateRestController {
 }
 
-export type DonateRestControllerListMatch = Partial<DonateRestController>
+export interface DonateRestControllerListMatch {
+}
 
 export interface PortfolioController {
 }
 
-export type PortfolioControllerListMatch = Partial<PortfolioController>
+export interface PortfolioControllerListMatch {
+}
 
 export interface RepositoryDetailDomain {
   app_home?: string
@@ -51,7 +71,15 @@ export interface RepositoryDetailDomainLoadMatch {
   username: string
 }
 
-export type RepositoryDetailDomainListMatch = Partial<RepositoryDetailDomain>
+export interface RepositoryDetailDomainListMatch {
+  app_home?: string
+  description?: string
+  full_name?: string
+  issue_count?: number
+  name?: string
+  repo_url?: string
+  topic?: string
+}
 
 export interface RepositoryIssueDomain {
   body?: string
@@ -69,5 +97,6 @@ export interface RepositoryIssueDomainListMatch {
 export interface Version {
 }
 
-export type VersionLoadMatch = Partial<Version>
+export interface VersionLoadMatch {
+}
 

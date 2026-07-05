@@ -17,8 +17,7 @@ go build -o github-project-issues-cli ./...
 ```sh
 # One-shot: arguments form a single AQL expression
 ./github-project-issues-cli list coffee
-./github-project-issues-cli load 1 coffee
-./github-project-issues-cli load '{id:1}' coffee
+./github-project-issues-cli update '{id:1}' coffee
 
 # REPL
 ./github-project-issues-cli

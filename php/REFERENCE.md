@@ -8,7 +8,7 @@ Complete API reference for the GithubProjectIssues PHP SDK.
 ### Constructor
 
 ```php
-require_once __DIR__ . '/github-project-issues_sdk.php';
+require_once __DIR__ . '/githubprojectissues_sdk.php';
 
 $client = new GithubProjectIssuesSDK($options);
 ```
@@ -69,11 +69,11 @@ Create a new `RepositoryIssueDomainEntity` instance. Pass `null` for no initial 
 
 Create a new `VersionEntity` instance. Pass `null` for no initial data.
 
-#### `optionsMap(): array`
+#### `options_map(): array`
 
 Return a deep copy of the current SDK options.
 
-#### `getUtility(): ProjectNameUtility`
+#### `get_utility(): GithubProjectIssuesUtility`
 
 Return a copy of the SDK utility object.
 
@@ -116,20 +116,20 @@ $coffee = $client->Coffee();
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `description` | ``$STRING`` | No |  |
-| `id` | ``$INTEGER`` | No |  |
-| `image` | ``$STRING`` | Yes |  |
-| `ingredient` | ``$ARRAY`` | Yes |  |
-| `title` | ``$STRING`` | Yes |  |
+| `description` | `string` | No |  |
+| `id` | `int` | No |  |
+| `image` | `string` | Yes |  |
+| `ingredient` | `array` | Yes |  |
+| `title` | `string` | Yes |  |
 
 ### Operations
 
-#### `list(array $reqmatch, ?array $ctrl = null): mixed`
+#### `list(?array $reqmatch = null, ?array $ctrl = null): mixed`
 
-List entities matching the given criteria. Returns an array. Throws on error.
+List entities matching the given criteria (call with no argument to list all). Returns an array. Throws on error.
 
 ```php
-$results = $client->Coffee()->list([]);
+$results = $client->Coffee()->list();
 ```
 
 #### `update(array $reqdata, ?array $ctrl = null): mixed`
@@ -138,26 +138,25 @@ Update an existing entity. The data must include the entity `id`. Throws on erro
 
 ```php
 $result = $client->Coffee()->update([
-  "id" => "coffee_id",
   // Fields to update
 ]);
 ```
 
 ### Common Methods
 
-#### `dataGet(): array`
+#### `data_get(): array`
 
 Get the entity data. Returns a copy of the current data.
 
-#### `dataSet($data): void`
+#### `data_set($data): void`
 
 Set the entity data.
 
-#### `matchGet(): array`
+#### `match_get(): array`
 
 Get the entity match criteria.
 
-#### `matchSet($match): void`
+#### `match_set($match): void`
 
 Set the entity match criteria.
 
@@ -166,7 +165,7 @@ Set the entity match criteria.
 Create a new `CoffeeEntity` instance with the same client and
 options.
 
-#### `getName(): string`
+#### `get_name(): string`
 
 Return the entity name.
 
@@ -183,37 +182,37 @@ $coffee_domain = $client->CoffeeDomain();
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `description` | ``$STRING`` | No |  |
-| `id` | ``$INTEGER`` | No |  |
-| `image` | ``$STRING`` | Yes |  |
-| `ingredient` | ``$ARRAY`` | Yes |  |
-| `title` | ``$STRING`` | Yes |  |
+| `description` | `string` | No |  |
+| `id` | `int` | No |  |
+| `image` | `string` | Yes |  |
+| `ingredient` | `array` | Yes |  |
+| `title` | `string` | Yes |  |
 
 ### Operations
 
-#### `list(array $reqmatch, ?array $ctrl = null): mixed`
+#### `list(?array $reqmatch = null, ?array $ctrl = null): mixed`
 
-List entities matching the given criteria. Returns an array. Throws on error.
+List entities matching the given criteria (call with no argument to list all). Returns an array. Throws on error.
 
 ```php
-$results = $client->CoffeeDomain()->list([]);
+$results = $client->CoffeeDomain()->list();
 ```
 
 ### Common Methods
 
-#### `dataGet(): array`
+#### `data_get(): array`
 
 Get the entity data. Returns a copy of the current data.
 
-#### `dataSet($data): void`
+#### `data_set($data): void`
 
 Set the entity data.
 
-#### `matchGet(): array`
+#### `match_get(): array`
 
 Get the entity match criteria.
 
-#### `matchSet($match): void`
+#### `match_set($match): void`
 
 Set the entity match criteria.
 
@@ -222,7 +221,7 @@ Set the entity match criteria.
 Create a new `CoffeeDomainEntity` instance with the same client and
 options.
 
-#### `getName(): string`
+#### `get_name(): string`
 
 Return the entity name.
 
@@ -237,29 +236,29 @@ $donate_rest_controller = $client->DonateRestController();
 
 ### Operations
 
-#### `list(array $reqmatch, ?array $ctrl = null): mixed`
+#### `list(?array $reqmatch = null, ?array $ctrl = null): mixed`
 
-List entities matching the given criteria. Returns an array. Throws on error.
+List entities matching the given criteria (call with no argument to list all). Returns an array. Throws on error.
 
 ```php
-$results = $client->DonateRestController()->list([]);
+$results = $client->DonateRestController()->list();
 ```
 
 ### Common Methods
 
-#### `dataGet(): array`
+#### `data_get(): array`
 
 Get the entity data. Returns a copy of the current data.
 
-#### `dataSet($data): void`
+#### `data_set($data): void`
 
 Set the entity data.
 
-#### `matchGet(): array`
+#### `match_get(): array`
 
 Get the entity match criteria.
 
-#### `matchSet($match): void`
+#### `match_set($match): void`
 
 Set the entity match criteria.
 
@@ -268,7 +267,7 @@ Set the entity match criteria.
 Create a new `DonateRestControllerEntity` instance with the same client and
 options.
 
-#### `getName(): string`
+#### `get_name(): string`
 
 Return the entity name.
 
@@ -283,29 +282,29 @@ $portfolio_controller = $client->PortfolioController();
 
 ### Operations
 
-#### `list(array $reqmatch, ?array $ctrl = null): mixed`
+#### `list(?array $reqmatch = null, ?array $ctrl = null): mixed`
 
-List entities matching the given criteria. Returns an array. Throws on error.
+List entities matching the given criteria (call with no argument to list all). Returns an array. Throws on error.
 
 ```php
-$results = $client->PortfolioController()->list([]);
+$results = $client->PortfolioController()->list();
 ```
 
 ### Common Methods
 
-#### `dataGet(): array`
+#### `data_get(): array`
 
 Get the entity data. Returns a copy of the current data.
 
-#### `dataSet($data): void`
+#### `data_set($data): void`
 
 Set the entity data.
 
-#### `matchGet(): array`
+#### `match_get(): array`
 
 Get the entity match criteria.
 
-#### `matchSet($match): void`
+#### `match_set($match): void`
 
 Set the entity match criteria.
 
@@ -314,7 +313,7 @@ Set the entity match criteria.
 Create a new `PortfolioControllerEntity` instance with the same client and
 options.
 
-#### `getName(): string`
+#### `get_name(): string`
 
 Return the entity name.
 
@@ -331,22 +330,22 @@ $repository_detail_domain = $client->RepositoryDetailDomain();
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `app_home` | ``$STRING`` | No |  |
-| `description` | ``$STRING`` | No |  |
-| `full_name` | ``$STRING`` | Yes |  |
-| `issue_count` | ``$INTEGER`` | No |  |
-| `name` | ``$STRING`` | Yes |  |
-| `repo_url` | ``$STRING`` | Yes |  |
-| `topic` | ``$STRING`` | No |  |
+| `app_home` | `string` | No |  |
+| `description` | `string` | No |  |
+| `full_name` | `string` | Yes |  |
+| `issue_count` | `int` | No |  |
+| `name` | `string` | Yes |  |
+| `repo_url` | `string` | Yes |  |
+| `topic` | `string` | No |  |
 
 ### Operations
 
-#### `list(array $reqmatch, ?array $ctrl = null): mixed`
+#### `list(?array $reqmatch = null, ?array $ctrl = null): mixed`
 
-List entities matching the given criteria. Returns an array. Throws on error.
+List entities matching the given criteria (call with no argument to list all). Returns an array. Throws on error.
 
 ```php
-$results = $client->RepositoryDetailDomain()->list([]);
+$results = $client->RepositoryDetailDomain()->list();
 ```
 
 #### `load(array $reqmatch, ?array $ctrl = null): mixed`
@@ -354,24 +353,24 @@ $results = $client->RepositoryDetailDomain()->list([]);
 Load a single entity matching the given criteria. Throws on error.
 
 ```php
-$result = $client->RepositoryDetailDomain()->load(["id" => "repository_detail_domain_id"]);
+$result = $client->RepositoryDetailDomain()->load();
 ```
 
 ### Common Methods
 
-#### `dataGet(): array`
+#### `data_get(): array`
 
 Get the entity data. Returns a copy of the current data.
 
-#### `dataSet($data): void`
+#### `data_set($data): void`
 
 Set the entity data.
 
-#### `matchGet(): array`
+#### `match_get(): array`
 
 Get the entity match criteria.
 
-#### `matchSet($match): void`
+#### `match_set($match): void`
 
 Set the entity match criteria.
 
@@ -380,7 +379,7 @@ Set the entity match criteria.
 Create a new `RepositoryDetailDomainEntity` instance with the same client and
 options.
 
-#### `getName(): string`
+#### `get_name(): string`
 
 Return the entity name.
 
@@ -397,37 +396,37 @@ $repository_issue_domain = $client->RepositoryIssueDomain();
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `body` | ``$STRING`` | No |  |
-| `label` | ``$ARRAY`` | No |  |
-| `number` | ``$STRING`` | Yes |  |
-| `state` | ``$STRING`` | No |  |
-| `title` | ``$STRING`` | Yes |  |
+| `body` | `string` | No |  |
+| `label` | `array` | No |  |
+| `number` | `string` | Yes |  |
+| `state` | `string` | No |  |
+| `title` | `string` | Yes |  |
 
 ### Operations
 
-#### `list(array $reqmatch, ?array $ctrl = null): mixed`
+#### `list(?array $reqmatch = null, ?array $ctrl = null): mixed`
 
-List entities matching the given criteria. Returns an array. Throws on error.
+List entities matching the given criteria (call with no argument to list all). Returns an array. Throws on error.
 
 ```php
-$results = $client->RepositoryIssueDomain()->list([]);
+$results = $client->RepositoryIssueDomain()->list();
 ```
 
 ### Common Methods
 
-#### `dataGet(): array`
+#### `data_get(): array`
 
 Get the entity data. Returns a copy of the current data.
 
-#### `dataSet($data): void`
+#### `data_set($data): void`
 
 Set the entity data.
 
-#### `matchGet(): array`
+#### `match_get(): array`
 
 Get the entity match criteria.
 
-#### `matchSet($match): void`
+#### `match_set($match): void`
 
 Set the entity match criteria.
 
@@ -436,7 +435,7 @@ Set the entity match criteria.
 Create a new `RepositoryIssueDomainEntity` instance with the same client and
 options.
 
-#### `getName(): string`
+#### `get_name(): string`
 
 Return the entity name.
 
@@ -456,24 +455,24 @@ $version = $client->Version();
 Load a single entity matching the given criteria. Throws on error.
 
 ```php
-$result = $client->Version()->load(["id" => "version_id"]);
+$result = $client->Version()->load();
 ```
 
 ### Common Methods
 
-#### `dataGet(): array`
+#### `data_get(): array`
 
 Get the entity data. Returns a copy of the current data.
 
-#### `dataSet($data): void`
+#### `data_set($data): void`
 
 Set the entity data.
 
-#### `matchGet(): array`
+#### `match_get(): array`
 
 Get the entity match criteria.
 
-#### `matchSet($match): void`
+#### `match_set($match): void`
 
 Set the entity match criteria.
 
@@ -482,7 +481,7 @@ Set the entity match criteria.
 Create a new `VersionEntity` instance with the same client and
 options.
 
-#### `getName(): string`
+#### `get_name(): string`
 
 Return the entity name.
 

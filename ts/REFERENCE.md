@@ -188,11 +188,11 @@ const coffee = client.Coffee()
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `description` | ``$STRING`` | No |  |
-| `id` | ``$INTEGER`` | No |  |
-| `image` | ``$STRING`` | Yes |  |
-| `ingredient` | ``$ARRAY`` | Yes |  |
-| `title` | ``$STRING`` | Yes |  |
+| `description` | `string` | No |  |
+| `id` | `number` | No |  |
+| `image` | `string` | Yes |  |
+| `ingredient` | `any[]` | Yes |  |
+| `title` | `string` | Yes |  |
 
 ### Operations
 
@@ -210,7 +210,6 @@ Update an existing entity. The data must include the entity `id`.
 
 ```ts
 const result = await client.Coffee().update({
-  id: 'coffee_id',
   // Fields to update
 })
 ```
@@ -253,11 +252,11 @@ const coffee_domain = client.CoffeeDomain()
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `description` | ``$STRING`` | No |  |
-| `id` | ``$INTEGER`` | No |  |
-| `image` | ``$STRING`` | Yes |  |
-| `ingredient` | ``$ARRAY`` | Yes |  |
-| `title` | ``$STRING`` | Yes |  |
+| `description` | `string` | No |  |
+| `id` | `number` | No |  |
+| `image` | `string` | Yes |  |
+| `ingredient` | `any[]` | Yes |  |
+| `title` | `string` | Yes |  |
 
 ### Operations
 
@@ -395,13 +394,13 @@ const repository_detail_domain = client.RepositoryDetailDomain()
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `app_home` | ``$STRING`` | No |  |
-| `description` | ``$STRING`` | No |  |
-| `full_name` | ``$STRING`` | Yes |  |
-| `issue_count` | ``$INTEGER`` | No |  |
-| `name` | ``$STRING`` | Yes |  |
-| `repo_url` | ``$STRING`` | Yes |  |
-| `topic` | ``$STRING`` | No |  |
+| `app_home` | `string` | No |  |
+| `description` | `string` | No |  |
+| `full_name` | `string` | Yes |  |
+| `issue_count` | `number` | No |  |
+| `name` | `string` | Yes |  |
+| `repo_url` | `string` | Yes |  |
+| `topic` | `string` | No |  |
 
 ### Operations
 
@@ -418,7 +417,7 @@ const results = await client.RepositoryDetailDomain().list()
 Load a single entity matching the given criteria.
 
 ```ts
-const result = await client.RepositoryDetailDomain().load({ id: 'repository_detail_domain_id' })
+const result = await client.RepositoryDetailDomain().load()
 ```
 
 ### Common Methods
@@ -459,11 +458,11 @@ const repository_issue_domain = client.RepositoryIssueDomain()
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `body` | ``$STRING`` | No |  |
-| `label` | ``$ARRAY`` | No |  |
-| `number` | ``$STRING`` | Yes |  |
-| `state` | ``$STRING`` | No |  |
-| `title` | ``$STRING`` | Yes |  |
+| `body` | `string` | No |  |
+| `label` | `any[]` | No |  |
+| `number` | `string` | Yes |  |
+| `state` | `string` | No |  |
+| `title` | `string` | Yes |  |
 
 ### Operations
 
@@ -516,7 +515,7 @@ const version = client.Version()
 Load a single entity matching the given criteria.
 
 ```ts
-const result = await client.Version().load({ id: 'version_id' })
+const result = await client.Version().load()
 ```
 
 ### Common Methods

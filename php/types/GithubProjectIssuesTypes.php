@@ -22,7 +22,7 @@ class Coffee
     public string $title;
 }
 
-/** Match filter for Coffee#list (any subset of Coffee fields). */
+/** Request payload for Coffee#list. */
 class CoffeeListMatch
 {
     public ?string $description = null;
@@ -32,7 +32,7 @@ class CoffeeListMatch
     public ?string $title = null;
 }
 
-/** Match filter for Coffee#update (any subset of Coffee fields). */
+/** Request payload for Coffee#update. */
 class CoffeeUpdateData
 {
     public ?string $description = null;
@@ -52,7 +52,7 @@ class CoffeeDomain
     public string $title;
 }
 
-/** Match filter for CoffeeDomain#list (any subset of CoffeeDomain fields). */
+/** Request payload for CoffeeDomain#list. */
 class CoffeeDomainListMatch
 {
     public ?string $description = null;
@@ -67,7 +67,7 @@ class DonateRestController
 {
 }
 
-/** Match filter for DonateRestController#list (any subset of DonateRestController fields). */
+/** Request payload for DonateRestController#list. */
 class DonateRestControllerListMatch
 {
 }
@@ -77,7 +77,7 @@ class PortfolioController
 {
 }
 
-/** Match filter for PortfolioController#list (any subset of PortfolioController fields). */
+/** Request payload for PortfolioController#list. */
 class PortfolioControllerListMatch
 {
 }
@@ -100,7 +100,7 @@ class RepositoryDetailDomainLoadMatch
     public string $username;
 }
 
-/** Match filter for RepositoryDetailDomain#list (any subset of RepositoryDetailDomain fields). */
+/** Request payload for RepositoryDetailDomain#list. */
 class RepositoryDetailDomainListMatch
 {
     public ?string $app_home = null;
@@ -134,7 +134,7 @@ class Version
 {
 }
 
-/** Match filter for Version#load (any subset of Version fields). */
+/** Request payload for Version#load. */
 class VersionLoadMatch
 {
 }
