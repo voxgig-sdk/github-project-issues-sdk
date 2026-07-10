@@ -1,9 +1,0 @@
-# Flows
-
-@"BasicCoffeeDomainFlow.jsonic"
-@"BasicCoffeeFlow.jsonic"
-@"BasicDonateRestControllerFlow.jsonic"
-@"BasicPortfolioControllerFlow.jsonic"
-@"BasicRepositoryDetailDomainFlow.jsonic"
-@"BasicRepositoryIssueDomainFlow.jsonic"
-@"BasicVersionFlow.jsonic"

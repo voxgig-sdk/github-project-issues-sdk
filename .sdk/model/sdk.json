@@ -6,9 +6,6 @@
     },
     "kit": {
       "config": {
-        "auth": {
-          "prefix": "Bearer"
-        },
         "docs_order": [
           "ts",
           "py",
@@ -846,6 +843,7 @@
           "name": "GPL-3.0 license",
           "url": "https://ironoc.net"
         },
+        "meta_source": "https://www.freepublicapis.com",
         "servers": [
           {
             "description": "Generated server url",
@@ -853,7 +851,8 @@
           }
         ],
         "title": "iRonoc API",
-        "version": "v9.1.4"
+        "version": "v9.1.4",
+        "website": "https://ironoc.net"
       },
       "option": {},
       "target": {
@@ -906,6 +905,9 @@
           },
           "name": "go-cli",
           "phase": {
+            "agentguide": {
+              "active": false
+            },
             "entity": {
               "active": false
             },
@@ -956,6 +958,9 @@
           },
           "name": "go-mcp",
           "phase": {
+            "agentguide": {
+              "active": false
+            },
             "entity": {
               "active": false
             },

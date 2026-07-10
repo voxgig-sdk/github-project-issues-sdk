@@ -45,11 +45,25 @@ try {
 }
 ```
 
+### 3. Load a repositorydetaildomain
+
+RepositoryDetailDomain is nested under username, so provide the `username`.
+
+```php
+try {
+    // load() returns the bare RepositoryDetailDomain record (throws on error).
+    $repositorydetaildomain = $client->RepositoryDetailDomain()->load(["username" => "example_username"]);
+    print_r($repositorydetaildomain);
+} catch (\Throwable $err) {
+    echo "Error: " . $err->getMessage();
+}
+```
+
 ### 4. Create, update, and remove
 
 ```php
 // Update
-$client->Coffee()->update(["description" => "example", "image" => "example"]);
+$client->Coffee()->update(["description" => "example_description", "image" => "example_image"]);
 
 ```
 
@@ -468,7 +482,7 @@ Create an instance: `$repository_detail_domain = $client->RepositoryDetailDomain
 
 ```php
 // load() returns the bare RepositoryDetailDomain record (throws on error).
-$repository_detail_domain = $client->RepositoryDetailDomain()->load();
+$repository_detail_domain = $client->RepositoryDetailDomain()->load(["username" => "username"]);
 ```
 
 #### Example: List

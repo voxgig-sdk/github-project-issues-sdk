@@ -353,7 +353,7 @@ $results = $client->RepositoryDetailDomain()->list();
 Load a single entity matching the given criteria. Throws on error.
 
 ```php
-$result = $client->RepositoryDetailDomain()->load();
+$result = $client->RepositoryDetailDomain()->load(["username" => "username"]);
 ```
 
 ### Common Methods

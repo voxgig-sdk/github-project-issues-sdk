@@ -45,6 +45,22 @@ for (const coffee of coffees) {
 }
 ```
 
+### 3. Load a repositorydetaildomain
+
+RepositoryDetailDomain is nested under username, so provide the `username`.
+`load()` returns the entity directly and throws on failure:
+
+```ts
+try {
+  const repositorydetaildomain = await client.RepositoryDetailDomain().load({
+    username: 'example_username',
+  })
+  console.log(repositorydetaildomain)
+} catch (err) {
+  console.error('load failed:', err)
+}
+```
+
 ### 4. Create, update, and remove
 
 ```ts
@@ -505,7 +521,7 @@ Create an instance: `const repository_detail_domain = client.RepositoryDetailDom
 #### Example: Load
 
 ```ts
-const repository_detail_domain = await client.RepositoryDetailDomain().load()
+const repository_detail_domain = await client.RepositoryDetailDomain().load({ username: 'username' })
 ```
 
 #### Example: List

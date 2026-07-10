@@ -417,7 +417,7 @@ const results = await client.RepositoryDetailDomain().list()
 Load a single entity matching the given criteria.
 
 ```ts
-const result = await client.RepositoryDetailDomain().load()
+const result = await client.RepositoryDetailDomain().load({ username: 'username' })
 ```
 
 ### Common Methods

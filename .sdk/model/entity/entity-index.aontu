@@ -1,0 +1,9 @@
+# Entity Models
+
+@"coffee.aontu"
+@"coffee_domain.aontu"
+@"donate_rest_controller.aontu"
+@"portfolio_controller.aontu"
+@"repository_detail_domain.aontu"
+@"repository_issue_domain.aontu"
+@"version.aontu"

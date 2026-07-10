@@ -60,7 +60,7 @@ func main() {
     }
 
     // Update a coffee.
-    updated, err := client.Coffee(nil).Update(map[string]any{"description": "example", "image": "example"}, nil)
+    updated, err := client.Coffee(nil).Update(map[string]any{"description": "example_description", "image": "example_image"}, nil)
     if err != nil {
         panic(err)
     }
@@ -396,7 +396,7 @@ fmt.Println(coffees) // the array of records
 
 ### CoffeeDomain
 
-Create an instance: `coffee_domain := client.CoffeeDomain(nil)`
+Create an instance: `coffeeDomain := client.CoffeeDomain(nil)`
 
 #### Operations
 
@@ -417,17 +417,17 @@ Create an instance: `coffee_domain := client.CoffeeDomain(nil)`
 #### Example: List
 
 ```go
-coffee_domains, err := client.CoffeeDomain(nil).List(nil, nil)
+coffeeDomains, err := client.CoffeeDomain(nil).List(nil, nil)
 if err != nil {
     panic(err)
 }
-fmt.Println(coffee_domains) // the array of records
+fmt.Println(coffeeDomains) // the array of records
 ```
 
 
 ### DonateRestController
 
-Create an instance: `donate_rest_controller := client.DonateRestController(nil)`
+Create an instance: `donateRestController := client.DonateRestController(nil)`
 
 #### Operations
 
@@ -438,17 +438,17 @@ Create an instance: `donate_rest_controller := client.DonateRestController(nil)`
 #### Example: List
 
 ```go
-donate_rest_controllers, err := client.DonateRestController(nil).List(nil, nil)
+donateRestControllers, err := client.DonateRestController(nil).List(nil, nil)
 if err != nil {
     panic(err)
 }
-fmt.Println(donate_rest_controllers) // the array of records
+fmt.Println(donateRestControllers) // the array of records
 ```
 
 
 ### PortfolioController
 
-Create an instance: `portfolio_controller := client.PortfolioController(nil)`
+Create an instance: `portfolioController := client.PortfolioController(nil)`
 
 #### Operations
 
@@ -459,17 +459,17 @@ Create an instance: `portfolio_controller := client.PortfolioController(nil)`
 #### Example: List
 
 ```go
-portfolio_controllers, err := client.PortfolioController(nil).List(nil, nil)
+portfolioControllers, err := client.PortfolioController(nil).List(nil, nil)
 if err != nil {
     panic(err)
 }
-fmt.Println(portfolio_controllers) // the array of records
+fmt.Println(portfolioControllers) // the array of records
 ```
 
 
 ### RepositoryDetailDomain
 
-Create an instance: `repository_detail_domain := client.RepositoryDetailDomain(nil)`
+Create an instance: `repositoryDetailDomain := client.RepositoryDetailDomain(nil)`
 
 #### Operations
 
@@ -493,27 +493,27 @@ Create an instance: `repository_detail_domain := client.RepositoryDetailDomain(n
 #### Example: Load
 
 ```go
-repository_detail_domain, err := client.RepositoryDetailDomain(nil).Load(nil, nil)
+repositoryDetailDomain, err := client.RepositoryDetailDomain(nil).Load(map[string]any{"username": "username"}, nil)
 if err != nil {
     panic(err)
 }
-fmt.Println(repository_detail_domain) // the loaded record
+fmt.Println(repositoryDetailDomain) // the loaded record
 ```
 
 #### Example: List
 
 ```go
-repository_detail_domains, err := client.RepositoryDetailDomain(nil).List(nil, nil)
+repositoryDetailDomains, err := client.RepositoryDetailDomain(nil).List(nil, nil)
 if err != nil {
     panic(err)
 }
-fmt.Println(repository_detail_domains) // the array of records
+fmt.Println(repositoryDetailDomains) // the array of records
 ```
 
 
 ### RepositoryIssueDomain
 
-Create an instance: `repository_issue_domain := client.RepositoryIssueDomain(nil)`
+Create an instance: `repositoryIssueDomain := client.RepositoryIssueDomain(nil)`
 
 #### Operations
 
@@ -534,11 +534,11 @@ Create an instance: `repository_issue_domain := client.RepositoryIssueDomain(nil
 #### Example: List
 
 ```go
-repository_issue_domains, err := client.RepositoryIssueDomain(nil).List(nil, nil)
+repositoryIssueDomains, err := client.RepositoryIssueDomain(nil).List(nil, nil)
 if err != nil {
     panic(err)
 }
-fmt.Println(repository_issue_domains) // the array of records
+fmt.Println(repositoryIssueDomains) // the array of records
 ```
 
 

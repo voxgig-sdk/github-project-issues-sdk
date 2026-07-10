@@ -1,0 +1,9 @@
+# Flows
+
+@"BasicCoffeeDomainFlow.aontu"
+@"BasicCoffeeFlow.aontu"
+@"BasicDonateRestControllerFlow.aontu"
+@"BasicPortfolioControllerFlow.aontu"
+@"BasicRepositoryDetailDomainFlow.aontu"
+@"BasicRepositoryIssueDomainFlow.aontu"
+@"BasicVersionFlow.aontu"

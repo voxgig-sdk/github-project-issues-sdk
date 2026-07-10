@@ -115,6 +115,7 @@ same parameters as `Direct()`.
 
 ```go
 coffee := client.Coffee(nil)
+fmt.Println(coffee.GetName()) // "coffee"
 ```
 
 ### Fields
@@ -135,6 +136,10 @@ List entities matching the given criteria. Returns an array.
 
 ```go
 results, err := client.Coffee(nil).List(nil, nil)
+if err != nil {
+    panic(err)
+}
+fmt.Println(results)
 ```
 
 #### `Update(reqdata, ctrl map[string]any) (any, error)`
@@ -145,6 +150,10 @@ Update an existing entity. The data must include the entity `id`.
 result, err := client.Coffee(nil).Update(map[string]any{
     // Fields to update
 }, nil)
+if err != nil {
+    panic(err)
+}
+fmt.Println(result)
 ```
 
 ### Common Methods
@@ -174,7 +183,8 @@ Return the entity name.
 ## CoffeeDomainEntity
 
 ```go
-coffee_domain := client.CoffeeDomain(nil)
+coffeeDomain := client.CoffeeDomain(nil)
+fmt.Println(coffeeDomain.GetName()) // "coffee_domain"
 ```
 
 ### Fields
@@ -195,6 +205,10 @@ List entities matching the given criteria. Returns an array.
 
 ```go
 results, err := client.CoffeeDomain(nil).List(nil, nil)
+if err != nil {
+    panic(err)
+}
+fmt.Println(results)
 ```
 
 ### Common Methods
@@ -224,7 +238,8 @@ Return the entity name.
 ## DonateRestControllerEntity
 
 ```go
-donate_rest_controller := client.DonateRestController(nil)
+donateRestController := client.DonateRestController(nil)
+fmt.Println(donateRestController.GetName()) // "donate_rest_controller"
 ```
 
 ### Operations
@@ -235,6 +250,10 @@ List entities matching the given criteria. Returns an array.
 
 ```go
 results, err := client.DonateRestController(nil).List(nil, nil)
+if err != nil {
+    panic(err)
+}
+fmt.Println(results)
 ```
 
 ### Common Methods
@@ -264,7 +283,8 @@ Return the entity name.
 ## PortfolioControllerEntity
 
 ```go
-portfolio_controller := client.PortfolioController(nil)
+portfolioController := client.PortfolioController(nil)
+fmt.Println(portfolioController.GetName()) // "portfolio_controller"
 ```
 
 ### Operations
@@ -275,6 +295,10 @@ List entities matching the given criteria. Returns an array.
 
 ```go
 results, err := client.PortfolioController(nil).List(nil, nil)
+if err != nil {
+    panic(err)
+}
+fmt.Println(results)
 ```
 
 ### Common Methods
@@ -304,7 +328,8 @@ Return the entity name.
 ## RepositoryDetailDomainEntity
 
 ```go
-repository_detail_domain := client.RepositoryDetailDomain(nil)
+repositoryDetailDomain := client.RepositoryDetailDomain(nil)
+fmt.Println(repositoryDetailDomain.GetName()) // "repository_detail_domain"
 ```
 
 ### Fields
@@ -327,6 +352,10 @@ List entities matching the given criteria. Returns an array.
 
 ```go
 results, err := client.RepositoryDetailDomain(nil).List(nil, nil)
+if err != nil {
+    panic(err)
+}
+fmt.Println(results)
 ```
 
 #### `Load(reqmatch, ctrl map[string]any) (any, error)`
@@ -334,7 +363,11 @@ results, err := client.RepositoryDetailDomain(nil).List(nil, nil)
 Load a single entity matching the given criteria.
 
 ```go
-result, err := client.RepositoryDetailDomain(nil).Load(nil, nil)
+result, err := client.RepositoryDetailDomain(nil).Load(map[string]any{"username": "username"}, nil)
+if err != nil {
+    panic(err)
+}
+fmt.Println(result)
 ```
 
 ### Common Methods
@@ -364,7 +397,8 @@ Return the entity name.
 ## RepositoryIssueDomainEntity
 
 ```go
-repository_issue_domain := client.RepositoryIssueDomain(nil)
+repositoryIssueDomain := client.RepositoryIssueDomain(nil)
+fmt.Println(repositoryIssueDomain.GetName()) // "repository_issue_domain"
 ```
 
 ### Fields
@@ -385,6 +419,10 @@ List entities matching the given criteria. Returns an array.
 
 ```go
 results, err := client.RepositoryIssueDomain(nil).List(nil, nil)
+if err != nil {
+    panic(err)
+}
+fmt.Println(results)
 ```
 
 ### Common Methods
@@ -415,6 +453,7 @@ Return the entity name.
 
 ```go
 version := client.Version(nil)
+fmt.Println(version.GetName()) // "version"
 ```
 
 ### Operations
@@ -425,6 +464,10 @@ Load a single entity matching the given criteria.
 
 ```go
 result, err := client.Version(nil).Load(nil, nil)
+if err != nil {
+    panic(err)
+}
+fmt.Println(result)
 ```
 
 ### Common Methods

@@ -351,7 +351,7 @@ local results, err = client:RepositoryDetailDomain():list()
 Load a single entity matching the given criteria.
 
 ```lua
-local result, err = client:RepositoryDetailDomain():load()
+local result, err = client:RepositoryDetailDomain():load({ username = "username" })
 ```
 
 ### Common Methods

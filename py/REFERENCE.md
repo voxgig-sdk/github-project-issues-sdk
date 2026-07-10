@@ -354,7 +354,7 @@ for repository_detail_domain in results:
 Load a single entity matching the given criteria. Returns the entity data and raises on error.
 
 ```python
-result = client.RepositoryDetailDomain().load()
+result = client.RepositoryDetailDomain().load({"username": "username"})
 ```
 
 ### Common Methods

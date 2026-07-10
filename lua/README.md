@@ -47,11 +47,21 @@ for _, item in ipairs(coffees) do
 end
 ```
 
+### 3. Load a repositorydetaildomain
+
+RepositoryDetailDomain is nested under username, so provide the `username`.
+
+```lua
+local repositorydetaildomain, err = client:RepositoryDetailDomain():load({ username = "example_username" })
+if err then error(err) end
+print(repositorydetaildomain)
+```
+
 ### 4. Create, update, and remove
 
 ```lua
 -- Update
-client:Coffee():update({ description = "example", image = "example" })
+client:Coffee():update({ description = "example_description", image = "example_image" })
 
 ```
 
@@ -449,7 +459,7 @@ Create an instance: `local repository_detail_domain = client:RepositoryDetailDom
 #### Example: Load
 
 ```lua
-local repository_detail_domain, err = client:RepositoryDetailDomain():load()
+local repository_detail_domain, err = client:RepositoryDetailDomain():load({ username = "username" })
 ```
 
 #### Example: List
