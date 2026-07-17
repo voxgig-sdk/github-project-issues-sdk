@@ -1,4 +1,4 @@
--- ProjectName SDK exists test
+-- GithubProjectIssues SDK exists test
 
 local sdk = require("github-project-issues_sdk")
 
